@@ -1,0 +1,288 @@
+[
+  {
+    "brandName": "BMW",
+    "logo": "https://clipground.com/images/bmw-logo-png-13.png",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Audi",
+    "logo": "https://clipground.com/images/audi-logo-png-4.png",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Chevrolet",
+    "logo": "https://clipground.com/images/chevrolet-logo-clipart-6.jpg",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Citroen",
+    "logo": "https://clipground.com/images/citroen-logo-png-7.jpg",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Datsun",
+    "logo": "https://clipground.com/images/datsun-car-logo.png",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Fiat",
+    "logo": "https://clipground.com/images/fiat-png-logo-1.png",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Ford",
+    "logo": "https://clipground.com/images/ford-fiesta-logo-png-3.jpg",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Honda",
+    "logo": "https://clipground.com/images/atlas-honda-logo-png-20.png",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Hyundai",
+    "logo": "https://clipground.com/images/hyundai-logo-png-10.jpg",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Jaguar",
+    "logo": "https://clipground.com/images/jaguar-land-rover-logo-png-5.jpg",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Jeep",
+    "logo": "https://clipground.com/images/jeep-logo-clipart-3.jpg",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Kia",
+    "logo": "",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Land Rover",
+    "logo": "https://clipground.com/images/jaguar-land-rover-logo-png-5.jpg",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Mahindra",
+    "logo": "",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Maruti Suzuki",
+    "logo": "https://clipground.com/images/maruti-suzuki-logo-clipart-9.jpg",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Mercedes-Benz",
+    "logo": "https://clipground.com/images/logo-mercedes-benz-png-3.jpg",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "MG",
+    "logo": "",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Mini",
+    "logo": "https://clipground.com/images/logo-mini-cooper-png-3.jpg",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Mitusubishi",
+    "logo": "",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Nissian",
+    "logo": "",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Renault",
+    "logo": "https://clipground.com/images/renault-logo-png-2.png",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Skoda",
+    "logo": "https://clipground.com/images/skoda-logo-png-3.png",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Tata",
+    "logo": "",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Toyota",
+    "logo": "https://clipground.com/images/logo-toyota-png-9.jpg",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Volkswagen",
+    "logo": "https://clipground.com/images/volkswagen-logo-png-2.png",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  },
+  {
+    "brandName": "Volvo",
+    "logo": "https://clipground.com/images/car-brand-clipart-15.jpg",
+    "createdAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-14T15:55:28.377Z"
+    },
+    "__v": 0
+  }
+]
