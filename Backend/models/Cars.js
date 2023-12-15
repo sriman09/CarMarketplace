@@ -6,6 +6,10 @@ const CarsSchema = new mongoose.Schema({
     ref: "Models",
     required: true,
   },
+  variant: {
+    type: String,
+    required: true,
+  },
   year: {
     type: Number,
     required: true,
@@ -20,7 +24,7 @@ const CarsSchema = new mongoose.Schema({
   },
   fuelType: {
     type: String,
-    enum: ["petrol", "diesel"],
+    enum: ["petrol", "diesel", "ev"],
     required: true,
   },
   vehicleType: {
