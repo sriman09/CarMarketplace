@@ -3,8 +3,32 @@ const Cars = require("../models/Cars");
 //Create
 const registerCar = async (req, res) => {
   try {
-    const { brand, model, year, price } = req.body;
-    const Car = new Cars({ brand, model, year, price });
+    const {
+      brand,
+      model,
+      year,
+      price,
+      color,
+      seatingCapacity,
+      ownership,
+      vehicleType,
+      fuelType,
+      kilometers,
+      variant,
+    } = req.body;
+    const Car = new Cars({
+      brand,
+      model,
+      year,
+      price,
+      color,
+      seatingCapacity,
+      ownership,
+      vehicleType,
+      fuelType,
+      kilometers,
+      variant,
+    });
     await Car.save();
     res.status(200).json({
       message: "Car Registered Successfully",
