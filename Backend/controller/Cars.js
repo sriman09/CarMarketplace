@@ -15,6 +15,7 @@ const registerCar = async (req, res) => {
       fuelType,
       kilometers,
       variant,
+      sold,
     } = req.body;
     const Car = new Cars({
       brand,
@@ -28,6 +29,7 @@ const registerCar = async (req, res) => {
       fuelType,
       kilometers,
       variant,
+      sold,
     });
     await Car.save();
     res.status(200).json({

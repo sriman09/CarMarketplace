@@ -62,23 +62,9 @@ const deleteBrand = async (req, res) => {
   }
 };
 
-//Get Models for Brand
-const getModelsForBrand = async (req, res) => {
-  try {
-    const id = req.params.id;
-    console.log("id", id); //Need to be changed
-  } catch (err) {
-    console.log("Error", err);
-    res.status(500).json({
-      message: "Internal Server Error",
-    });
-  }
-};
-
 module.exports = {
   getAllBrands,
   registerBrand,
   deleteBrand,
   editBrandData,
-  getModelsForBrand,
 };

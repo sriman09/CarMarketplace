@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const Models = require("../models/Models");
 
 //Register
@@ -14,6 +15,34 @@ const registerModel = async (req, res) => {
     res.status(500).json({
       message: "Internal Server Error",
     });
+  }
+};
+
+//Get Models
+const getModelsForBrand = async (req, res) => {
+  const brandId = req.params.brandId;
+  const pipeline = [
+    {
+      $match: {
+        brandId: new mongoose.Types.ObjectId(brandId), // Assuming brandId is an ObjectId
+      },
+    },
+    {
+      $group: {
+        _id: "$modelName", // Assuming the field storing the model name is called "model"
+      },
+    },
+  ];
+  try {
+    const models = await Models.aggregate(pipeline);
+    res.status(200).json({
+      models: models,
+    });
+  } catch (err) {
+    console.log("error", err),
+      res.status(500).json({
+        message: "Internal Server Error",
+      });
   }
 };
 
@@ -49,4 +78,9 @@ const deleteModel = async (req, res) => {
   }
 };
 
-module.exports = { registerModel, editModelData, deleteModel };
+module.exports = {
+  registerModel,
+  editModelData,
+  deleteModel,
+  getModelsForBrand,
+};
