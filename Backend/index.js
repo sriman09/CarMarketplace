@@ -5,6 +5,7 @@ const carRoutes = require("./routes/Cars");
 const brandRoutes = require("./routes/Brands");
 const modelsRoutes = require("./routes/Models");
 const usersRoutes = require("./routes/Users");
+const SellInquiryRoutes = require("./routes/SellInquiry");
 
 const app = express();
 
@@ -19,6 +20,8 @@ app.use("/brands", brandRoutes);
 app.use("/models", modelsRoutes);
 
 app.use("/users", usersRoutes);
+
+app.use("/inquiry", SellInquiryRoutes);
 
 app.use("/", (req, res) => {
   res.send("API is working");
