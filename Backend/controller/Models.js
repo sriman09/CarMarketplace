@@ -21,20 +21,8 @@ const registerModel = async (req, res) => {
 //Get Models
 const getModelsForBrand = async (req, res) => {
   const brandId = req.params.brandId;
-  const pipeline = [
-    {
-      $match: {
-        brandId: new mongoose.Types.ObjectId(brandId), // Assuming brandId is an ObjectId
-      },
-    },
-    {
-      $group: {
-        _id: "$modelName", // Assuming the field storing the model name is called "model"
-      },
-    },
-  ];
   try {
-    const models = await Models.aggregate(pipeline);
+    const models = await Models.find({ brandId: brandId });
     res.status(200).json({
       models: models,
     });
