@@ -1,5 +1,6 @@
 const Users = require("../models/Users");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const hashPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);
@@ -36,20 +37,31 @@ const registerUser = async (req, res) => {
   }
 };
 
-const login = async (req, res) => {
+const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
-    if (!email && !password) {
-      return res.status(400).json({
-        message: "Please provide required details.",
+    let user = await Users.findOne({ email: email });
+
+    if (user && (await bcrypt.compare(password, user.password))) {
+      const accessToken = jwt.sign(
+        { email: user.email, id: user._id },
+        "JAY_SHREE_RAM"
+      );
+      return res.status(200).json({
+        message: "Success",
+        accessToken: accessToken,
       });
     } else {
+      res.status(401).json({
+        message: "Unauthorized User",
+      });
     }
   } catch (err) {
-    res.status.json({
+    console.error(err);
+    res.status(500).json({
       message: "Internal Server Error",
     });
   }
 };
 
-module.exports = registerUser;
+module.exports = { registerUser, loginUser };
