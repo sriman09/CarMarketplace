@@ -1,12 +1,15 @@
 const Users = require("../models/Users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const hashPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(password, salt);
   return hashPassword;
 };
+
+const secretKey = process.env.JWT_TOKEN_KEY;
 
 const registerUser = async (req, res) => {
   try {
@@ -45,7 +48,7 @@ const loginUser = async (req, res) => {
     if (user && (await bcrypt.compare(password, user.password))) {
       const accessToken = jwt.sign(
         { email: user.email, id: user._id },
-        "JAY_SHREE_RAM"
+        secretKey
       );
       return res.status(200).json({
         message: "Success",
