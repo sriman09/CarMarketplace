@@ -1,4 +1,5 @@
 import Hero from "./components/Hero";
+import HowItWork from "./components/HowItWork";
 import PlanningToSell from "./components/PlanningToSell";
 
 export default function Home() {
@@ -6,6 +7,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col">
       <Hero />
       <PlanningToSell />
+      <HowItWork />
     </main>
   );
 }
