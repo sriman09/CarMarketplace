@@ -27,9 +27,10 @@ function Hero() {
             </button>
           </div>
           <div className="mt-14 w-full md:w-4/12 h-[52px] flex flex-row gap-4">
-            <button className="bg-red-600 text-white rounded-2xl w-10/12 h-full">
+            <button className="bg-red-600 hover:bg-red-800 text-white rounded-2xl w-10/12 h-full transition-all duration-300 ease-in-out hover:delay-200">
               BROWSE COLLECTION
             </button>
+
             <button className="border border-gray-400 rounded-2xl px-4 hover:bg-slate-950">
               <Image src={filter} alt="filter" />
             </button>

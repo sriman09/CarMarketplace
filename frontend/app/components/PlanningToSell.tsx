@@ -61,7 +61,7 @@ function PlanningToSell() {
             </div>
           </div>
         </div>
-        <button className="w-full md:w-1/2 mt-16 flex justify-between text-black hover:text-white bg-white hover:bg-black border-2 border-gray-400 rounded-xl p-2">
+        <button className="w-full md:w-1/2 mt-16 flex justify-between text-black hover:text-white bg-white hover:bg-black border-2 border-gray-400 rounded-xl p-2 transition-all duration-300 ease-in-out hover:delay-200">
           <span>KNOW MORE</span>
           <span>{"->"}</span>
         </button>
