@@ -1,4 +1,7 @@
+import Image from "next/image";
 import React from "react";
+import phone_svg from "../../public/assets/phone_svg.svg";
+import email_svg from "../../public/assets/email_svg.svg";
 
 function page() {
   return (
@@ -6,21 +9,24 @@ function page() {
       <div className="w-full md:w-1/2 py-28 flex flex-col gap-10">
         <span className="text-3xl font-bold">CONTACT US</span>
         <div className="flex gap-5">
+          <Image src={email_svg} alt="email" width={60} height={60} />
           <div className="flex flex-col">
-            <p>sales@marketplace.com</p>
+            <p className="font-bold">sales@marketplace.com</p>
             <p>The best way to get answer faster.</p>
           </div>
         </div>
         <div className="flex gap-5">
+          <Image src={phone_svg} alt="email" width={60} height={60} />
           <div className="flex flex-col">
-            <p>For Buying Cars</p>
+            <p className="font-bold">For Buying Cars</p>
             <p>(+91) 9999 9999 99</p>
             <p>We are happy to help (10am to 10pm)</p>
           </div>
         </div>
         <div className="flex gap-5">
+          <Image src={phone_svg} alt="email" width={60} height={60} />
           <div className="flex flex-col">
-            <p>For Selling Cars</p>
+            <p className="font-bold">For Selling Cars</p>
             <p>(+91) 9999 9999 99</p>
             <p>We are happy to help (10am to 10pm)</p>
           </div>
@@ -28,11 +34,11 @@ function page() {
 
         <span className="text-3xl font-bold mt-10">OUR SHOWROOM</span>
         <div className="flex flex-col">
-          <p>Gurgaon Headquarters</p>
+          <p className="font-bold">Gurgaon Headquarters</p>
           <p>Plot No. 134, Sector 37, Pace City 1, Gurgaon, Haryana - 122001</p>
         </div>
         <div className="flex flex-col">
-          <p>Gurgaon Headquarters</p>
+          <p className="font-bold">Gurgaon Headquarters</p>
           <p>Plot No. 134, Sector 37, Pace City 1, Gurgaon, Haryana - 122001</p>
         </div>
       </div>
