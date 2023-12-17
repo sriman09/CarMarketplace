@@ -1,5 +1,6 @@
 import Hero from "./components/Hero";
 import HowItWork from "./components/HowItWork";
+import Latest from "./components/Latest";
 import PlanningToSell from "./components/PlanningToSell";
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
       <Hero />
       <PlanningToSell />
       <HowItWork />
+      <Latest />
     </main>
   );
 }
