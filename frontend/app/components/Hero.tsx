@@ -9,7 +9,7 @@ function Hero() {
         className="bg-cover bg-center h-screen"
         style={{ backgroundImage: `url('/assets/hero1.jpg')` }}
       >
-        <div className="w-full flex flex-col gap-2 pl-28 h-full pt-32">
+        <div className="w-full flex flex-col gap-2 px-10 md:px-28 h-full pt-32">
           <span className="text-white text-[60px] font-bold">
             LET'S KEEP IT SIMPLE.
           </span>

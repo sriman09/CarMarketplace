@@ -8,7 +8,7 @@ import proccessing_img from "../../public/assets/processing.svg";
 
 function PlanningToSell() {
   return (
-    <div className="h-[50vh] md:h-screen bg-white px-28 py-20 flex flex-col md:flex-row gap-5 w-full">
+    <div className="h-screen bg-white px-10 md:px-28 py-20 flex flex-col md:flex-row gap-5 w-full">
       <div className="flex flex-col w-full md:w-5/12">
         <p className="text-black text-4xl font-bold">PLANNING TO SELL?</p>
         <p className="text-blue-200 text-3xl font-bold">SELL US YOUR CAR</p>

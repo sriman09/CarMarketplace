@@ -38,9 +38,9 @@ function page() {
       </div>
       <div className="w-full md:w-1/2 flex justify-center items-center">
         <div className="bg-white rounded-xl shadow-lg px-5 md:px-10 py-16 flex flex-col w-full mb-5">
-          <p className="text-black font-bold">SEND US AN EMAIL</p>
+          <p className="text-black font-bold text-2xl">SEND US AN EMAIL</p>
           <p>Drop us a line using the below form</p>
-          <div className="flex gap-5 w-full mt-5">
+          <div className="flex gap-5 w-full mt-10">
             <input
               type="text"
               className="w-1/2 p-2 rounded-xl border border-black"
