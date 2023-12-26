@@ -7,7 +7,7 @@ import Image from "next/image";
 
 function HowItWork() {
   return (
-    <div className="bg-black h-[90vh] px-28">
+    <div className="bg-black h-[90vh] px-10 md:px-28">
       <div className="flex flex-col mt-24 justify-center items-center gap-8">
         <p className="text-gray-300 text-4xl font-bold">HOW IT WORKS</p>
         <p className="text-gray-400">

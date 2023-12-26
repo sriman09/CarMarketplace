@@ -42,14 +42,14 @@ function Latest() {
   ];
 
   return (
-    <div className="bg-white h-screen px-28">
+    <div className="bg-white min-h-screen px-10 md:px-28">
       <div className="flex flex-col mt-24">
         <p className="text-2xl font-bold">Latest @</p>
         <p className="text-3xl font-bold">Car Marketplace</p>
       </div>
-      <div className="w-full flex gap-5 mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
         {latestCars.map((car: Car, index: number) => (
-          <div key={index} className="w-1/4 flex flex-col gap-5">
+          <div key={index} className="flex flex-col gap-5">
             <Image
               src={car.img}
               alt="img"
