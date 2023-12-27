@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
-import phone_svg from "../../public/assets/phone_svg.svg";
-import email_svg from "../../public/assets/email_svg.svg";
+import phone_svg from "../../../public/assets/phone_svg.svg";
+import email_svg from "../../../public/assets/email_svg.svg";
 
 function page() {
   return (

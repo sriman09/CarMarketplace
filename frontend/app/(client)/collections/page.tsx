@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import filter_img from "../../public/assets/filter.svg";
+import filter_img from "../../../public/assets/filter.svg";
 
 function page() {
   return (
