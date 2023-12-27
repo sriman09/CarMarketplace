@@ -3,12 +3,19 @@ import Image from "next/image";
 import cover from "../../public/assets/auth_cover.png";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const [activeTab, setActiveTab] = useState<string>("dashboard");
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    router.push("/login");
+  };
   return (
     <div className="w-full flex flex-row h-screen">
       <div className="w-1/4 bg-white hidden md:flex flex-col p-2 font-bold text-xl text-[#8C8C8C] shadow-2xl pt-20 gap-5 px-20">
@@ -39,7 +46,10 @@ export default function AuthLayout({
           <span className="font-bold text-2xl text-[#8C8C8C]">
             Welcome, Srimanvit Pattanaik
           </span>
-          <button className="bg-blue-500 text-white rounded-md p-2 whitespace-nowrap">
+          <button
+            className="bg-blue-500 text-white rounded-md p-2 whitespace-nowrap"
+            onClick={() => handleLogout()}
+          >
             Sign out
           </button>
         </div>

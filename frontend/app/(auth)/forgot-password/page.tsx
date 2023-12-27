@@ -1,5 +1,5 @@
+"use client";
 import Link from "next/link";
-
 export default function Page() {
   return (
     <div className="flex flex-col w-full px-8 md:px-16 gap-4">

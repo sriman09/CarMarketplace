@@ -1,11 +1,14 @@
 "use client";
 import axios from "axios";
 import Link from "next/link";
-import { FormEvent, useRef } from "react";
+import { FormEvent, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 function page() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+
+  const router = useRouter();
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
@@ -14,14 +17,20 @@ function page() {
         email: emailRef.current.value,
         password: passwordRef.current.value,
       };
-      console.log("Payload", payload);
       const res = await axios.post(
         "http://localhost:8000/users/login",
         payload
       );
-      console.log("access token", res.data);
+      localStorage.setItem("accessToken", res.data.userInfo.accessToken);
+      router.push("/dashboard");
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      router.push("/dashboard");
+    }
+  }, []);
 
   return (
     <div className="flex flex-col w-full px-8 md:px-16 gap-4">
