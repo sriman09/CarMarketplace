@@ -52,7 +52,12 @@ const loginUser = async (req, res) => {
       );
       return res.status(200).json({
         message: "Success",
-        accessToken: accessToken,
+        userInfo: {
+          name: user.firstName + " " + user.lastName,
+          email: user.email,
+          type: user.type,
+          accessToken: accessToken,
+        },
       });
     } else {
       res.status(401).json({

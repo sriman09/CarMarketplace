@@ -1,6 +1,7 @@
 const express = require("express");
 const { connect } = require("./utils/dbConntection");
 require("dotenv").config();
+const cors = require("cors");
 const carRoutes = require("./routes/Cars");
 const brandRoutes = require("./routes/Brands");
 const modelsRoutes = require("./routes/Models");
@@ -8,6 +9,8 @@ const usersRoutes = require("./routes/Users");
 const SellInquiryRoutes = require("./routes/SellInquiry");
 
 const app = express();
+
+app.use(cors());
 
 const PORT = process.env.PORT || 8001;
 

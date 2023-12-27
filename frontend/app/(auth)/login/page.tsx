@@ -1,29 +1,62 @@
+"use client";
+import axios from "axios";
 import Link from "next/link";
+import { FormEvent, useRef } from "react";
 
 function page() {
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
+  const handleLogin = async (e: FormEvent) => {
+    e.preventDefault();
+    if (emailRef.current && passwordRef.current) {
+      const payload = {
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      };
+      console.log("Payload", payload);
+      const res = await axios.post(
+        "http://localhost:8000/users/login",
+        payload
+      );
+      console.log("access token", res.data);
+    }
+  };
+
   return (
     <div className="flex flex-col w-full px-8 md:px-16 gap-4">
       <span className="text-2xl font-bold">Welcome Back</span>
       <span className="text-sm">Please sign in to your Account</span>
-      <div className="flex flex-col">
-        <span className="text-sm font-bold">Email Address</span>
-        <input
-          type="email"
-          placeholder="Enter your Email"
-          className="p-2 border border-gray-300"
-        />
-      </div>
-      <div className="flex flex-col">
-        <span className="text-sm font-bold">Password</span>
-        <input
-          type="password"
-          placeholder="Enter your Password"
-          className="p-2 border border-gray-300"
-        />
-      </div>
-      <button className="bg-blue-700 text-white rounded-md py-2">
-        Sign in
-      </button>
+      <form
+        className="w-full flex flex-col gap-4"
+        onSubmit={(e) => handleLogin(e)}
+      >
+        <div className="flex flex-col">
+          <span className="text-sm font-bold">Email Address</span>
+          <input
+            type="email"
+            placeholder="Enter your Email"
+            className="p-2 border border-gray-300"
+            ref={emailRef}
+          />
+        </div>
+        <div className="flex flex-col">
+          <span className="text-sm font-bold">Password</span>
+          <input
+            type="password"
+            placeholder="Enter your Password"
+            className="p-2 border border-gray-300"
+            ref={passwordRef}
+          />
+        </div>
+        <button
+          type="submit"
+          className="bg-blue-700 text-white rounded-md py-2 w-full"
+        >
+          Sign in
+        </button>
+      </form>
+
       <span className="font-bold text-center">
         <Link href={"/forgot-password"} className="hover:text-blue-700">
           Forgot Password?

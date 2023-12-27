@@ -11,7 +11,7 @@ export default function AuthLayout({
   const [activeTab, setActiveTab] = useState<string>("dashboard");
   return (
     <div className="w-full flex flex-row h-screen">
-      <div className="w-1/4 bg-white hidden md:flex flex-col p-2 font-bold text-xl text-[#8C8C8C] shadow-2xl pt-20 gap-5 px-10">
+      <div className="w-1/4 bg-white hidden md:flex flex-col p-2 font-bold text-xl text-[#8C8C8C] shadow-2xl pt-20 gap-5 px-20">
         <Link href={"/dashboard"} id="dashboard">
           Dashboard
         </Link>
