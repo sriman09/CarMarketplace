@@ -56,7 +56,7 @@ export default function AuthLayout({
           </Link>
         ))}
       </div>
-      <div className="w-full md:w-3/4 flex flex-col bg-[#EFF6FF]">
+      <div className="w-full md:w-3/4 flex flex-col bg-[#EFF6FF] overflow-y-scroll">
         <div className="flex flex-row justify-between px-2 md:px-8 lg:px-20 mt-5 items-center">
           <span className="font-bold text-base md:text-xl lg:text-2xl text-[#8C8C8C]">
             Welcome, Srimanvit Pattanaik

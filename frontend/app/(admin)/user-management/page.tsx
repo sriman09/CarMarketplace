@@ -4,8 +4,9 @@ import edit_icon from "../../../public/assets/edit-icon.svg";
 import Image from "next/image";
 import BlueButton from "../components/BlueButton";
 import SearchBar from "../components/SearchBar";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import BackButton from "../components/BackButton";
+import DeleteModal from "../components/DeleteModal";
 let users = [
   {
     firstName: "Sriman",
@@ -40,6 +41,16 @@ let users = [
 ];
 function page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  let modalContent = {
+    title: "Delete Enquiry",
+    subtitle: "Are you sure you want to delete this enquiry",
+    name: "Sriman",
+  };
+  let loader = false;
+  const handleDeleteModalYesClick = () => {
+    console.log("Delete Modal Clicked!");
+  };
   return (
     <>
       <BackButton back={false} />
@@ -78,7 +89,7 @@ function page() {
                         width={20}
                       />
                     </button>
-                    <button>
+                    <button onClick={() => setShowDeleteModal(true)}>
                       <Image
                         src={delete_icon}
                         alt="edit"
@@ -92,6 +103,13 @@ function page() {
             </tbody>
           </table>
         </div>
+        <DeleteModal
+          showDeleteModal={showDeleteModal}
+          setShowDeleteModal={setShowDeleteModal}
+          modalContent={modalContent}
+          handleDeleteModalYesClick={handleDeleteModalYesClick}
+          loader={loader}
+        />
       </div>
     </>
   );
