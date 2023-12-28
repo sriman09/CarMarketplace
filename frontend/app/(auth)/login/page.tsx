@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import Link from "next/link";
-import { FormEvent, useEffect, useRef } from "react";
+import { FormEvent, useLayoutEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 function page() {
@@ -26,7 +26,7 @@ function page() {
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (localStorage.getItem("accessToken")) {
       router.push("/dashboard");
     }

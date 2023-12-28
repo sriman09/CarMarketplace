@@ -4,6 +4,37 @@ import cover from "../../public/assets/auth_cover.png";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+
+let adminRoutes = [
+  {
+    id: "dashboard",
+    route: "/dashboard",
+  },
+  {
+    id: "enquiry",
+    route: "/enquiry",
+  },
+  {
+    id: "inventory",
+    route: "/inventory",
+  },
+  {
+    id: "user",
+    route: "/user-management",
+  },
+  {
+    id: "brands",
+    route: "/brands",
+  },
+  {
+    id: "models",
+    route: "/models",
+  },
+  {
+    id: "profile",
+    route: "/profile",
+  },
+];
 export default function AuthLayout({
   children,
 }: {
@@ -19,31 +50,15 @@ export default function AuthLayout({
   return (
     <div className="w-full flex flex-row h-screen">
       <div className="w-1/4 bg-white hidden md:flex flex-col p-2 font-bold text-xl text-[#8C8C8C] shadow-2xl pt-20 gap-5 px-20">
-        <Link href={"/dashboard"} id="dashboard">
-          Dashboard
-        </Link>
-        <Link href={"/inventory"} id="inventory">
-          Inventory
-        </Link>
-        <Link href={"/enquiry"} id="enquiry">
-          Sell Enquiry
-        </Link>
-        <Link href={"/user-management"} id="users">
-          Users
-        </Link>
-        <Link href={"/brands"} id="brands">
-          Brands
-        </Link>
-        <Link href={"/models"} id="mmodels">
-          Models
-        </Link>
-        <Link href={"/profile"} id="profile">
-          Profile
-        </Link>
+        {adminRoutes.map((item) => (
+          <Link href={item.route} id={item.id} key={item.id}>
+            {item.id.charAt(0).toUpperCase() + item.id.slice(1)}
+          </Link>
+        ))}
       </div>
       <div className="w-full md:w-3/4 flex flex-col bg-[#EFF6FF]">
         <div className="flex flex-row justify-between px-8 md:px-20 mt-5 items-center">
-          <span className="font-bold text-2xl text-[#8C8C8C]">
+          <span className="font-bold text-base md:text-xl lg:text-2xl text-[#8C8C8C]">
             Welcome, Srimanvit Pattanaik
           </span>
           <button
