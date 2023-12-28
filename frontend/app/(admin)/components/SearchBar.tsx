@@ -14,7 +14,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ placeholder, inputRef }) => {
         type="text"
         placeholder={placeholder}
         ref={inputRef}
-        className="px-2 py-1 border-0 focus:outline-none"
+        className="px-2 py-1 border-0 focus:outline-none w-44 md:w-72"
       />
       <button>
         <Image src={search_icon} alt="search" height={20} width={20} />

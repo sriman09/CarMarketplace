@@ -57,7 +57,7 @@ export default function AuthLayout({
         ))}
       </div>
       <div className="w-full md:w-3/4 flex flex-col bg-[#EFF6FF]">
-        <div className="flex flex-row justify-between px-8 md:px-20 mt-5 items-center">
+        <div className="flex flex-row justify-between px-2 md:px-8 lg:px-20 mt-5 items-center">
           <span className="font-bold text-base md:text-xl lg:text-2xl text-[#8C8C8C]">
             Welcome, Srimanvit Pattanaik
           </span>
@@ -68,7 +68,7 @@ export default function AuthLayout({
             Sign out
           </button>
         </div>
-        <div className="px-10 md:px-20 mt-5">{children}</div>
+        <div className="px-2 md:px-8 lg:px-20">{children}</div>
       </div>
     </div>
   );
