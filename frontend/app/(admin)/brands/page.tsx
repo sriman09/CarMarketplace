@@ -43,7 +43,7 @@ function page() {
 
   let loader = false;
 
-  const handleDeleteClick = (item: any) => {
+  const handleDeleteClick = (item: Brand) => {
     setModalContent((prev) => ({ ...prev, name: item.brandName }));
     setShowDeleteModal(true);
   };

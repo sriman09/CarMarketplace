@@ -4,50 +4,53 @@ import edit_icon from "../../../public/assets/edit-icon.svg";
 import Image from "next/image";
 import BlueButton from "../components/BlueButton";
 import SearchBar from "../components/SearchBar";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import BackButton from "../components/BackButton";
 import DeleteModal from "../components/DeleteModal";
-let users = [
-  {
-    firstName: "Sriman",
-    lastName: "Pattanaik",
-    email: "sriman2@gmail.com",
-    type: "admin",
-  },
-  {
-    firstName: "Sriman",
-    lastName: "Pattanaik",
-    email: "sriman2@gmail.com",
-    type: "admin",
-  },
-  {
-    firstName: "Sriman",
-    lastName: "Pattanaik",
-    email: "sriman2@gmail.com",
-    type: "admin",
-  },
-  {
-    firstName: "Sriman",
-    lastName: "Pattanaik",
-    email: "sriman2@gmail.com",
-    type: "admin",
-  },
-  {
-    firstName: "Sriman",
-    lastName: "Pattanaik",
-    email: "sriman2@gmail.com",
-    type: "admin",
-  },
-];
+import { useRecoilState } from "recoil";
+import { Brand, User, userState } from "@/app/_utils/atom";
+import axios from "axios";
+
 function page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-  let modalContent = {
-    title: "Delete Enquiry",
-    subtitle: "Are you sure you want to delete this enquiry",
-    name: "Sriman",
-  };
+  const [users, setUsers] = useRecoilState<User[]>(userState);
+
+  const [loading, setLoading] = useState(false);
+
+  const [modalContent, setModalContent] = useState({
+    title: "Delete",
+    subtitle: "Are you sure you want to delete this User",
+    name: "",
+  });
   let loader = false;
+
+  const getAllUsers = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        "http://localhost:8000/users/get-all-users"
+      );
+      setUsers(response.data.users);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (users.length === 0) getAllUsers();
+  }, []);
+
+  const handleDeleteClick = (item: User) => {
+    setModalContent((prev) => ({
+      ...prev,
+      name: item.firstName + " " + item.lastName,
+    }));
+    setShowDeleteModal(true);
+  };
+
   const handleDeleteModalYesClick = () => {
     console.log("Delete Modal Clicked!");
   };
@@ -89,7 +92,7 @@ function page() {
                         width={20}
                       />
                     </button>
-                    <button onClick={() => setShowDeleteModal(true)}>
+                    <button onClick={() => handleDeleteClick(item)}>
                       <Image
                         src={delete_icon}
                         alt="edit"

@@ -9,7 +9,20 @@ export interface Brand {
   __v: number;
 }
 
+export interface User {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  type: string;
+}
+
 export const brandState = atom<Brand[]>({
   key: "brandState",
+  default: [],
+});
+
+export const userState = atom<User[]>({
+  key: "userState",
   default: [],
 });
