@@ -3,10 +3,13 @@ import delete_icon from "../../../public/assets/delete-icon.svg";
 import edit_icon from "../../../public/assets/edit-icon.svg";
 import Image from "next/image";
 import BlueButton from "../components/BlueButton";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import BackButton from "../components/BackButton";
 import DeleteModal from "../components/DeleteModal";
+import { useRecoilState } from "recoil";
+import { Model, modelState } from "@/app/_utils/atom";
+import axios from "axios";
 let models = [
   {
     id: 1,
@@ -37,12 +40,34 @@ let models = [
 function page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-  let modalContent = {
-    title: "Delete Enquiry",
-    subtitle: "Are you sure you want to delete this enquiry",
-    name: "Sriman",
-  };
+  const [models, setModels] = useRecoilState<Model[]>(modelState);
+  const [page, setPage] = useState<number>(1);
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [modalContent, setModalContent] = useState({
+    title: "Delete ",
+    subtitle: "Are you sure you want to delete this model",
+    name: "",
+  });
+
   let loader = false;
+
+  const getModels = async () => {
+    const response = await axios.get(
+      `http://localhost:8000/models/get-models?&page=${page}`
+    );
+    setModels(response.data.models);
+  };
+
+  useEffect(() => {
+    getModels();
+  }, [page]);
+
+  const handleDeleteClick = (name: string) => {
+    setModalContent((prev) => ({ ...prev, name: name }));
+    setShowDeleteModal(true);
+  };
+
   const handleDeleteModalYesClick = () => {
     console.log("Delete Modal Clicked!");
   };
@@ -80,7 +105,7 @@ function page() {
                         width={20}
                       />
                     </button>
-                    <button onClick={() => setShowDeleteModal(true)}>
+                    <button onClick={() => handleDeleteClick(item.modelName)}>
                       <Image
                         src={delete_icon}
                         alt="edit"

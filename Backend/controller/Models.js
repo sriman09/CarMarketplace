@@ -18,7 +18,7 @@ const registerModel = async (req, res) => {
   }
 };
 
-//Get Models
+//Get Models by brand
 const getModelsForBrand = async (req, res) => {
   const brandId = req.params.brandId;
   try {
@@ -31,6 +31,50 @@ const getModelsForBrand = async (req, res) => {
       res.status(500).json({
         message: "Internal Server Error",
       });
+  }
+};
+
+//Get all Models
+const getAllModels = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = 10;
+    const pipeline = [
+      {
+        $lookup: {
+          from: "brands",
+          localField: "brandId",
+          foreignField: "_id",
+          as: "brand",
+        },
+      },
+      {
+        $unwind: "$brand",
+      },
+      {
+        $project: {
+          _id: 1,
+          modelName: 1,
+          brandName: "$brand.brandName",
+          brandId: 1,
+        },
+      },
+      {
+        $skip: (page - 1) * pageSize,
+      },
+      {
+        $limit: pageSize,
+      },
+    ];
+
+    const result = await Models.aggregate(pipeline);
+    res.json({
+      message: "success",
+      models: result,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
   }
 };
 
@@ -71,4 +115,5 @@ module.exports = {
   editModelData,
   deleteModel,
   getModelsForBrand,
+  getAllModels,
 };

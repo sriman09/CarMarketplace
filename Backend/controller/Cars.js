@@ -64,10 +64,58 @@ const editCarData = async (req, res) => {
 //Read
 const getAllCars = async (req, res) => {
   try {
-    const AllCars = await Cars.find({ isDeleted: { $ne: 1 } });
+    const pipeline = [
+      {
+        $match: {
+          isDeleted: { $ne: 1 },
+        },
+      },
+      {
+        $lookup: {
+          from: "models", // Replace with the actual name of your Models collection
+          localField: "model",
+          foreignField: "_id",
+          as: "modelDetails",
+        },
+      },
+      {
+        $unwind: "$modelDetails",
+      },
+      {
+        $lookup: {
+          from: "brands", // Replace with the actual name of your Brands collection
+          localField: "modelDetails.brandId",
+          foreignField: "_id",
+          as: "brandDetails",
+        },
+      },
+      {
+        $unwind: "$brandDetails",
+      },
+      {
+        $project: {
+          _id: 1,
+          modelName: "$modelDetails.modelName",
+          brandName: "$brandDetails.brandName",
+          variant: 1,
+          year: 1,
+          price: 1,
+          kilometers: 1,
+          fuelType: 1,
+          vehicleType: 1,
+          ownership: 1,
+          seatingCapacity: 1,
+          color: 1,
+          showPrice: 1,
+          sold: 1,
+        },
+      },
+    ];
+
+    const allCars = await Cars.aggregate(pipeline);
     res.status(200).json({
       message: "Success",
-      data: AllCars,
+      data: allCars,
     });
   } catch (err) {
     res.status(500).json({

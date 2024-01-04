@@ -1,79 +1,28 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import BackButton from "../components/BackButton";
 import SearchBar from "../components/SearchBar";
 import BlueButton from "../components/BlueButton";
 import bwm_img from "../../../public/assets/bmw.jpg";
 import Image from "next/image";
+import { useRecoilState } from "recoil";
+import { Inventory, inventoryState } from "@/app/_utils/atom";
+import axios from "axios";
 
-let inventory = [
-  {
-    id: 0,
-    model: "X7",
-    brand: "BMW",
-    variant: "top",
-    year: 2015,
-    price: 2000000,
-    kilometers: 20000,
-    fuelType: "petrol",
-    vehicleType: "hatchback",
-    ownership: "1st",
-    seatingCapacity: 5,
-    color: "red",
-    showPrice: true,
-    sold: false,
-  },
-  {
-    id: 1,
-    model: "X7",
-    brand: "BMW",
-    variant: "top",
-    year: 2015,
-    price: 2000000,
-    kilometers: 20000,
-    fuelType: "petrol",
-    vehicleType: "hatchback",
-    ownership: "1st",
-    seatingCapacity: 5,
-    color: "red",
-    showPrice: true,
-    sold: false,
-  },
-  {
-    id: 2,
-    model: "X7",
-    brand: "BMW",
-    variant: "top",
-    year: 2015,
-    price: 2000000,
-    kilometers: 20000,
-    fuelType: "petrol",
-    vehicleType: "hatchback",
-    ownership: "1st",
-    seatingCapacity: 5,
-    color: "red",
-    showPrice: true,
-    sold: false,
-  },
-  {
-    id: 3,
-    model: "X7",
-    brand: "BMW",
-    variant: "top",
-    year: 2015,
-    price: 2000000,
-    kilometers: 20000,
-    fuelType: "petrol",
-    vehicleType: "hatchback",
-    ownership: "1st",
-    seatingCapacity: 5,
-    color: "red",
-    showPrice: true,
-    sold: false,
-  },
-];
 function Page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [inventory, setInventory] = useRecoilState<Inventory[]>(inventoryState);
+
+  const getAllInventory = async () => {
+    const response = await axios.get("http://localhost:8000/cars/get-all-cars");
+    setInventory(response.data.data);
+  };
+
+  useEffect(() => {
+    if (inventory.length === 0) {
+      getAllInventory();
+    }
+  }, []);
   return (
     <>
       <BackButton back={false} />
@@ -92,7 +41,7 @@ function Page() {
               />
               <div className="flex flex-col gap-1 items-start">
                 <span className="font-bold">
-                  {item.brand} {item.model}
+                  {item.brandName} {item.modelName}
                 </span>
                 <span className="text-sm text-[#8C8C8C]">
                   {item.kilometers} kms | {item.fuelType} | {item.year}

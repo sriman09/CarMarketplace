@@ -80,7 +80,16 @@ function page() {
                   className="hover:bg-gray-50 border-2 text-center"
                 >
                   <td className="py-2 px-4">{item.brandName}</td>
-                  <td className="py-2 px-4">{item.logo}</td>
+                  <td className="py-2 px-4 text-center">
+                    <img
+                      src={item.logo}
+                      alt="logo"
+                      width={50}
+                      height={40}
+                      style={{ display: "block", margin: "auto" }}
+                    />
+                  </td>
+
                   <td className="py-2 px-4 flex gap-3 justify-center">
                     <button>
                       <Image
