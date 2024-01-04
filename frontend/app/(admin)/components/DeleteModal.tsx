@@ -40,7 +40,7 @@ const DeleteModal: FC<DeleteModalProps> = ({
         },
       }}
     >
-      <div className="flex flex-col items-center justify-center gap-3">
+      <div className="flex flex-col items-center justify-between h-full">
         <Image src={delete_img} className="w-40" alt={"Delete"} />
         <h1 className="text-black font-bold text-xl md:text-3xl text-center">
           {modalContent.title} {modalContent.name}

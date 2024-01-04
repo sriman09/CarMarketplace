@@ -3,50 +3,59 @@ import delete_icon from "../../../public/assets/delete-icon.svg";
 import edit_icon from "../../../public/assets/edit-icon.svg";
 import Image from "next/image";
 import BlueButton from "../components/BlueButton";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import BackButton from "../components/BackButton";
 import DeleteModal from "../components/DeleteModal";
-let brands = [
-  {
-    id: 1,
-    brandName: "BMW",
-    logo: "bmw_logo",
-  },
-  {
-    id: 2,
-    brandName: "BMW",
-    logo: "bmw_logo",
-  },
-  {
-    id: 3,
-    brandName: "BMW",
-    logo: "bmw_logo",
-  },
-  {
-    id: 4,
-    brandName: "BMW",
-    logo: "bmw_logo",
-  },
-  {
-    id: 5,
-    brandName: "BMW",
-    logo: "bmw_logo",
-  },
-];
+import { useRecoilState } from "recoil";
+import { brandState, Brand } from "@/app/_utils/atom";
+import axios from "axios";
 
 function page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-  let modalContent = {
-    title: "Delete Enquiry",
-    subtitle: "Are you sure you want to delete this enquiry",
-    name: "Sriman",
+  const [brands, setBrands] = useRecoilState<Brand[]>(brandState);
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [modalContent, setModalContent] = useState({
+    title: "Delete",
+    subtitle: "Are you sure you want to delete this brand",
+    name: "",
+  });
+
+  const getBrands = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        "http://localhost:8000/brands/get-brands"
+      );
+      setBrands(response.data.brands);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching brands:", error);
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    if (brands.length === 0) getBrands();
+  }, []);
+
   let loader = false;
+
+  const handleDeleteClick = (item: any) => {
+    setModalContent((prev) => ({ ...prev, name: item.brandName }));
+    setShowDeleteModal(true);
+  };
+
   const handleDeleteModalYesClick = () => {
     console.log("Delete Modal Clicked!");
   };
+
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
+
   return (
     <>
       <BackButton back={false} />
@@ -81,7 +90,7 @@ function page() {
                         width={20}
                       />
                     </button>
-                    <button onClick={() => setShowDeleteModal(true)}>
+                    <button onClick={() => handleDeleteClick(item)}>
                       <Image
                         src={delete_icon}
                         alt="edit"
