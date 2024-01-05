@@ -1,62 +1,43 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import BackButton from "../components/BackButton";
 import SearchBar from "../components/SearchBar";
 import Image from "next/image";
 import delete_icon from "../../../public/assets/delete-icon.svg";
 import edit_icon from "../../../public/assets/edit-icon.svg";
 import DeleteModal from "../components/DeleteModal";
-let sellinquiry = [
-  {
-    name: "Sriman",
-    email: "sriman@gmail.com",
-    phone: "99999 99999",
-    brand: "BMW",
-    model: "X7",
-    year: 2022,
-  },
-  {
-    name: "Sriman",
-    email: "sriman@gmail.com",
-    phone: "99999 99999",
-    brand: "BMW",
-    model: "X7",
-    year: 2022,
-  },
-  {
-    name: "Sriman",
-    email: "sriman@gmail.com",
-    phone: "99999 99999",
-    brand: "BMW",
-    model: "X7",
-    year: 2022,
-  },
-  {
-    name: "Sriman",
-    email: "sriman@gmail.com",
-    phone: "99999 99999",
-    brand: "BMW",
-    model: "X7",
-    year: 2022,
-  },
-  {
-    name: "Sriman",
-    email: "sriman@gmail.com",
-    phone: "99999 99999",
-    brand: "BMW",
-    model: "X7",
-    year: 2022,
-  },
-];
+import { useRecoilState } from "recoil";
+import { Enquiry, enquiryState } from "@/app/_utils/atom";
+import axios from "axios";
 function Page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-  let modalContent = {
-    title: "Delete Enquiry",
+  const [sellinquiry, setSellInquiry] = useRecoilState<Enquiry[]>(enquiryState);
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [modalContent, setModalContent] = useState({
+    title: "Delete",
     subtitle: "Are you sure you want to delete this enquiry",
-    name: "Sriman",
-  };
+    name: "",
+  });
+
   let loader = false;
+
+  const getAllEnquiry = async () => {
+    const response = await axios.get(
+      "http://localhost:8000/inquiry/get-enquiry"
+    );
+    setSellInquiry(response.data.enquiries);
+  };
+
+  useEffect(() => {
+    if (sellinquiry.length === 0) getAllEnquiry();
+  }, []);
+
+  const handleDeleteClick = (name: string) => {
+    setModalContent((prev) => ({ ...prev, name: name }));
+    setShowDeleteModal(true);
+  };
   const handleDeleteModalYesClick = () => {
     console.log("Delete Modal Clicked!");
   };
@@ -111,7 +92,7 @@ function Page() {
                         alt="edit"
                         height={20}
                         width={20}
-                        onClick={() => setShowDeleteModal(true)}
+                        onClick={() => handleDeleteClick(item.name)}
                       />
                     </button>
                   </td>

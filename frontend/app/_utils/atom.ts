@@ -41,6 +41,16 @@ export interface Inventory {
   brandName: string;
 }
 
+export interface Enquiry {
+  _id: string;
+  name: string;
+  email: string;
+  phone: string;
+  brand: string;
+  model: string;
+  year: number;
+}
+
 export const brandState = atom<Brand[]>({
   key: "brandState",
   default: [],
@@ -58,5 +68,10 @@ export const modelState = atom<Model[]>({
 
 export const inventoryState = atom<Inventory[]>({
   key: "inventoryState",
+  default: [],
+});
+
+export const enquiryState = atom<Enquiry[]>({
+  key: "enquiryState",
   default: [],
 });
