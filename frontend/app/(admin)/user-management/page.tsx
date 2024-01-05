@@ -10,10 +10,12 @@ import DeleteModal from "../components/DeleteModal";
 import { useRecoilState } from "recoil";
 import { Brand, User, userState } from "@/app/_utils/atom";
 import axios from "axios";
+import CreateModal from "../components/CreateModal";
 
 function page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
   const [users, setUsers] = useRecoilState<User[]>(userState);
 
   const [loading, setLoading] = useState(false);
@@ -54,13 +56,19 @@ function page() {
   const handleDeleteModalYesClick = () => {
     console.log("Delete Modal Clicked!");
   };
+
+  const handleCreateModalYesClick = () => {
+    console.log("Created...");
+  };
   return (
     <>
       <BackButton back={false} />
       <div className="flex flex-col mt-5 md:mt-10">
         <div className="flex flex-row justify-between">
           <SearchBar placeholder="Search User" inputRef={inputRef} />
-          <BlueButton>Create User</BlueButton>
+          <BlueButton onClick={() => setShowCreateModal(true)}>
+            Create User
+          </BlueButton>
         </div>
         <div className="overflow-x-scroll bg-white mt-5">
           <table className="w-full border-collapse border border-gray-300  text-xs md:text-sm lg:text-base">
@@ -111,6 +119,13 @@ function page() {
           setShowDeleteModal={setShowDeleteModal}
           modalContent={modalContent}
           handleDeleteModalYesClick={handleDeleteModalYesClick}
+          loader={loader}
+        />
+        <CreateModal
+          showModal={showCreateModal}
+          setShowModal={setShowCreateModal}
+          modalFor="user"
+          handleModalYesClick={handleCreateModalYesClick}
           loader={loader}
         />
       </div>
