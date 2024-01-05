@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import BackButton from "../components/BackButton";
 import SearchBar from "../components/SearchBar";
 import BlueButton from "../components/BlueButton";
@@ -8,10 +8,13 @@ import Image from "next/image";
 import { useRecoilState } from "recoil";
 import { Inventory, inventoryState } from "@/app/_utils/atom";
 import axios from "axios";
+import CreateModal from "../components/CreateModal";
+import { useRouter } from "next/navigation";
 
 function Page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [inventory, setInventory] = useRecoilState<Inventory[]>(inventoryState);
+  const router = useRouter();
 
   const getAllInventory = async () => {
     const response = await axios.get("http://localhost:8000/cars/get-all-cars");
@@ -29,7 +32,11 @@ function Page() {
       <div className="flex flex-col mt-5 md:mt-10">
         <div className="flex flex-row justify-between">
           <SearchBar placeholder="Search Inventory" inputRef={inputRef} />
-          <BlueButton>Create</BlueButton>
+          <BlueButton
+            onClick={() => router.push("/inventory/create-inventory")}
+          >
+            Create
+          </BlueButton>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
           {inventory.map((item) => (

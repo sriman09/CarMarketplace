@@ -92,9 +92,29 @@ const CreateModal: FC<ModalProps> = ({
         </>
       );
     } else if (modalFor === "models") {
-      return <div>Models</div>;
-    } else if (modalFor === "inventory") {
-      return <div>Inventory</div>;
+      return (
+        <>
+          <span className="text-2xl font-bold">Create Model</span>
+          <form className="flex flex-col gap-2 py-5">
+            <div className="flex flex-col gap-1">
+              <label>Model Name</label>
+              <input
+                type="text"
+                placeholder="Model Name"
+                className="border-2 px-2 py-1"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label>Type</label>
+              <select className="border-2 px-2 py-1">
+                <option>Select</option>
+                <option>Admin</option>
+                <option>Employee</option>
+              </select>
+            </div>
+          </form>
+        </>
+      );
     }
   };
   return (

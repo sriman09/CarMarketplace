@@ -10,36 +10,13 @@ import DeleteModal from "../components/DeleteModal";
 import { useRecoilState } from "recoil";
 import { Model, modelState } from "@/app/_utils/atom";
 import axios from "axios";
-let models = [
-  {
-    id: 1,
-    brandName: "BMW",
-    modelName: "X7",
-  },
-  {
-    id: 2,
-    brandName: "BMW",
-    modelName: "X7",
-  },
-  {
-    id: 3,
-    brandName: "BMW",
-    modelName: "X7",
-  },
-  {
-    id: 4,
-    brandName: "BMW",
-    modelName: "X7",
-  },
-  {
-    id: 5,
-    brandName: "BMW",
-    modelName: "X7",
-  },
-];
+import CreateModal from "../components/CreateModal";
+
 function page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
+
   const [models, setModels] = useRecoilState<Model[]>(modelState);
   const [page, setPage] = useState<number>(1);
 
@@ -71,13 +48,19 @@ function page() {
   const handleDeleteModalYesClick = () => {
     console.log("Delete Modal Clicked!");
   };
+
+  const handleCreateModalYesClick = () => {
+    console.log("Created...");
+  };
   return (
     <>
       <BackButton back={false} />
       <div className="flex flex-col mt-10">
         <div className="flex flex-row justify-between">
           <SearchBar placeholder="Search Models" inputRef={inputRef} />
-          <BlueButton>Create Model</BlueButton>
+          <BlueButton onClick={() => setShowCreateModal(true)}>
+            Create Model
+          </BlueButton>
         </div>
         <div className="overflow-x-scroll bg-white mt-5">
           <table className="w-full border-collapse border border-gray-300  text-xs md:text-sm lg:text-base">
@@ -124,6 +107,13 @@ function page() {
           setShowDeleteModal={setShowDeleteModal}
           modalContent={modalContent}
           handleDeleteModalYesClick={handleDeleteModalYesClick}
+          loader={loader}
+        />
+        <CreateModal
+          showModal={showCreateModal}
+          setShowModal={setShowCreateModal}
+          modalFor="models"
+          handleModalYesClick={handleCreateModalYesClick}
           loader={loader}
         />
       </div>
