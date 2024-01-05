@@ -5,6 +5,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { RecoilRoot } from "recoil";
+import ReactModal from "react-modal";
+
+ReactModal.setAppElement("#admin");
 
 let adminRoutes = [
   {
@@ -50,7 +53,7 @@ export default function AuthLayout({
   };
   return (
     <RecoilRoot>
-      <div className="w-full flex flex-row h-screen">
+      <div className="w-full flex flex-row h-screen" id="admin">
         <div className="w-1/4 bg-white hidden md:flex flex-col p-2 font-bold text-xl text-[#8C8C8C] shadow-2xl pt-20 gap-5 px-20">
           {adminRoutes.map((item) => (
             <Link href={item.route} id={item.id} key={item.id}>

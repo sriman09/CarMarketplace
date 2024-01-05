@@ -8,14 +8,17 @@ import SearchBar from "../components/SearchBar";
 import BackButton from "../components/BackButton";
 import DeleteModal from "../components/DeleteModal";
 import { useRecoilState } from "recoil";
-import { Model, modelState } from "@/app/_utils/atom";
+import { modelState } from "@/app/_utils/atom";
 import axios from "axios";
 import CreateModal from "../components/CreateModal";
+import EditModal from "../components/EditModal";
+import { Model } from "@/app/_utils/types";
 
 function page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
+  const [showEditModal, setShowEditModal] = useState<boolean>(false);
 
   const [models, setModels] = useRecoilState<Model[]>(modelState);
   const [page, setPage] = useState<number>(1);
@@ -52,6 +55,10 @@ function page() {
   const handleCreateModalYesClick = () => {
     console.log("Created...");
   };
+
+  const handleEditModalYesClick = () => {
+    console.log("Edited...");
+  };
   return (
     <>
       <BackButton back={false} />
@@ -80,7 +87,7 @@ function page() {
                   <td className="py-2 px-4">{item.modelName}</td>
                   <td className="py-2 px-4">{item.brandName}</td>
                   <td className="py-2 px-4 flex gap-3 justify-center">
-                    <button>
+                    <button onClick={() => setShowEditModal(true)}>
                       <Image
                         src={edit_icon}
                         alt="edit"
@@ -115,6 +122,14 @@ function page() {
           modalFor="models"
           handleModalYesClick={handleCreateModalYesClick}
           loader={loader}
+        />
+        <EditModal
+          showModal={showEditModal}
+          setShowModal={setShowEditModal}
+          modalFor="models"
+          handleModalYesClick={handleEditModalYesClick}
+          loader={loader}
+          editData={""}
         />
       </div>
     </>

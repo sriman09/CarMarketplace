@@ -8,16 +8,20 @@ import SearchBar from "../components/SearchBar";
 import BackButton from "../components/BackButton";
 import DeleteModal from "../components/DeleteModal";
 import { useRecoilState } from "recoil";
-import { brandState, Brand } from "@/app/_utils/atom";
+import { brandState } from "@/app/_utils/atom";
 import axios from "axios";
 import CreateModal from "../components/CreateModal";
+import EditModal from "../components/EditModal";
+import { Brand } from "@/app/_utils/types";
 
 function page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
+  const [showEditModal, setShowEditModal] = useState<boolean>(false);
 
   const [brands, setBrands] = useRecoilState<Brand[]>(brandState);
+  const [editData, setEditData] = useState<any>({});
 
   const [loading, setLoading] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState({
@@ -57,6 +61,15 @@ function page() {
 
   const handleCreateModalYesClick = () => {
     console.log("Created...");
+  };
+
+  const handleEditClick = (item: Brand) => {
+    setEditData(item);
+    setShowEditModal(true);
+  };
+
+  const handleEditModalYesClick = () => {
+    console.log("Edited...");
   };
 
   if (loading) {
@@ -100,7 +113,7 @@ function page() {
                   </td>
 
                   <td className="py-2 px-4 flex gap-3 justify-center">
-                    <button>
+                    <button onClick={() => handleEditClick(item)}>
                       <Image
                         src={edit_icon}
                         alt="edit"
@@ -122,20 +135,34 @@ function page() {
             </tbody>
           </table>
         </div>
-        <DeleteModal
-          showDeleteModal={showDeleteModal}
-          setShowDeleteModal={setShowDeleteModal}
-          modalContent={modalContent}
-          handleDeleteModalYesClick={handleDeleteModalYesClick}
-          loader={loader}
-        />
-        <CreateModal
-          showModal={showCreateModal}
-          setShowModal={setShowCreateModal}
-          modalFor="brands"
-          handleModalYesClick={handleCreateModalYesClick}
-          loader={loader}
-        />
+        {showDeleteModal && (
+          <DeleteModal
+            showDeleteModal={showDeleteModal}
+            setShowDeleteModal={setShowDeleteModal}
+            modalContent={modalContent}
+            handleDeleteModalYesClick={handleDeleteModalYesClick}
+            loader={loader}
+          />
+        )}
+        {showCreateModal && (
+          <CreateModal
+            showModal={showCreateModal}
+            setShowModal={setShowCreateModal}
+            modalFor="brands"
+            handleModalYesClick={handleCreateModalYesClick}
+            loader={loader}
+          />
+        )}
+        {showEditModal && (
+          <EditModal
+            showModal={showEditModal}
+            setShowModal={setShowEditModal}
+            modalFor="brands"
+            handleModalYesClick={handleEditModalYesClick}
+            loader={loader}
+            editData={editData}
+          />
+        )}
       </div>
     </>
   );

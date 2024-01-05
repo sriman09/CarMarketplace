@@ -1,42 +1,56 @@
 import Modal from "react-modal";
-import { FC } from "react";
+import { FC, useState } from "react";
 
-interface ModalProps {
+interface EditModalProps {
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   handleModalYesClick: () => void;
   loader: boolean;
   modalFor: string;
+  editData: any;
 }
 
-const CreateModal: FC<ModalProps> = ({
+const EditModal: FC<EditModalProps> = ({
   showModal,
   setShowModal,
   handleModalYesClick,
   loader,
   modalFor,
+  editData,
 }) => {
+  const [firstName, setFirstName] = useState<string>(editData?.firstName);
+  const [lastName, setLastName] = useState<string>(editData?.lastName);
+  const [email, setEmail] = useState<string>(editData?.email);
+  const [type, setType] = useState<string>(editData?.type);
+
+  const [brandName, setBrandName] = useState<string>(editData?.brandName);
+  const [logo, setLogo] = useState<string>(editData?.logo);
+
+  console.log("editData", editData);
+
   const renderModal = () => {
     if (modalFor === "user") {
       return (
         <>
-          <span className="text-2xl font-bold">Create User</span>
+          <span className="text-2xl font-bold">Edit User</span>
           <form className="flex flex-col gap-2 py-5">
             <div className="flex flex-col md:flex-row gap-2">
               <div className="flex flex-col gap-2">
                 <label>First Name</label>
                 <input
                   type="text"
-                  placeholder="First Name"
                   className="border-2 px-2 py-1"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-2">
                 <label>Last Name</label>
                 <input
                   type="text"
-                  placeholder="Last Name"
                   className="border-2 px-2 py-1"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                 />
               </div>
             </div>
@@ -44,24 +58,21 @@ const CreateModal: FC<ModalProps> = ({
               <label>Email</label>
               <input
                 type="email"
-                placeholder="Email"
-                className="border-2 px-2 py-1"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label>Password</label>
-              <input
-                type="password"
-                placeholder="Password"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="border-2 px-2 py-1"
               />
             </div>
             <div className="flex flex-col gap-2">
               <label>Type</label>
-              <select className="border-2 px-2 py-1">
-                <option>Select</option>
-                <option>Admin</option>
-                <option>Employee</option>
+              <select
+                className="border-2 px-2 py-1"
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+              >
+                <option value="">Select</option>
+                <option value="admin">Admin</option>
+                <option value="employee">Employee</option>
               </select>
             </div>
           </form>
@@ -70,21 +81,23 @@ const CreateModal: FC<ModalProps> = ({
     } else if (modalFor === "brands") {
       return (
         <>
-          <span className="text-2xl font-bold">Create Brand</span>
-          <form className="flex flex-col gap-2 py-5">
-            <div className="flex flex-col gap-1">
+          <span className="text-2xl font-bold">Edit Brand</span>
+          <form className="flex flex-col gap-2 py-5 w-full">
+            <div className="flex flex-col gap-1 w-full">
               <label>Brand Name</label>
               <input
                 type="text"
-                placeholder="Brand Name"
+                value={brandName}
+                onChange={(e) => setBrandName(e.target.value)}
                 className="border-2 px-2 py-1"
               />
             </div>
             <div className="flex flex-col gap-1">
               <label>Logo</label>
               <input
-                type="file"
-                placeholder="Logo"
+                type="text"
+                value={logo}
+                onChange={(e) => setLogo(e.target.value)}
                 className="border-2 px-2 py-1"
               />
             </div>
@@ -94,12 +107,14 @@ const CreateModal: FC<ModalProps> = ({
     } else if (modalFor === "models") {
       return (
         <>
-          <span className="text-2xl font-bold">Create Model</span>
-          <form className="flex flex-col gap-2 py-5 w-full">
+          <span className="text-2xl font-bold">Edit Model</span>
+          <form className="flex flex-col gap-2 py-5">
             <div className="flex flex-col gap-1">
               <label>Brand</label>
               <select className="border-2 px-2 py-1">
                 <option value="">Select</option>
+                <option value="hatchback">HatchBack</option>
+                <option value="suv">SUV</option>
               </select>
             </div>
             <div className="flex flex-col gap-2">
@@ -115,6 +130,7 @@ const CreateModal: FC<ModalProps> = ({
       );
     }
   };
+
   return (
     <Modal
       isOpen={showModal}
@@ -160,4 +176,4 @@ const CreateModal: FC<ModalProps> = ({
   );
 };
 
-export default CreateModal;
+export default EditModal;

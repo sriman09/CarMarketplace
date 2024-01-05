@@ -8,15 +8,20 @@ import { useEffect, useRef, useState } from "react";
 import BackButton from "../components/BackButton";
 import DeleteModal from "../components/DeleteModal";
 import { useRecoilState } from "recoil";
-import { Brand, User, userState } from "@/app/_utils/atom";
+import { userState } from "@/app/_utils/atom";
 import axios from "axios";
 import CreateModal from "../components/CreateModal";
+import EditModal from "../components/EditModal";
+import { User } from "@/app/_utils/types";
 
 function page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
+  const [showEditModal, setShowEditModal] = useState<boolean>(false);
+
   const [users, setUsers] = useRecoilState<User[]>(userState);
+  const [editData, setEditData] = useState<any>({});
 
   const [loading, setLoading] = useState(false);
 
@@ -53,6 +58,11 @@ function page() {
     setShowDeleteModal(true);
   };
 
+  const handleEditClick = (item: User) => {
+    setEditData(item);
+    setShowEditModal(true);
+  };
+
   const handleDeleteModalYesClick = () => {
     console.log("Delete Modal Clicked!");
   };
@@ -60,6 +70,11 @@ function page() {
   const handleCreateModalYesClick = () => {
     console.log("Created...");
   };
+
+  const handleEditModalYesClick = () => {
+    console.log("Created...");
+  };
+
   return (
     <>
       <BackButton back={false} />
@@ -92,7 +107,7 @@ function page() {
                   <td className="py-2 px-4">{item.email}</td>
                   <td className="py-2 px-4">{item.type}</td>
                   <td className="py-2 px-4 flex gap-3 justify-center">
-                    <button>
+                    <button onClick={() => handleEditClick(item)}>
                       <Image
                         src={edit_icon}
                         alt="edit"
@@ -121,13 +136,26 @@ function page() {
           handleDeleteModalYesClick={handleDeleteModalYesClick}
           loader={loader}
         />
-        <CreateModal
-          showModal={showCreateModal}
-          setShowModal={setShowCreateModal}
-          modalFor="user"
-          handleModalYesClick={handleCreateModalYesClick}
-          loader={loader}
-        />
+        {showCreateModal && (
+          <CreateModal
+            showModal={showCreateModal}
+            setShowModal={setShowCreateModal}
+            modalFor="user"
+            handleModalYesClick={handleCreateModalYesClick}
+            loader={loader}
+          />
+        )}
+
+        {showEditModal && (
+          <EditModal
+            showModal={showEditModal}
+            setShowModal={setShowEditModal}
+            modalFor="user"
+            handleModalYesClick={handleEditModalYesClick}
+            loader={loader}
+            editData={editData}
+          />
+        )}
       </div>
     </>
   );
