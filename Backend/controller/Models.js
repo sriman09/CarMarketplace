@@ -110,10 +110,51 @@ const deleteModel = async (req, res) => {
   }
 };
 
+const searchModels = async (req, res) => {
+  const searchQuery = req.body.searchQuery;
+  const pipeline = [
+    {
+      $match: {
+        modelName: { $regex: new RegExp(searchQuery, "i") }, // Case-insensitive regex search
+      },
+    },
+    {
+      $lookup: {
+        from: "brands",
+        localField: "brandId",
+        foreignField: "_id",
+        as: "brand",
+      },
+    },
+    {
+      $unwind: "$brand",
+    },
+    {
+      $project: {
+        _id: 1,
+        modelName: 1,
+        brandName: "$brand.brandName",
+        brandId: 1,
+      },
+    },
+  ];
+
+  try {
+    const models = await Models.aggregate(pipeline);
+    res.status(200).json({
+      message: "Success",
+      models: models,
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   registerModel,
   editModelData,
   deleteModel,
   getModelsForBrand,
   getAllModels,
+  searchModels,
 };

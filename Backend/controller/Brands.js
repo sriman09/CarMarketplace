@@ -62,9 +62,34 @@ const deleteBrand = async (req, res) => {
   }
 };
 
+//Search
+const searchBrands = async (req, res) => {
+  const searchQuery = req.body.searchQuery;
+  const pipeline = [
+    {
+      $match: {
+        brandName: {
+          $regex: new RegExp(searchQuery, "i"),
+        },
+      },
+    },
+  ];
+
+  try {
+    const brands = await Brands.aggregate(pipeline);
+    res.status(200).json({
+      message: "Success",
+      brands: brands,
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   getAllBrands,
   registerBrand,
   deleteBrand,
   editBrandData,
+  searchBrands,
 };

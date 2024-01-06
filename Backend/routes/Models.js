@@ -6,6 +6,7 @@ const {
   deleteModel,
   getModelsForBrand,
   getAllModels,
+  searchModels,
 } = require("../controller/Models");
 const authenticateJWT = require("../middleware/authenticateJWT");
 const router = express.Router();
@@ -15,5 +16,6 @@ router.put("/edit-model/:id", authenticateJWT, editModelData);
 router.put("/delete-model/:id", authenticateJWT, deleteModel);
 router.get("/get-model-by-brandId/:brandId", getModelsForBrand);
 router.get("/get-models", getAllModels);
+router.get("/search-models", searchModels);
 
 module.exports = router;

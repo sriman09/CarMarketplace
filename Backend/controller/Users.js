@@ -82,7 +82,7 @@ const getAllUsers = async (req, res) => {
         type: 1,
       }
     );
-    res.json({
+    res.status(200).json({
       message: "Success",
       users: allUsers,
     });
@@ -92,4 +92,29 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser, getAllUsers };
+const searchUsers = async (req, res) => {
+  const searchQuery = req.body.searchQuery;
+  const pipeline = [
+    {
+      $match: {
+        $or: [
+          { firstName: { $regex: new RegExp(searchQuery, "i") } },
+          { lastName: { $regex: new RegExp(searchQuery, "i") } },
+          { email: { $regex: new RegExp(searchQuery, "i") } },
+        ],
+      },
+    },
+  ];
+
+  try {
+    const users = await Users.aggregate(pipeline);
+    res.status(200).json({
+      message: "Success",
+      users: users,
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = { registerUser, loginUser, getAllUsers, searchUsers };

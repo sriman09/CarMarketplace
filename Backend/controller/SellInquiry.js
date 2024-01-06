@@ -43,4 +43,31 @@ const getEnquiry = async (req, res) => {
   }
 };
 
-module.exports = { createInquiry, getEnquiry };
+const searchSellInquiries = async (req, res) => {
+  const searchQuery = req.body.searchQuery;
+  const pipeline = [
+    {
+      $match: {
+        $or: [
+          { name: { $regex: new RegExp(searchQuery, "i") } },
+          { email: { $regex: new RegExp(searchQuery, "i") } },
+          { phone: { $regex: new RegExp(searchQuery, "i") } },
+          { brand: { $regex: new RegExp(searchQuery, "i") } },
+          { model: { $regex: new RegExp(searchQuery, "i") } },
+        ],
+      },
+    },
+  ];
+
+  try {
+    const enquiries = await SellInquiry.aggregate(pipeline);
+    res.status(200).json({
+      message: "success",
+      enquiries: enquiries,
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = { createInquiry, getEnquiry, searchSellInquiries };
