@@ -48,7 +48,7 @@ export default function AuthLayout({
   const router = useRouter();
 
   const handleLogout = () => {
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem("userInfo");
     router.push("/login");
   };
   return (

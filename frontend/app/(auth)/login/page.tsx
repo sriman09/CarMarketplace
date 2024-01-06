@@ -18,13 +18,13 @@ function page() {
         password: passwordRef.current.value,
       };
       const res = await axios.post("http://localhost:8000/api/login", payload);
-      localStorage.setItem("accessToken", res.data.userInfo.accessToken);
+      localStorage.setItem("userInfo", JSON.stringify(res.data.userInfo));
       router.push("/dashboard");
     }
   };
 
   useLayoutEffect(() => {
-    if (localStorage.getItem("accessToken")) {
+    if (localStorage.getItem("userInfo")) {
       router.push("/dashboard");
     }
   }, []);

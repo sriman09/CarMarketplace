@@ -9,8 +9,6 @@ const hashPassword = async (password) => {
   return hashPassword;
 };
 
-const secretKey = process.env.JWT_TOKEN_KEY;
-
 const registerUser = async (req, res) => {
   try {
     const { firstName, lastName, email, password, type } = req.body;
@@ -48,7 +46,7 @@ const loginUser = async (req, res) => {
     if (user && (await bcrypt.compare(password, user.password))) {
       const accessToken = jwt.sign(
         { email: user.email, id: user._id },
-        secretKey
+        "Banda"
       );
       return res.status(200).json({
         message: "Success",

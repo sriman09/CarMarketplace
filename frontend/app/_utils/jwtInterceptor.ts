@@ -11,11 +11,14 @@ const jwtInterceptor = axios.create({
 });
 
 jwtInterceptor.interceptors.request.use((config: any) => {
-  const accessTokenString: string | null = localStorage.getItem("accessToken");
-  const userInfo: string | null = accessTokenString ? accessTokenString : null;
+  console.log("localStorage", localStorage.getItem("userInfo"));
+  const accessTokenString: any = localStorage.getItem("userInfo");
+  const userInfo: any = accessTokenString
+    ? JSON.parse(accessTokenString)
+    : null;
 
   if (userInfo) {
-    config.headers["authorization"] = `bearer ${userInfo}`;
+    config.headers["authorization"] = `${userInfo.accessToken}`;
   }
   config._originalContentType = config.headers["Content-Type"];
 
