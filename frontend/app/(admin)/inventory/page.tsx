@@ -6,10 +6,12 @@ import BlueButton from "../components/BlueButton";
 import bwm_img from "../../../public/assets/bmw.jpg";
 import Image from "next/image";
 import { useRecoilState } from "recoil";
-import { Inventory, inventoryState } from "@/app/_utils/atom";
+import { inventoryState } from "@/app/_utils/atom";
 import axios from "axios";
 import CreateModal from "../components/CreateModal";
 import { useRouter } from "next/navigation";
+import { Inventory } from "@/app/_utils/types";
+import { inventoryServices } from "@/app/_utils/apiServices";
 
 function Page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -17,8 +19,8 @@ function Page() {
   const router = useRouter();
 
   const getAllInventory = async () => {
-    const response = await axios.get("http://localhost:8000/cars/get-all-cars");
-    setInventory(response.data.data);
+    const response = await inventoryServices.getInventoryForAdmin();
+    setInventory(response.data);
   };
 
   useEffect(() => {
@@ -39,8 +41,11 @@ function Page() {
           </BlueButton>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
-          {inventory.map((item) => (
-            <button className="flex flex-row bg-white rounded-md shadow-lg gap-3">
+          {inventory.map((item, index) => (
+            <button
+              className="flex flex-row bg-white rounded-md shadow-lg gap-3"
+              key={index}
+            >
               <Image
                 src={bwm_img}
                 alt="car_image"

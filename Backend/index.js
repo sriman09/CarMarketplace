@@ -10,21 +10,26 @@ const SellInquiryRoutes = require("./routes/SellInquiry");
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 const PORT = process.env.PORT || 8001;
 
 app.use(express.json());
 
-app.use("/cars", carRoutes);
+app.use("/api", carRoutes);
 
-app.use("/brands", brandRoutes);
+app.use("/api", brandRoutes);
 
-app.use("/models", modelsRoutes);
+app.use("/api", modelsRoutes);
 
-app.use("/users", usersRoutes);
+app.use("/api", usersRoutes);
 
-app.use("/inquiry", SellInquiryRoutes);
+app.use("/api", SellInquiryRoutes);
 
 app.use("/", (req, res) => {
   res.send("API is working");

@@ -17,10 +17,7 @@ function page() {
         email: emailRef.current.value,
         password: passwordRef.current.value,
       };
-      const res = await axios.post(
-        "http://localhost:8000/users/login",
-        payload
-      );
+      const res = await axios.post("http://localhost:8000/api/login", payload);
       localStorage.setItem("accessToken", res.data.userInfo.accessToken);
       router.push("/dashboard");
     }

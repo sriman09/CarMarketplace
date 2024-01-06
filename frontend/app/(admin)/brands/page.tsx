@@ -13,6 +13,7 @@ import axios from "axios";
 import CreateModal from "../components/CreateModal";
 import EditModal from "../components/EditModal";
 import { Brand } from "@/app/_utils/types";
+import { brandServices } from "@/app/_utils/apiServices";
 
 function page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -31,17 +32,8 @@ function page() {
   });
 
   const getBrands = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get(
-        "http://localhost:8000/brands/get-brands"
-      );
-      setBrands(response.data.brands);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching brands:", error);
-      setLoading(false);
-    }
+    const response = await brandServices.getBrands();
+    setBrands(response.brands);
   };
 
   useEffect(() => {

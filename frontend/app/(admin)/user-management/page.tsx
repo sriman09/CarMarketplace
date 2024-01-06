@@ -13,6 +13,7 @@ import axios from "axios";
 import CreateModal from "../components/CreateModal";
 import EditModal from "../components/EditModal";
 import { User } from "@/app/_utils/types";
+import { userServices } from "@/app/_utils/apiServices";
 
 function page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -33,17 +34,8 @@ function page() {
   let loader = false;
 
   const getAllUsers = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get(
-        "http://localhost:8000/users/get-all-users"
-      );
-      setUsers(response.data.users);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-      setLoading(false);
-    }
+    const response = await userServices.getUsers();
+    setUsers(response.users);
   };
 
   useEffect(() => {

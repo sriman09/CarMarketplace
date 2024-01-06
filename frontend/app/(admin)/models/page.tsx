@@ -13,6 +13,7 @@ import axios from "axios";
 import CreateModal from "../components/CreateModal";
 import EditModal from "../components/EditModal";
 import { Model } from "@/app/_utils/types";
+import { modelServices } from "@/app/_utils/apiServices";
 
 function page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -21,6 +22,7 @@ function page() {
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
 
   const [models, setModels] = useRecoilState<Model[]>(modelState);
+  const [editData, setEditData] = useState<any>([]);
   const [page, setPage] = useState<number>(1);
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -33,10 +35,8 @@ function page() {
   let loader = false;
 
   const getModels = async () => {
-    const response = await axios.get(
-      `http://localhost:8000/models/get-models?&page=${page}`
-    );
-    setModels(response.data.models);
+    const response = await modelServices.getModels(1);
+    setModels(response.models);
   };
 
   useEffect(() => {
@@ -109,28 +109,34 @@ function page() {
             </tbody>
           </table>
         </div>
-        <DeleteModal
-          showDeleteModal={showDeleteModal}
-          setShowDeleteModal={setShowDeleteModal}
-          modalContent={modalContent}
-          handleDeleteModalYesClick={handleDeleteModalYesClick}
-          loader={loader}
-        />
-        <CreateModal
-          showModal={showCreateModal}
-          setShowModal={setShowCreateModal}
-          modalFor="models"
-          handleModalYesClick={handleCreateModalYesClick}
-          loader={loader}
-        />
-        <EditModal
-          showModal={showEditModal}
-          setShowModal={setShowEditModal}
-          modalFor="models"
-          handleModalYesClick={handleEditModalYesClick}
-          loader={loader}
-          editData={""}
-        />
+        {showDeleteModal && (
+          <DeleteModal
+            showDeleteModal={showDeleteModal}
+            setShowDeleteModal={setShowDeleteModal}
+            modalContent={modalContent}
+            handleDeleteModalYesClick={handleDeleteModalYesClick}
+            loader={loader}
+          />
+        )}
+        {showCreateModal && (
+          <CreateModal
+            showModal={showCreateModal}
+            setShowModal={setShowCreateModal}
+            modalFor="models"
+            handleModalYesClick={handleCreateModalYesClick}
+            loader={loader}
+          />
+        )}
+        {showEditModal && (
+          <EditModal
+            showModal={showEditModal}
+            setShowModal={setShowEditModal}
+            modalFor="models"
+            handleModalYesClick={handleEditModalYesClick}
+            loader={loader}
+            editData={editData}
+          />
+        )}
       </div>
     </>
   );

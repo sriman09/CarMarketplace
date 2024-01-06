@@ -9,6 +9,7 @@ import DeleteModal from "../components/DeleteModal";
 import { useRecoilState } from "recoil";
 import { Enquiry, enquiryState } from "@/app/_utils/atom";
 import axios from "axios";
+import { enquiryServices } from "@/app/_utils/apiServices";
 function Page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
@@ -24,10 +25,8 @@ function Page() {
   let loader = false;
 
   const getAllEnquiry = async () => {
-    const response = await axios.get(
-      "http://localhost:8000/inquiry/get-enquiry"
-    );
-    setSellInquiry(response.data.enquiries);
+    const response = await enquiryServices.getEnquiry();
+    setSellInquiry(response.enquiries);
   };
 
   useEffect(() => {
