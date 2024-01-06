@@ -6,8 +6,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { RecoilRoot } from "recoil";
 import ReactModal from "react-modal";
-
-ReactModal.setAppElement("#admin");
+import { Userinfo } from "../_utils/types";
 
 let adminRoutes = [
   {
@@ -46,6 +45,10 @@ export default function AuthLayout({
 }) {
   const [activeTab, setActiveTab] = useState<string>("dashboard");
   const router = useRouter();
+  const userInfoString: string | null = localStorage.getItem("userInfo");
+  const userInfo: Userinfo | null = userInfoString
+    ? JSON.parse(userInfoString)
+    : null;
 
   const handleLogout = () => {
     localStorage.removeItem("userInfo");
@@ -64,7 +67,7 @@ export default function AuthLayout({
         <div className="w-full md:w-3/4 flex flex-col bg-[#EFF6FF] overflow-y-scroll">
           <div className="flex flex-row justify-between px-2 md:px-8 lg:px-20 mt-5 items-center">
             <span className="font-bold text-base md:text-xl lg:text-2xl text-[#8C8C8C]">
-              Welcome, Srimanvit Pattanaik
+              Welcome,{userInfo?.name}
             </span>
             <button
               className="bg-blue-500 text-white rounded-md p-2 whitespace-nowrap"

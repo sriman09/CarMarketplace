@@ -48,3 +48,23 @@ export interface Enquiry {
   model: string;
   year: number;
 }
+
+export interface Userinfo {
+  name: string;
+  accessToken: string;
+  email: string;
+  type: string;
+}
+
+export interface UserPayload {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  type: string;
+}
+
+export interface ModelPayload {
+  modelName: string;
+  brandId: string;
+}

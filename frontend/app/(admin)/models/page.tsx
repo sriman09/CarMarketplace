@@ -8,12 +8,12 @@ import SearchBar from "../components/SearchBar";
 import BackButton from "../components/BackButton";
 import DeleteModal from "../components/DeleteModal";
 import { useRecoilState } from "recoil";
-import { modelState } from "@/app/_utils/atom";
+import { brandState, modelState } from "@/app/_utils/atom";
 import axios from "axios";
 import CreateModal from "../components/CreateModal";
 import EditModal from "../components/EditModal";
-import { Model } from "@/app/_utils/types";
-import { modelServices } from "@/app/_utils/apiServices";
+import { Brand, Model } from "@/app/_utils/types";
+import { brandServices, modelServices } from "@/app/_utils/apiServices";
 
 function page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -22,6 +22,8 @@ function page() {
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
 
   const [models, setModels] = useRecoilState<Model[]>(modelState);
+  const [brands, setBrands] = useRecoilState<Brand[]>(brandState);
+
   const [editData, setEditData] = useState<any>([]);
   const [page, setPage] = useState<number>(1);
 
@@ -38,6 +40,14 @@ function page() {
     const response = await modelServices.getModels(1);
     setModels(response.models);
   };
+  const getBrands = async () => {
+    const response = await brandServices.getBrands();
+    setBrands(response.brands);
+  };
+
+  useEffect(() => {
+    if (brands.length === 0) getBrands();
+  }, []);
 
   useEffect(() => {
     getModels();

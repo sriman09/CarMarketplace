@@ -1,5 +1,9 @@
 import Modal from "react-modal";
-import { FC } from "react";
+import { FC, useRef } from "react";
+import { modelServices, userServices } from "@/app/_utils/apiServices";
+import { Brand, ModelPayload, User, UserPayload } from "@/app/_utils/types";
+import { useRecoilState } from "recoil";
+import { brandState } from "@/app/_utils/atom";
 
 interface ModalProps {
   showModal: boolean;
@@ -16,6 +20,66 @@ const CreateModal: FC<ModalProps> = ({
   loader,
   modalFor,
 }) => {
+  const [brands, setBrands] = useRecoilState<Brand[]>(brandState);
+
+  // User
+  const firstNameRef = useRef<HTMLInputElement | null>(null);
+  const lastNameRef = useRef<HTMLInputElement | null>(null);
+  const emailRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+  const typeRef = useRef<HTMLSelectElement | null>(null);
+
+  //Models
+  const modelNameRef = useRef<HTMLInputElement | null>(null);
+  const brandRef = useRef<HTMLSelectElement | null>(null);
+
+  const handleYesClick = async () => {
+    if (modalFor === "user") {
+      if (
+        firstNameRef.current?.value &&
+        lastNameRef.current?.value &&
+        emailRef.current?.value &&
+        passwordRef.current?.value &&
+        typeRef.current?.value
+      ) {
+        const payload: UserPayload = {
+          firstName: firstNameRef.current.value,
+          lastName: lastNameRef.current.value,
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
+          type: typeRef.current.value,
+        };
+        const response = await userServices.registerUser(payload);
+        setShowModal(false);
+        firstNameRef.current.value = "";
+        lastNameRef.current.value = "";
+        emailRef.current.value = "";
+        passwordRef.current.value = "";
+        typeRef.current.value = "";
+      } else {
+        alert("Please provide all details");
+      }
+    } else if (modalFor === "models") {
+      console.log(
+        "payload",
+        modelNameRef.current?.value,
+        brandRef.current?.value
+      );
+      if (modelNameRef.current?.value && brandRef.current?.value) {
+        const payload: ModelPayload = {
+          brandId: brandRef.current.value,
+          modelName: modelNameRef.current.value,
+        };
+        const response = await modelServices.registerModels(payload);
+        setShowModal(false);
+        modelNameRef.current.value = "";
+        brandRef.current.value = "";
+        alert(response.message);
+      } else {
+        alert("Please provide all the required field");
+      }
+    }
+  };
   const renderModal = () => {
     if (modalFor === "user") {
       return (
@@ -29,6 +93,7 @@ const CreateModal: FC<ModalProps> = ({
                   type="text"
                   placeholder="First Name"
                   className="border-2 px-2 py-1"
+                  ref={firstNameRef}
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -37,6 +102,7 @@ const CreateModal: FC<ModalProps> = ({
                   type="text"
                   placeholder="Last Name"
                   className="border-2 px-2 py-1"
+                  ref={lastNameRef}
                 />
               </div>
             </div>
@@ -46,6 +112,7 @@ const CreateModal: FC<ModalProps> = ({
                 type="email"
                 placeholder="Email"
                 className="border-2 px-2 py-1"
+                ref={emailRef}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -54,14 +121,15 @@ const CreateModal: FC<ModalProps> = ({
                 type="password"
                 placeholder="Password"
                 className="border-2 px-2 py-1"
+                ref={passwordRef}
               />
             </div>
             <div className="flex flex-col gap-2">
               <label>Type</label>
-              <select className="border-2 px-2 py-1">
-                <option>Select</option>
-                <option>Admin</option>
-                <option>Employee</option>
+              <select className="border-2 px-2 py-1" ref={typeRef}>
+                <option value="">Select</option>
+                <option value="admin">Admin</option>
+                <option value="employee">Employee</option>
               </select>
             </div>
           </form>
@@ -98,8 +166,13 @@ const CreateModal: FC<ModalProps> = ({
           <form className="flex flex-col gap-2 py-5 w-full">
             <div className="flex flex-col gap-1">
               <label>Brand</label>
-              <select className="border-2 px-2 py-1">
+              <select className="border-2 px-2 py-1" ref={brandRef}>
                 <option value="">Select</option>
+                {brands.map((brand, index) => (
+                  <option key={index} value={brand._id}>
+                    {brand.brandName}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="flex flex-col gap-2">
@@ -108,6 +181,7 @@ const CreateModal: FC<ModalProps> = ({
                 type="text"
                 placeholder="Model Name"
                 className="border-2 px-2 py-1"
+                ref={modelNameRef}
               />
             </div>
           </form>
@@ -139,7 +213,7 @@ const CreateModal: FC<ModalProps> = ({
           {!loader ? (
             <>
               <button
-                onClick={handleModalYesClick}
+                onClick={handleYesClick}
                 className="font-semibold text-white px-5 py-2  w-2/5 md:w-1/3 rounded-md bg-blue-500"
               >
                 Yes

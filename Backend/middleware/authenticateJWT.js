@@ -3,8 +3,6 @@ require("dotenv").config();
 
 const authenticateJWT = (req, res, next) => {
   const token = req.header("Authorization");
-
-  console.log(token);
   if (!token) {
     return res.status(200).json({
       message: "Unauthorized User",
