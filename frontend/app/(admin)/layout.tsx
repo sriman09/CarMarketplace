@@ -1,44 +1,11 @@
 "use client";
 import Image from "next/image";
-import cover from "../../public/assets/auth_cover.png";
-import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { RecoilRoot } from "recoil";
-import ReactModal from "react-modal";
 import { Userinfo } from "../_utils/types";
 import DeleteModal from "./components/DeleteModal";
-
-let adminRoutes = [
-  {
-    id: "dashboard",
-    route: "/dashboard",
-  },
-  {
-    id: "enquiry",
-    route: "/enquiry",
-  },
-  {
-    id: "inventory",
-    route: "/inventory",
-  },
-  {
-    id: "user",
-    route: "/user-management",
-  },
-  {
-    id: "brands",
-    route: "/brands",
-  },
-  {
-    id: "models",
-    route: "/models",
-  },
-  {
-    id: "profile",
-    route: "/profile",
-  },
-];
+import { adminRoutes } from "./sidebarData";
 export default function AuthLayout({
   children,
 }: {
@@ -61,14 +28,29 @@ export default function AuthLayout({
     localStorage.removeItem("userInfo");
     router.push("/login");
   };
+
+  const handleSideButtonClick = (item: any) => {
+    router.push(item.route);
+    setActiveTab(item.id);
+  };
   return (
     <RecoilRoot>
       <div className="w-full flex flex-row h-screen" id="admin">
-        <div className="w-1/4 bg-white hidden md:flex flex-col p-2 font-bold text-xl text-[#8C8C8C] shadow-2xl pt-20 gap-5 px-20">
+        <div className="w-1/4 bg-white hidden md:flex flex-col p-2 font-bold text-xl text-indigo-500 shadow-2xl pt-20">
           {adminRoutes.map((item) => (
-            <Link href={item.route} id={item.id} key={item.id}>
+            <button
+              onClick={() => handleSideButtonClick(item)}
+              key={item.id}
+              id={item.id}
+              className={`flex items-center gap-3 w-full px-10 lg:px-20 py-5 ${
+                activeTab === item.id
+                  ? "bg-slate-200 border-r-4 border-indigo-500"
+                  : "text-[#8C8C8C] grayscale"
+              }`}
+            >
+              <Image src={item.logo} alt={item.id} height={25} width={25} />
               {item.id.charAt(0).toUpperCase() + item.id.slice(1)}
-            </Link>
+            </button>
           ))}
         </div>
         <div className="w-full md:w-3/4 flex flex-col bg-[#EFF6FF] overflow-y-scroll">
