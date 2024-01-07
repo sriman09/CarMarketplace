@@ -63,10 +63,6 @@ function page() {
     console.log("Created...");
   };
 
-  const handleEditModalYesClick = () => {
-    console.log("Created...");
-  };
-
   return (
     <>
       <BackButton back={false} />
@@ -143,7 +139,6 @@ function page() {
             showModal={showEditModal}
             setShowModal={setShowEditModal}
             modalFor="user"
-            handleModalYesClick={handleEditModalYesClick}
             loader={loader}
             editData={editData}
           />

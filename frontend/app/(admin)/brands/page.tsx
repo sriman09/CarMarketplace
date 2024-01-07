@@ -60,10 +60,6 @@ function page() {
     setShowEditModal(true);
   };
 
-  const handleEditModalYesClick = () => {
-    console.log("Edited...");
-  };
-
   if (loading) {
     return <h2>Loading...</h2>;
   }
@@ -150,7 +146,6 @@ function page() {
             showModal={showEditModal}
             setShowModal={setShowEditModal}
             modalFor="brands"
-            handleModalYesClick={handleEditModalYesClick}
             loader={loader}
             editData={editData}
           />

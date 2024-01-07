@@ -1,10 +1,12 @@
 import Modal from "react-modal";
 import { FC, useState } from "react";
+import { useRecoilState } from "recoil";
+import { Brand } from "@/app/_utils/types";
+import { brandState } from "@/app/_utils/atom";
 
 interface EditModalProps {
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-  handleModalYesClick: () => void;
   loader: boolean;
   modalFor: string;
   editData: any;
@@ -13,18 +15,24 @@ interface EditModalProps {
 const EditModal: FC<EditModalProps> = ({
   showModal,
   setShowModal,
-  handleModalYesClick,
   loader,
   modalFor,
   editData,
 }) => {
+  //User
   const [firstName, setFirstName] = useState<string>(editData?.firstName);
   const [lastName, setLastName] = useState<string>(editData?.lastName);
   const [email, setEmail] = useState<string>(editData?.email);
   const [type, setType] = useState<string>(editData?.type);
 
+  //Brands
   const [brandName, setBrandName] = useState<string>(editData?.brandName);
   const [logo, setLogo] = useState<string>(editData?.logo);
+
+  //Models
+  const [brands, setBrands] = useRecoilState<Brand[]>(brandState);
+  const [brandId, setBrandId] = useState<string>(editData?.brandId);
+  const [modelName, setModelName] = useState<string>(editData?.modelName);
 
   console.log("editData", editData);
 
@@ -111,10 +119,17 @@ const EditModal: FC<EditModalProps> = ({
           <form className="flex flex-col gap-2 py-5">
             <div className="flex flex-col gap-1">
               <label>Brand</label>
-              <select className="border-2 px-2 py-1">
+              <select
+                className="border-2 px-2 py-1"
+                value={brandId}
+                onChange={(e) => setBrandId(e.target.value)}
+              >
                 <option value="">Select</option>
-                <option value="hatchback">HatchBack</option>
-                <option value="suv">SUV</option>
+                {brands.map((brand) => (
+                  <option key={brand._id} value={brand._id}>
+                    {brand.brandName}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="flex flex-col gap-2">
@@ -123,12 +138,18 @@ const EditModal: FC<EditModalProps> = ({
                 type="text"
                 placeholder="Model Name"
                 className="border-2 px-2 py-1"
+                value={modelName}
+                onChange={(e) => setModelName(e.target.value)}
               />
             </div>
           </form>
         </>
       );
     }
+  };
+
+  const handleModalYesClick = () => {
+    console.log("Clicked");
   };
 
   return (

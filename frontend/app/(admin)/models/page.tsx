@@ -9,7 +9,6 @@ import BackButton from "../components/BackButton";
 import DeleteModal from "../components/DeleteModal";
 import { useRecoilState } from "recoil";
 import { brandState, modelState } from "@/app/_utils/atom";
-import axios from "axios";
 import CreateModal from "../components/CreateModal";
 import EditModal from "../components/EditModal";
 import { Brand, Model } from "@/app/_utils/types";
@@ -66,8 +65,9 @@ function page() {
     console.log("Created...");
   };
 
-  const handleEditModalYesClick = () => {
-    console.log("Edited...");
+  const handleEditModalClick = (item: Model) => {
+    setShowEditModal(true);
+    setEditData(item);
   };
   return (
     <>
@@ -97,7 +97,7 @@ function page() {
                   <td className="py-2 px-4">{item.modelName}</td>
                   <td className="py-2 px-4">{item.brandName}</td>
                   <td className="py-2 px-4 flex gap-3 justify-center">
-                    <button onClick={() => setShowEditModal(true)}>
+                    <button onClick={() => handleEditModalClick(item)}>
                       <Image
                         src={edit_icon}
                         alt="edit"
@@ -142,7 +142,6 @@ function page() {
             showModal={showEditModal}
             setShowModal={setShowEditModal}
             modalFor="models"
-            handleModalYesClick={handleEditModalYesClick}
             loader={loader}
             editData={editData}
           />
