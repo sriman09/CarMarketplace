@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { RecoilRoot } from "recoil";
 import ReactModal from "react-modal";
 import { Userinfo } from "../_utils/types";
+import DeleteModal from "./components/DeleteModal";
 
 let adminRoutes = [
   {
@@ -44,6 +45,12 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   const [activeTab, setActiveTab] = useState<string>("dashboard");
+  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [modalContent, setModalContent] = useState({
+    title: "Sign Out",
+    subtitle: "Are you sure you want to Sign Out.",
+    name: " ",
+  });
   const router = useRouter();
   const userInfoString: string | null = localStorage.getItem("userInfo");
   const userInfo: Userinfo | null = userInfoString
@@ -71,12 +78,21 @@ export default function AuthLayout({
             </span>
             <button
               className="bg-blue-500 text-white rounded-md p-2 whitespace-nowrap"
-              onClick={() => handleLogout()}
+              onClick={() => setShowDeleteModal(true)}
             >
               Sign out
             </button>
           </div>
           <div className="px-2 md:px-8 lg:px-20">{children}</div>
+          {showDeleteModal && (
+            <DeleteModal
+              showDeleteModal={showDeleteModal}
+              setShowDeleteModal={setShowDeleteModal}
+              modalContent={modalContent}
+              handleDeleteModalYesClick={handleLogout}
+              loader={false}
+            />
+          )}
         </div>
       </div>
     </RecoilRoot>
