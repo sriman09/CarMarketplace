@@ -1,9 +1,14 @@
 import Modal from "react-modal";
-import { FC, useRef } from "react";
-import { modelServices, userServices } from "@/app/_utils/apiServices";
+import { ChangeEvent, FC, useRef, useState } from "react";
+import {
+  brandServices,
+  modelServices,
+  userServices,
+} from "@/app/_utils/apiServices";
 import { Brand, ModelPayload, User, UserPayload } from "@/app/_utils/types";
 import { useRecoilState } from "recoil";
 import { brandState } from "@/app/_utils/atom";
+import axios from "axios";
 
 interface ModalProps {
   showModal: boolean;
@@ -32,6 +37,14 @@ const CreateModal: FC<ModalProps> = ({
   //Models
   const modelNameRef = useRef<HTMLInputElement | null>(null);
   const brandRef = useRef<HTMLSelectElement | null>(null);
+
+  //Brands
+  const brandNameRef = useRef<HTMLInputElement | null>(null);
+  const [selectedFiles, setSelectedFiles] = useState<File | null>();
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.target.files && setSelectedFiles(e.target.files[0]);
+  };
 
   const handleYesClick = async () => {
     if (modalFor === "user") {
@@ -77,6 +90,22 @@ const CreateModal: FC<ModalProps> = ({
         alert(response.message);
       } else {
         alert("Please provide all the required field");
+      }
+    } else if (modalFor === "brands") {
+      if (!selectedFiles) {
+        alert("Please select at least one file");
+        return;
+      }
+
+      try {
+        const formData = new FormData();
+
+        formData.append(`file`, selectedFiles);
+
+        formData.append("brandName", brandNameRef.current?.value);
+        await brandServices.registerBrands(formData);
+      } catch (error: any) {
+        console.error("Error uploading files:", error.message);
       }
     }
   };
@@ -146,6 +175,7 @@ const CreateModal: FC<ModalProps> = ({
                 type="text"
                 placeholder="Brand Name"
                 className="border-2 px-2 py-1"
+                ref={brandNameRef}
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -154,6 +184,7 @@ const CreateModal: FC<ModalProps> = ({
                 type="file"
                 placeholder="Logo"
                 className="border-2 px-2 py-1"
+                onChange={handleFileChange}
               />
             </div>
           </form>

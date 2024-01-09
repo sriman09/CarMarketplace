@@ -20,7 +20,8 @@ const getAllBrands = async (req, res) => {
 const registerBrand = async (req, res) => {
   try {
     const { brandName } = req.body;
-    const brand = new Brands({ brandName });
+    const filePath = req.filePaths;
+    const brand = new Brands({ brandName, logo: filePath });
     await brand.save();
     res.status(200).json({
       message: "Brand register Successfully",
