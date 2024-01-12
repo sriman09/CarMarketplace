@@ -3,7 +3,7 @@ const Brands = require("../models/Brands");
 //Get
 const getAllBrands = async (req, res) => {
   try {
-    const brands = await Brands.find();
+    const brands = await Brands.find({ isDeleted: { $ne: 1 } });
     res.status(200).json({
       message: "Success",
       brands: brands,
@@ -73,6 +73,7 @@ const searchBrands = async (req, res) => {
   const pipeline = [
     {
       $match: {
+        isDeleted: { $ne: 1 },
         brandName: {
           $regex: new RegExp(searchQuery, "i"),
         },

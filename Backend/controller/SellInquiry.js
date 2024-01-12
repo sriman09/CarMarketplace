@@ -30,7 +30,7 @@ const createInquiry = async (req, res) => {
 
 const getEnquiry = async (req, res) => {
   try {
-    const enquiries = await SellInquiry.find();
+    const enquiries = await SellInquiry.find({ isDeleted: { $ne: 1 } });
     res.status(200).json({
       message: "success",
       enquiries: enquiries,
@@ -48,6 +48,7 @@ const searchSellInquiries = async (req, res) => {
   const pipeline = [
     {
       $match: {
+        isDeleted: { $ne: 1 },
         $or: [
           { name: { $regex: new RegExp(searchQuery, "i") } },
           { email: { $regex: new RegExp(searchQuery, "i") } },

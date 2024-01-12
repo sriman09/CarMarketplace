@@ -73,14 +73,8 @@ const loginUser = async (req, res) => {
 const getAllUsers = async (req, res) => {
   try {
     const allUsers = await Users.find(
-      {},
-      {
-        _id: 1,
-        firstName: 1,
-        lastName: 1,
-        email: 1,
-        type: 1,
-      }
+      { isDeleted: { $ne: 1 } },
+      "firstName lastName email type"
     );
     res.status(200).json({
       message: "Success",
@@ -97,6 +91,7 @@ const searchUsers = async (req, res) => {
   const pipeline = [
     {
       $match: {
+        isDeleted: { $ne: 1 },
         $or: [
           { firstName: { $regex: new RegExp(searchQuery, "i") } },
           { lastName: { $regex: new RegExp(searchQuery, "i") } },

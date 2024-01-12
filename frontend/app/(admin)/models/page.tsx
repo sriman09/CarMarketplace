@@ -32,6 +32,7 @@ function page() {
     title: "Delete ",
     subtitle: "Are you sure you want to delete this model",
     name: "",
+    deleteId: "",
   });
 
   let loader = false;
@@ -53,17 +54,24 @@ function page() {
     getModels();
   }, [page]);
 
-  const handleDeleteClick = (name: string) => {
-    setModalContent((prev) => ({ ...prev, name: name }));
+  const handleDeleteClick = (item: any) => {
+    setModalContent((prev) => ({
+      ...prev,
+      name: item.name,
+      deleteId: item._id,
+    }));
     setShowDeleteModal(true);
   };
 
   const handleDeleteModalYesClick = () => {
-    console.log("Delete Modal Clicked!");
+    modelServices.deleteModel(modalContent.deleteId).then(() => {
+      setShowDeleteModal(false);
+      getModels();
+    });
   };
 
   const handleCreateModalYesClick = () => {
-    console.log("Created...");
+    console.log("Create Modal Clicked!");
   };
 
   const handleEditModalClick = (item: Model) => {
@@ -122,7 +130,7 @@ function page() {
                         width={20}
                       />
                     </button>
-                    <button onClick={() => handleDeleteClick(item.modelName)}>
+                    <button onClick={() => handleDeleteClick(item)}>
                       <Image
                         src={delete_icon}
                         alt="edit"

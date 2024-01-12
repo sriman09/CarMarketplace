@@ -30,6 +30,7 @@ function page() {
     title: "Delete",
     subtitle: "Are you sure you want to delete this brand",
     name: "",
+    deleteId: "",
   });
 
   const getBrands = async () => {
@@ -44,12 +45,19 @@ function page() {
   let loader = false;
 
   const handleDeleteClick = (item: Brand) => {
-    setModalContent((prev) => ({ ...prev, name: item.brandName }));
+    setModalContent((prev) => ({
+      ...prev,
+      name: item.brandName,
+      deleteId: item._id,
+    }));
     setShowDeleteModal(true);
   };
 
   const handleDeleteModalYesClick = () => {
-    console.log("Delete Modal Clicked!");
+    brandServices.deleteBrand(modalContent.deleteId).then(() => {
+      setShowDeleteModal(false);
+      getBrands();
+    });
   };
 
   const handleCreateModalYesClick = () => {

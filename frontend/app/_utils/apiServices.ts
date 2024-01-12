@@ -50,6 +50,21 @@ export const modelServices = {
       console.log(error);
     }
   },
+  deleteModel: async (id: string) => {
+    try {
+      const response = await jwtInterceptor.delete(`/delete-model/${id}`);
+      toast.success(response.data.message, {
+        position: "top-right",
+        theme: "dark",
+      });
+      return response.data;
+    } catch (error: any) {
+      toast.error(error.message, {
+        position: "top-right",
+        theme: "dark",
+      });
+    }
+  },
 };
 
 export const brandServices = {
@@ -87,6 +102,21 @@ export const brandServices = {
       console.log(error);
     }
   },
+  deleteBrand: async (id: string) => {
+    try {
+      const response = await jwtInterceptor.delete(`/delete-brand/${id}`);
+      toast.success(response.data.message, {
+        position: "top-right",
+        theme: "dark",
+      });
+      return response.data;
+    } catch (error: any) {
+      toast.error(error.message, {
+        position: "top-right",
+        theme: "dark",
+      });
+    }
+  },
 };
 
 export const userServices = {
@@ -119,6 +149,21 @@ export const userServices = {
       return response.data;
     } catch (error) {
       console.log(error);
+    }
+  },
+  deleteUser: async (id: string) => {
+    try {
+      const response = await jwtInterceptor.delete(`/delete-user/${id}`);
+      toast.success(response.data.message, {
+        position: "top-right",
+        theme: "dark",
+      });
+      return response.data;
+    } catch (error: any) {
+      toast.error(error.message, {
+        position: "top-right",
+        theme: "dark",
+      });
     }
   },
 };
@@ -158,6 +203,21 @@ export const inventoryServices = {
       console.log(error);
     }
   },
+  deleteCar: async (id: string) => {
+    try {
+      const response = await jwtInterceptor.delete(`/delete-car/${id}`);
+      toast.success(response.data.message, {
+        position: "top-right",
+        theme: "dark",
+      });
+      return response.data;
+    } catch (error: any) {
+      toast.error(error.message, {
+        position: "top-right",
+        theme: "dark",
+      });
+    }
+  },
 };
 
 export const enquiryServices = {
@@ -175,6 +235,21 @@ export const enquiryServices = {
       return response.data;
     } catch (error) {
       console.log(error);
+    }
+  },
+  deleteEnquiry: async (id: string) => {
+    try {
+      const response = await jwtInterceptor.delete(`/delete-inquiry/${id}`);
+      toast.success(response.data.message, {
+        position: "top-right",
+        theme: "dark",
+      });
+      return response.data;
+    } catch (error: any) {
+      toast.error(error.message, {
+        position: "top-right",
+        theme: "dark",
+      });
     }
   },
 };

@@ -22,7 +22,10 @@ const registerModel = async (req, res) => {
 const getModelsForBrand = async (req, res) => {
   const brandId = req.params.brandId;
   try {
-    const models = await Models.find({ brandId: brandId });
+    const models = await Models.find({
+      brandId: brandId,
+      isDeleted: { $ne: 1 },
+    });
     res.status(200).json({
       models: models,
     });
@@ -40,6 +43,11 @@ const getAllModels = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const pageSize = 10;
     const pipeline = [
+      {
+        $match: {
+          isDeleted: { $ne: 1 },
+        },
+      },
       {
         $lookup: {
           from: "brands",
@@ -119,6 +127,7 @@ const searchModels = async (req, res) => {
   const pipeline = [
     {
       $match: {
+        isDeleted: { $ne: 1 },
         modelName: { $regex: new RegExp(searchQuery, "i") }, // Case-insensitive regex search
       },
     },

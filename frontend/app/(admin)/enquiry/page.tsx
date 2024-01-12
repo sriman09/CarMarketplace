@@ -21,6 +21,7 @@ function Page() {
     title: "Delete",
     subtitle: "Are you sure you want to delete this enquiry",
     name: "",
+    deleteId: "",
   });
 
   let loader = false;
@@ -34,12 +35,19 @@ function Page() {
     if (sellinquiry.length === 0) getAllEnquiry();
   }, []);
 
-  const handleDeleteClick = (name: string) => {
-    setModalContent((prev) => ({ ...prev, name: name }));
+  const handleDeleteClick = (item: any) => {
+    setModalContent((prev) => ({
+      ...prev,
+      name: item.name,
+      deleteId: item._id,
+    }));
     setShowDeleteModal(true);
   };
   const handleDeleteModalYesClick = () => {
-    console.log("Delete Modal Clicked!");
+    enquiryServices.deleteEnquiry(modalContent.deleteId).then(() => {
+      getAllEnquiry();
+      setShowDeleteModal(false);
+    });
   };
   const handleSearch = async () => {
     if (inputRef.current?.value && inputRef.current?.value.length > 0) {
@@ -107,7 +115,7 @@ function Page() {
                         alt="edit"
                         height={20}
                         width={20}
-                        onClick={() => handleDeleteClick(item.name)}
+                        onClick={() => handleDeleteClick(item)}
                       />
                     </button>
                   </td>

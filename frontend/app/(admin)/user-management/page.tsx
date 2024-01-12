@@ -13,7 +13,7 @@ import axios from "axios";
 import CreateModal from "../components/CreateModal";
 import EditModal from "../components/EditModal";
 import { User } from "@/app/_utils/types";
-import { userServices } from "@/app/_utils/apiServices";
+import { modelServices, userServices } from "@/app/_utils/apiServices";
 import { toast } from "react-toastify";
 
 function page() {
@@ -31,6 +31,7 @@ function page() {
     title: "Delete",
     subtitle: "Are you sure you want to delete this User",
     name: "",
+    deleteId: "",
   });
   let loader = false;
 
@@ -47,6 +48,7 @@ function page() {
     setModalContent((prev) => ({
       ...prev,
       name: item.firstName + " " + item.lastName,
+      deleteId: item._id,
     }));
     setShowDeleteModal(true);
   };
@@ -57,7 +59,10 @@ function page() {
   };
 
   const handleDeleteModalYesClick = () => {
-    console.log("Delete Modal Clicked!");
+    userServices.deleteUser(modalContent.deleteId).then(() => {
+      setShowDeleteModal(false);
+      getAllUsers();
+    });
   };
 
   const handleCreateModalYesClick = () => {
