@@ -25,6 +25,10 @@ const SellInquirySchema = mongoose.Schema({
     type: Number,
     require: true,
   },
+  isDeleted: {
+    type: Number,
+    default: 0,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

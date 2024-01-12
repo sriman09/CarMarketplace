@@ -9,6 +9,10 @@ const BrandSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  isDeleted: {
+    type: Number,
+    default: 0,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

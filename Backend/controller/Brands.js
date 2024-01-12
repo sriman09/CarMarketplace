@@ -51,7 +51,11 @@ const editBrandData = async (req, res) => {
 const deleteBrand = async (req, res) => {
   try {
     const id = req.params.id;
-    await Brands.findByIdAndDelete(id);
+    await Brands.findOneAndUpdate(
+      { _id: id },
+      { $set: { isDeleted: 1 } },
+      { new: true }
+    );
     res.status(200).json({
       message: "Brand Deleted Successfully",
     });

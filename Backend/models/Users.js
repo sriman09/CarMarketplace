@@ -22,6 +22,10 @@ const UserSchema = new mongoose.Schema({
     enum: ["admin", "employee"],
     required: true,
   },
+  isDeleted: {
+    type: Number,
+    default: 0,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

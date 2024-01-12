@@ -8,7 +8,6 @@ import edit_icon from "../../../public/assets/edit-icon.svg";
 import DeleteModal from "../components/DeleteModal";
 import { useRecoilState } from "recoil";
 import { enquiryState } from "@/app/_utils/atom";
-import axios from "axios";
 import { enquiryServices } from "@/app/_utils/apiServices";
 import { Enquiry } from "@/app/_utils/types";
 import { toast } from "react-toastify";

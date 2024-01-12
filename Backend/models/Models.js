@@ -11,6 +11,10 @@ const ModelSchema = new mongoose.Schema({
     ref: "Brands",
     required: true,
   },
+  isDeleted: {
+    type: Number,
+    default: 0,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

@@ -98,7 +98,11 @@ const editModelData = async (req, res) => {
 const deleteModel = async (req, res) => {
   try {
     const id = req.params.id;
-    await Models.findByIdAndDelete(id);
+    await Models.findOneAndUpdate(
+      { _id: id },
+      { $set: { isDeleted: 1 } },
+      { new: true }
+    );
     res.status(200).json({
       message: "Model Deleted Successfully",
     });
