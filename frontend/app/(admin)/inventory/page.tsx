@@ -12,6 +12,7 @@ import CreateModal from "../components/CreateModal";
 import { useRouter } from "next/navigation";
 import { Inventory } from "@/app/_utils/types";
 import { inventoryServices } from "@/app/_utils/apiServices";
+import { toast } from "react-toastify";
 
 function Page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -28,12 +29,28 @@ function Page() {
       getAllInventory();
     }
   }, []);
+
+  const handleSearch = async () => {
+    if (inputRef.current?.value && inputRef.current?.value.length > 0) {
+      const response = await inventoryServices.searchCars({
+        searchQuery: inputRef.current?.value,
+      });
+      setInventory(response.data);
+    } else {
+      toast.error("Please enter something.");
+    }
+  };
+
   return (
     <>
       <BackButton back={false} />
       <div className="flex flex-col mt-5 md:mt-10">
         <div className="flex flex-row justify-between">
-          <SearchBar placeholder="Search Inventory" inputRef={inputRef} />
+          <SearchBar
+            placeholder="Search Inventory"
+            inputRef={inputRef}
+            handleSearch={handleSearch}
+          />
           <BlueButton
             onClick={() => router.push("/inventory/create-inventory")}
           >

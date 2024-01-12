@@ -5,9 +5,14 @@ import { RefObject } from "react";
 interface SearchBarProps {
   placeholder: string;
   inputRef: RefObject<HTMLInputElement>;
+  handleSearch: () => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ placeholder, inputRef }) => {
+const SearchBar: React.FC<SearchBarProps> = ({
+  placeholder,
+  inputRef,
+  handleSearch,
+}) => {
   return (
     <div className="bg-white border-2 border-blue-500 rounded flex justify-between px-2">
       <input
@@ -16,7 +21,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ placeholder, inputRef }) => {
         ref={inputRef}
         className="px-2 py-1 border-0 focus:outline-none w-44 md:w-72"
       />
-      <button>
+      <button onClick={handleSearch}>
         <Image src={search_icon} alt="search" height={20} width={20} />
       </button>
     </div>

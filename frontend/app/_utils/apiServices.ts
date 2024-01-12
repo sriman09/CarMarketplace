@@ -1,6 +1,12 @@
 import { toast } from "react-toastify";
 import jwtInterceptor from "./jwtInterceptor";
-import { CarPayload, ModelPayload, User, UserPayload } from "./types";
+import {
+  CarPayload,
+  ModelPayload,
+  SearchPayload,
+  User,
+  UserPayload,
+} from "./types";
 
 export const modelServices = {
   getModels: async (page: number) => {
@@ -36,6 +42,14 @@ export const modelServices = {
       });
     }
   },
+  searchModels: async (payload: SearchPayload) => {
+    try {
+      const response = await jwtInterceptor.post(`/search-models`, payload);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 
 export const brandServices = {
@@ -65,6 +79,14 @@ export const brandServices = {
       });
     }
   },
+  searchBrands: async (payload: SearchPayload) => {
+    try {
+      const response = await jwtInterceptor.post(`/search-brands`, payload);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 
 export const userServices = {
@@ -89,6 +111,14 @@ export const userServices = {
         position: "top-right",
         theme: "dark",
       });
+    }
+  },
+  searchUsers: async (payload: SearchPayload) => {
+    try {
+      const response = await jwtInterceptor.post(`/search-users`, payload);
+      return response.data;
+    } catch (error) {
+      console.log(error);
     }
   },
 };
@@ -120,12 +150,28 @@ export const inventoryServices = {
       });
     }
   },
+  searchCars: async (payload: SearchPayload) => {
+    try {
+      const response = await jwtInterceptor.post(`/search-cars`, payload);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 
 export const enquiryServices = {
   getEnquiry: async () => {
     try {
       const response = await jwtInterceptor.get(`/get-enquiry`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  searchEnquiry: async (payload: SearchPayload) => {
+    try {
+      const response = await jwtInterceptor.post(`/search-enquiry`, payload);
       return response.data;
     } catch (error) {
       console.log(error);

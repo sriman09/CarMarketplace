@@ -16,6 +16,6 @@ router.put("/edit-model/:id", authenticateJWT, editModelData);
 router.put("/delete-model/:id", authenticateJWT, deleteModel);
 router.get("/get-model-by-brandId/:brandId", getModelsForBrand);
 router.get("/get-models", getAllModels);
-router.get("/search-models", searchModels);
+router.post("/search-models", searchModels);
 
 module.exports = router;

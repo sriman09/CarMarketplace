@@ -190,6 +190,7 @@ const searchCars = async (req, res) => {
         color: 1,
         showPrice: 1,
         sold: 1,
+        images: 1,
       },
     },
     {

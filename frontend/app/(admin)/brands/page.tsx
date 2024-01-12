@@ -14,6 +14,7 @@ import CreateModal from "../components/CreateModal";
 import EditModal from "../components/EditModal";
 import { Brand } from "@/app/_utils/types";
 import { brandServices } from "@/app/_utils/apiServices";
+import { toast } from "react-toastify";
 
 function page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -60,6 +61,17 @@ function page() {
     setShowEditModal(true);
   };
 
+  const handleSearch = async () => {
+    if (inputRef.current?.value && inputRef.current?.value.length > 0) {
+      const response = await brandServices.searchBrands({
+        searchQuery: inputRef.current?.value,
+      });
+      setBrands(response.brands);
+    } else {
+      toast.error("Please enter something.");
+    }
+  };
+
   if (loading) {
     return <h2>Loading...</h2>;
   }
@@ -69,7 +81,11 @@ function page() {
       <BackButton back={false} />
       <div className="flex flex-col mt-10">
         <div className="flex flex-row justify-between">
-          <SearchBar placeholder="Search Brands" inputRef={inputRef} />
+          <SearchBar
+            placeholder="Search Brands"
+            inputRef={inputRef}
+            handleSearch={handleSearch}
+          />
           <BlueButton onClick={() => setShowCreateModal(true)}>
             Create Brand
           </BlueButton>

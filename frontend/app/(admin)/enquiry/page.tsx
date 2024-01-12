@@ -11,6 +11,7 @@ import { enquiryState } from "@/app/_utils/atom";
 import axios from "axios";
 import { enquiryServices } from "@/app/_utils/apiServices";
 import { Enquiry } from "@/app/_utils/types";
+import { toast } from "react-toastify";
 function Page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
@@ -41,12 +42,27 @@ function Page() {
   const handleDeleteModalYesClick = () => {
     console.log("Delete Modal Clicked!");
   };
+  const handleSearch = async () => {
+    if (inputRef.current?.value && inputRef.current?.value.length > 0) {
+      const response = await enquiryServices.searchEnquiry({
+        searchQuery: inputRef.current?.value,
+      });
+      setSellInquiry(response.enquiries);
+    } else {
+      toast.error("Please enter something.");
+    }
+  };
+
   return (
     <>
       <BackButton back={false} />
       <div className="flex flex-col mt-5 md:mt-10">
         <div className="flex flex-row justify-between">
-          <SearchBar placeholder="Search Enquiry" inputRef={inputRef} />
+          <SearchBar
+            placeholder="Search Enquiry"
+            inputRef={inputRef}
+            handleSearch={handleSearch}
+          />
         </div>
         <div className="overflow-x-scroll bg-white mt-5">
           <table className="w-full border-collapse border border-gray-300  text-xs md:text-sm lg:text-base">

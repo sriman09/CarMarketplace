@@ -14,6 +14,7 @@ import CreateModal from "../components/CreateModal";
 import EditModal from "../components/EditModal";
 import { User } from "@/app/_utils/types";
 import { userServices } from "@/app/_utils/apiServices";
+import { toast } from "react-toastify";
 
 function page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -63,12 +64,27 @@ function page() {
     console.log("Created...");
   };
 
+  const handleSearch = async () => {
+    if (inputRef.current?.value && inputRef.current?.value.length > 0) {
+      const response = await userServices.searchUsers({
+        searchQuery: inputRef.current?.value,
+      });
+      setUsers(response.users);
+    } else {
+      toast.error("Please enter something.");
+    }
+  };
+
   return (
     <>
       <BackButton back={false} />
       <div className="flex flex-col mt-5 md:mt-10">
         <div className="flex flex-row justify-between">
-          <SearchBar placeholder="Search User" inputRef={inputRef} />
+          <SearchBar
+            placeholder="Search User"
+            inputRef={inputRef}
+            handleSearch={handleSearch}
+          />
           <BlueButton onClick={() => setShowCreateModal(true)}>
             Create User
           </BlueButton>

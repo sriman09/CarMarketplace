@@ -83,3 +83,7 @@ export interface CarPayload {
   variant: string;
   images: string[];
 }
+
+export interface SearchPayload {
+  searchQuery: string;
+}

@@ -13,6 +13,7 @@ import CreateModal from "../components/CreateModal";
 import EditModal from "../components/EditModal";
 import { Brand, Model } from "@/app/_utils/types";
 import { brandServices, modelServices } from "@/app/_utils/apiServices";
+import { toast } from "react-toastify";
 
 function page() {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -69,12 +70,28 @@ function page() {
     setShowEditModal(true);
     setEditData(item);
   };
+
+  const handleSearch = async () => {
+    if (inputRef.current?.value && inputRef.current?.value.length > 0) {
+      const response = await modelServices.searchModels({
+        searchQuery: inputRef.current?.value,
+      });
+      setModels(response.models);
+    } else {
+      toast.error("Please enter something.");
+    }
+  };
+
   return (
     <>
       <BackButton back={false} />
       <div className="flex flex-col mt-10">
         <div className="flex flex-row justify-between">
-          <SearchBar placeholder="Search Models" inputRef={inputRef} />
+          <SearchBar
+            placeholder="Search Models"
+            inputRef={inputRef}
+            handleSearch={handleSearch}
+          />
           <BlueButton onClick={() => setShowCreateModal(true)}>
             Create Model
           </BlueButton>
