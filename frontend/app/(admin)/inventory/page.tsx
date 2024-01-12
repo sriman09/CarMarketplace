@@ -3,12 +3,9 @@ import React, { useEffect, useRef, useState } from "react";
 import BackButton from "../components/BackButton";
 import SearchBar from "../components/SearchBar";
 import BlueButton from "../components/BlueButton";
-import bwm_img from "../../../public/assets/bmw.jpg";
 import Image from "next/image";
 import { useRecoilState } from "recoil";
 import { inventoryState } from "@/app/_utils/atom";
-import axios from "axios";
-import CreateModal from "../components/CreateModal";
 import { useRouter } from "next/navigation";
 import { Inventory } from "@/app/_utils/types";
 import { inventoryServices } from "@/app/_utils/apiServices";
@@ -25,9 +22,7 @@ function Page() {
   };
 
   useEffect(() => {
-    if (inventory.length === 0) {
-      getAllInventory();
-    }
+    getAllInventory();
   }, []);
 
   const handleSearch = async () => {

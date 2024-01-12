@@ -17,8 +17,10 @@ import { Brand, Model } from "@/app/_utils/types";
 import { brandState, modelState } from "@/app/_utils/atom";
 import { useRecoilState } from "recoil";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 function page() {
+  const router = useRouter();
   const [files, setFiles] = useState<(File | null)[]>([null, null, null]);
   const [filePaths, setFilePaths] = useState<string[]>([]);
 
@@ -127,7 +129,7 @@ function page() {
       };
       console.log("Payload", payload);
       inventoryServices.registerCar(payload).then(() => {
-        console.log("Created...");
+        router.back();
       });
     } else {
       toast.error("Please Provide all the details.", {
