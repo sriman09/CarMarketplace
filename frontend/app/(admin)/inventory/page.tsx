@@ -46,10 +46,10 @@ function Page() {
               className="flex flex-row bg-white rounded-md shadow-lg gap-3"
               key={index}
             >
-              <Image
-                src={bwm_img}
+              <img
+                src={`https://car-marketplace.s3.ap-south-1.amazonaws.com/${item.images[0]}`}
                 alt="car_image"
-                className="h-32 w-44 object-fill"
+                className="w-44 h-32object-fill"
               />
               <div className="flex flex-col gap-1 items-start">
                 <span className="font-bold">

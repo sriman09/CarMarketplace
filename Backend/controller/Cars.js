@@ -4,7 +4,6 @@ const Cars = require("../models/Cars");
 const registerCar = async (req, res) => {
   try {
     const {
-      brand,
       model,
       year,
       price,
@@ -15,10 +14,9 @@ const registerCar = async (req, res) => {
       fuelType,
       kilometers,
       variant,
-      sold,
+      images,
     } = req.body;
     const Car = new Cars({
-      brand,
       model,
       year,
       price,
@@ -29,7 +27,7 @@ const registerCar = async (req, res) => {
       fuelType,
       kilometers,
       variant,
-      sold,
+      images,
     });
     await Car.save();
     res.status(200).json({
@@ -108,6 +106,7 @@ const getAllCars = async (req, res) => {
           color: 1,
           showPrice: 1,
           sold: 1,
+          images: 1,
         },
       },
     ];

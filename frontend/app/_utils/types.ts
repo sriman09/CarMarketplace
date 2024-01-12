@@ -37,6 +37,7 @@ export interface Inventory {
   sold: boolean;
   modelName: string;
   brandName: string;
+  images: string[];
 }
 
 export interface Enquiry {
@@ -67,4 +68,18 @@ export interface UserPayload {
 export interface ModelPayload {
   modelName: string;
   brandId: string;
+}
+
+export interface CarPayload {
+  model: string;
+  year: string;
+  price: string;
+  color: string;
+  seatingCapacity: string;
+  ownership: string;
+  vehicleType: string;
+  fuelType: string;
+  kilometers: string;
+  variant: string;
+  images: string[];
 }

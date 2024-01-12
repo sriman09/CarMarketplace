@@ -51,6 +51,10 @@ const CarsSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  images: {
+    type: [String],
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

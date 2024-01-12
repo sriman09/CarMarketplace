@@ -34,8 +34,9 @@ const imageUpload = async (req, res, next) => {
     return res.status(500).json({ error: "Error uploading files to S3" });
   }
 
-  req.filePaths = filePath;
-  next();
+  res.status(200).json({
+    path: filePath,
+  });
 };
 
 module.exports = { imageUpload };

@@ -23,6 +23,6 @@ router.post(
 router.put("/edit-brand/:id", authenticateJWT, editBrandData);
 router.delete("/delete-brand/:id", authenticateJWT, deleteBrand);
 router.get("/search-brands", searchBrands);
-router.post("/upload", upload.array("file", 5), imageUpload);
+router.post("/upload-image", upload.single("file"), imageUpload);
 
 module.exports = router;
