@@ -9,7 +9,6 @@ import BackButton from "../components/BackButton";
 import DeleteModal from "../components/DeleteModal";
 import { useRecoilState } from "recoil";
 import { brandState } from "@/app/_utils/atom";
-import axios from "axios";
 import CreateModal from "../components/CreateModal";
 import EditModal from "../components/EditModal";
 import { Brand } from "@/app/_utils/types";

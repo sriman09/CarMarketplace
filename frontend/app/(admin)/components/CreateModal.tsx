@@ -9,7 +9,6 @@ import {
 import { Brand, ModelPayload, User, UserPayload } from "@/app/_utils/types";
 import { useRecoilState } from "recoil";
 import { brandState } from "@/app/_utils/atom";
-import axios from "axios";
 
 interface ModalProps {
   showModal: boolean;
