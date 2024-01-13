@@ -33,7 +33,7 @@ function EnquiryPage() {
 
   useEffect(() => {
     if (sellinquiry.length === 0) getAllEnquiry();
-  }, []);
+  });
 
   const handleDeleteClick = (item: any) => {
     setModalContent((prev) => ({

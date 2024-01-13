@@ -1,3 +1,4 @@
+"use client";
 interface BlueButtonProps {
   children: string;
   onClick: () => void;

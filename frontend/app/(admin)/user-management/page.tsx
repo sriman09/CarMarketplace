@@ -41,7 +41,7 @@ function UsersPage() {
 
   useEffect(() => {
     if (users.length === 0) getAllUsers();
-  }, []);
+  });
 
   const handleDeleteClick = (item: User) => {
     setModalContent((prev) => ({

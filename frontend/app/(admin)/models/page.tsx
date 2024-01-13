@@ -48,11 +48,11 @@ function ModelsPage() {
 
   useEffect(() => {
     if (brands.length === 0) getBrands();
-  }, []);
+  });
 
   useEffect(() => {
     getModels();
-  }, [page]);
+  });
 
   const handleDeleteClick = (item: any) => {
     setModalContent((prev) => ({

@@ -1,5 +1,4 @@
 import React from "react";
-import hero_img from "../../public/assets/hero.jpg";
 import Image from "next/image";
 import filter from "../../public/assets/filter.svg";
 function Hero() {

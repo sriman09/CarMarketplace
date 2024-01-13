@@ -39,7 +39,7 @@ function BrandsPage() {
 
   useEffect(() => {
     if (brands.length === 0) getBrands();
-  }, []);
+  });
 
   let loader = false;
 

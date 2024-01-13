@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Modal from "react-modal";
 import delete_img from "../../../public/assets/delete_img.jpeg";
