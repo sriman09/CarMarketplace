@@ -12,8 +12,8 @@ function HowItWork() {
         <p className="text-gray-300 text-4xl font-bold">HOW IT WORKS</p>
         <p className="text-gray-400">
           Buying used luxury cars in India was never this easy. You can now own
-          your dream luxury car in just 4 simple steps at Big Boy Toyz, India's
-          trusted used car portal.
+          your dream luxury car in just 4 simple steps at Big Boy Toyz,
+          India&apos;s trusted used car portal.
         </p>
         <div className="w-full flex gap-5 mt-5">
           <div className="w-1/4 flex flex-col items-center gap-4">

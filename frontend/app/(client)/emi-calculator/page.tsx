@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-function page() {
+function EmiCalculator() {
   const [principal, setPrincipal] = useState<number>(0);
   const [rate, setRate] = useState<number>(0);
   const [time, setTime] = useState<number>(0);
@@ -55,4 +55,4 @@ function page() {
   );
 }
 
-export default page;
+export default EmiCalculator;

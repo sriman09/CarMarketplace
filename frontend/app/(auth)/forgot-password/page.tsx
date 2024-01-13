@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-export default function Page() {
+export default function ForgotPassword() {
   return (
     <div className="flex flex-col w-full px-8 md:px-16 gap-4">
       <span className="text-2xl font-bold">No Problem!</span>

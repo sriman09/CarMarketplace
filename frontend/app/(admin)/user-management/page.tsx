@@ -16,7 +16,7 @@ import { User } from "@/app/_utils/types";
 import { modelServices, userServices } from "@/app/_utils/apiServices";
 import { toast } from "react-toastify";
 
-function page() {
+function UsersPage() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
@@ -169,4 +169,4 @@ function page() {
   );
 }
 
-export default page;
+export default UsersPage;

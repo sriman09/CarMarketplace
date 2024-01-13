@@ -1,3 +1,4 @@
+"use client";
 import Modal from "react-modal";
 import { ChangeEvent, FC, useRef, useState } from "react";
 import {
@@ -102,7 +103,8 @@ const CreateModal: FC<ModalProps> = ({
 
         formData.append(`file`, selectedFiles);
 
-        formData.append("brandName", brandNameRef.current?.value);
+        const brandNameValue = brandNameRef.current?.value || "";
+        formData.append("brandName", brandNameValue);
         await brandServices.registerBrands(formData);
       } catch (error: any) {
         console.error("Error uploading files:", error.message);

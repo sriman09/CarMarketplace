@@ -19,7 +19,7 @@ import { useRecoilState } from "recoil";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
-function page() {
+function CreateInventory() {
   const router = useRouter();
   const [files, setFiles] = useState<(File | null)[]>([null, null, null]);
   const [filePaths, setFilePaths] = useState<string[]>([]);
@@ -50,7 +50,7 @@ function page() {
 
   const handleBrandChange = async () => {
     const response = await modelServices.getModelsByBrandId(
-      brandRef?.current?.value
+      brandRef?.current?.value || ""
     );
     setModels(response.models);
   };
@@ -338,4 +338,4 @@ function page() {
   );
 }
 
-export default page;
+export default CreateInventory;

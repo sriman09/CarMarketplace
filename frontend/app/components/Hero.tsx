@@ -11,7 +11,7 @@ function Hero() {
       >
         <div className="w-full flex flex-col gap-2 px-10 md:px-28 h-full pt-32">
           <span className="text-white text-[60px] font-bold">
-            LET'S KEEP IT SIMPLE.
+            LET&apos;S KEEP IT SIMPLE.
           </span>
           <span className="text-[#ffffff73] text-[27px]">
             We are the best when it comes to Cars.

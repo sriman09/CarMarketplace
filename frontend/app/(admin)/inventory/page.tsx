@@ -11,7 +11,7 @@ import { Inventory } from "@/app/_utils/types";
 import { inventoryServices } from "@/app/_utils/apiServices";
 import { toast } from "react-toastify";
 
-function Page() {
+function InventoryPage() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [inventory, setInventory] = useRecoilState<Inventory[]>(inventoryState);
   const router = useRouter();
@@ -80,4 +80,4 @@ function Page() {
   );
 }
 
-export default Page;
+export default InventoryPage;

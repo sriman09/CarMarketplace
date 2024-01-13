@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FormEvent, useLayoutEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
-function page() {
+function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
@@ -72,4 +72,4 @@ function page() {
   );
 }
 
-export default page;
+export default Login;

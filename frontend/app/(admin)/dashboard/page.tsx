@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 
-const Page: React.FC = () => {
+const Dashboard: React.FC = () => {
   return <div>Dashboard</div>;
 };
 
-export default Page;
+export default Dashboard;

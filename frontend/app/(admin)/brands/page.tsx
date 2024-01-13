@@ -16,7 +16,7 @@ import { Brand } from "@/app/_utils/types";
 import { brandServices } from "@/app/_utils/apiServices";
 import { toast } from "react-toastify";
 
-function page() {
+function BrandsPage() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
@@ -179,4 +179,4 @@ function page() {
   );
 }
 
-export default page;
+export default BrandsPage;

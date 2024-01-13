@@ -1,3 +1,4 @@
+"use client";
 import Modal from "react-modal";
 import { FC, useState } from "react";
 import { useRecoilState } from "recoil";

@@ -11,7 +11,7 @@ import { enquiryState } from "@/app/_utils/atom";
 import { enquiryServices } from "@/app/_utils/apiServices";
 import { Enquiry } from "@/app/_utils/types";
 import { toast } from "react-toastify";
-function Page() {
+function EnquiryPage() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [sellinquiry, setSellInquiry] = useRecoilState<Enquiry[]>(enquiryState);
@@ -136,4 +136,4 @@ function Page() {
   );
 }
 
-export default Page;
+export default EnquiryPage;
