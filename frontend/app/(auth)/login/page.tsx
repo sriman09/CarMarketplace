@@ -27,7 +27,7 @@ function Login() {
     if (localStorage.getItem("userInfo")) {
       router.push("/dashboard");
     }
-  });
+  }, []);
 
   return (
     <div className="flex flex-col w-full px-8 md:px-16 gap-4">

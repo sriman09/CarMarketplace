@@ -20,7 +20,7 @@ function AdminHeader() {
       ? JSON.parse(userInfoString)
       : null;
     setUserInfo(parsedUserInfo);
-  });
+  }, []);
   const handleLogout = () => {
     localStorage.removeItem("userInfo");
     router.push("/login");

@@ -23,7 +23,7 @@ function InventoryPage() {
 
   useEffect(() => {
     getAllInventory();
-  });
+  }, []);
 
   const handleSearch = async () => {
     if (inputRef.current?.value && inputRef.current?.value.length > 0) {

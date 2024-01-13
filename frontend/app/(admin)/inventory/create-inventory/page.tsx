@@ -46,7 +46,7 @@ function CreateInventory() {
 
   useEffect(() => {
     if (brands.length === 0) getBrands();
-  });
+  }, []);
 
   const handleBrandChange = async () => {
     const response = await modelServices.getModelsByBrandId(
