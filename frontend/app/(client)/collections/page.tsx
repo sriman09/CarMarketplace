@@ -26,7 +26,7 @@ function page() {
 
   const handleNavigateToDetailedPage = (car: Inventory) => {
     setCarDetails(car);
-    router.push("/collections/car-details");
+    router.push("/collections/car-details", { scroll: false });
   };
   return (
     <>

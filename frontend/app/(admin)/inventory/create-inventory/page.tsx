@@ -18,6 +18,7 @@ import { brandState, modelState } from "@/app/_utils/atom";
 import { useRecoilState } from "recoil";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 function CreateInventory() {
   const router = useRouter();
@@ -294,7 +295,7 @@ function CreateInventory() {
                       <img
                         src={URL.createObjectURL(file)}
                         alt={`Preview ${index}`}
-                        className="object-cover w-full h-full"
+                        className="w-32 h-32 object-cover"
                       />
                       <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100">
                         <p

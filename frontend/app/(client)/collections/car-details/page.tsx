@@ -4,6 +4,7 @@ import { Inventory } from "@/app/_utils/types";
 import Carousel from "react-multi-carousel";
 import { useRecoilState } from "recoil";
 import "react-multi-carousel/lib/styles.css";
+import Image from "next/image";
 const CarDetail = () => {
   const [carDetails, setCarDetails] =
     useRecoilState<Inventory>(detailedCarState);
@@ -12,7 +13,7 @@ const CarDetail = () => {
 
   return (
     <>
-      <div className="flex flex-row justify-between bg-gray-100 px-10 md:px-28 py-5">
+      <div className="flex flex-row justify-between bg-gray-100 px-10 md:px-28 py-5 sticky top-0 z-[10000]">
         <div className="flex gap-8 w-7/12">
           <div className="flex flex-col gap-4 w-8/12">
             <p className="text-2xl font-bold">{`${carDetails.year} ${carDetails.brandName} ${carDetails.modelName} ${carDetails.variant}`}</p>
@@ -98,11 +99,13 @@ const CarDetail = () => {
         swipeable
       >
         {carDetails.images.map((item, index) => (
-          <div>
-            <img
+          <div className="w-full" key={index}>
+            <Image
               key={index}
               src={`https://car-marketplace.s3.ap-south-1.amazonaws.com/${item}`}
               alt="photo"
+              width={600}
+              height={400}
             />
           </div>
         ))}

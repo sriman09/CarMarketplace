@@ -26,7 +26,7 @@ function Latest() {
         {inventory
           .map((car: Inventory, index: number) => (
             <div key={index} className="flex flex-col gap-5">
-              <img
+              <Image
                 src={`https://car-marketplace.s3.ap-south-1.amazonaws.com/${car.images[0]}`}
                 alt="img"
                 className="rounded"
