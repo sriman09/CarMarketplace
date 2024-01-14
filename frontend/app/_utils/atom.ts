@@ -25,3 +25,24 @@ export const enquiryState = atom<Enquiry[]>({
   key: "enquiryState",
   default: [],
 });
+
+export const detailedCarState = atom<Inventory>({
+  key: "detailedCarState",
+  default: {
+    _id: "",
+    variant: "",
+    year: 0,
+    price: 0,
+    kilometers: 0,
+    fuelType: "",
+    vehicleType: "",
+    ownership: "",
+    seatingCapacity: 0,
+    color: "",
+    showPrice: true,
+    sold: false,
+    modelName: "",
+    brandName: "",
+    images: [],
+  },
+});

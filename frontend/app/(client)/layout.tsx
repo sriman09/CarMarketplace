@@ -1,3 +1,5 @@
+"use client";
+import { RecoilRoot } from "recoil";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
@@ -8,9 +10,11 @@ export default function ClientLayout({
 }) {
   return (
     <>
-      <Navbar />
-      {children}
-      <Footer />
+      <RecoilRoot>
+        <Navbar />
+        {children}
+        <Footer />
+      </RecoilRoot>
     </>
   );
 }

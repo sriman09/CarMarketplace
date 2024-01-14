@@ -19,7 +19,7 @@ function Hero() {
             <input
               type="text"
               placeholder="Search your dream car"
-              className="p-2 bg-transparent text-gray-500 text-2xl focus:outline-none"
+              className="p-2 bg-transparent text-gray-500 focus:text-white text-2xl focus:outline-none"
             />
             <button className="text-gray-500 border-2 border-red-500 rounded-full w-10 h-10 ">
               {"->"}
