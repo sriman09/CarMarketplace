@@ -5,6 +5,8 @@ import { useRecoilState } from "recoil";
 import { inventoryState } from "../_utils/atom";
 import { Inventory } from "../_utils/types";
 import { inventoryServices } from "../_utils/apiServices";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 function Latest() {
   const [inventory, setInventory] = useRecoilState<Inventory[]>(inventoryState);
@@ -22,10 +24,59 @@ function Latest() {
         <p className="text-2xl font-bold">Latest @</p>
         <p className="text-3xl font-bold">Car Marketplace</p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
+
+      <Carousel
+        additionalTransfrom={0}
+        arrows
+        autoPlaySpeed={3000}
+        className="mt-10"
+        containerClass="container"
+        dotListClass=""
+        draggable
+        focusOnSelect={false}
+        infinite
+        itemClass=""
+        keyBoardControl
+        minimumTouchDrag={80}
+        pauseOnHover
+        renderArrowsWhenDisabled={false}
+        renderButtonGroupOutside={false}
+        renderDotsOutside={false}
+        responsive={{
+          desktop: {
+            breakpoint: {
+              max: 3000,
+              min: 1024,
+            },
+            items: 4,
+          },
+          mobile: {
+            breakpoint: {
+              max: 464,
+              min: 0,
+            },
+            items: 1,
+          },
+          tablet: {
+            breakpoint: {
+              max: 1024,
+              min: 464,
+            },
+            items: 2,
+          },
+        }}
+        rewind={false}
+        rewindWithAnimation={false}
+        rtl={false}
+        shouldResetAutoplay
+        showDots={false}
+        sliderClass=""
+        slidesToSlide={1}
+        swipeable
+      >
         {inventory
           .map((car: Inventory, index: number) => (
-            <div key={index} className="flex flex-col gap-5">
+            <div key={index} className="flex flex-col gap-5 mx-5">
               <Image
                 src={`https://car-marketplace.s3.ap-south-1.amazonaws.com/${car.images[0]}`}
                 alt="img"
@@ -42,7 +93,7 @@ function Latest() {
             </div>
           ))
           .slice(0, 4)}
-      </div>
+      </Carousel>
     </div>
   );
 }
