@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { adminRoutes } from "./sidebarData";
 import AdminHeader from "./components/AdminHeader";
@@ -15,6 +15,11 @@ export default function AuthLayout({
     router.push(item.route);
     setActiveTab(item.id);
   };
+  useEffect(() => {
+    if (!localStorage.getItem("userInfo")) {
+      router.push("/login");
+    }
+  }, []);
   return (
     <div className="w-full flex flex-row h-screen" id="admin">
       <div className="w-1/4 bg-white hidden md:flex flex-col p-2 font-bold text-xl text-indigo-500 shadow-2xl pt-20">
