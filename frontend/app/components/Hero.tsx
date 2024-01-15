@@ -1,7 +1,11 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import filter from "../../public/assets/filter.svg";
+import { useRouter } from "next/navigation";
+
 function Hero() {
+  const router = useRouter();
   return (
     <>
       <div
@@ -26,7 +30,10 @@ function Hero() {
             </button>
           </div>
           <div className="mt-14 w-full md:w-4/12 h-[52px] flex flex-row gap-4">
-            <button className="bg-red-600 hover:bg-red-800 text-white rounded-2xl w-10/12 h-full transition-all duration-300 ease-in-out hover:delay-200">
+            <button
+              onClick={() => router.push("/collections")}
+              className="bg-red-600 hover:bg-red-800 text-white rounded-2xl w-10/12 h-full transition-all duration-300 ease-in-out hover:delay-200"
+            >
               BROWSE COLLECTION
             </button>
 

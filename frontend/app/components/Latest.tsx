@@ -7,6 +7,7 @@ import { Inventory } from "../_utils/types";
 import { inventoryServices } from "../_utils/apiServices";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Link from "next/link";
 
 function Latest() {
   const [inventory, setInventory] = useRecoilState<Inventory[]>(inventoryState);
@@ -76,21 +77,29 @@ function Latest() {
       >
         {inventory
           .map((car: Inventory, index: number) => (
-            <div key={index} className="flex flex-col gap-5 mx-5">
-              <Image
-                src={`https://car-marketplace.s3.ap-south-1.amazonaws.com/${car.images[0]}`}
-                alt="img"
-                className="rounded"
-                width={360}
-                height={245}
-              />
-              <p className="font-bold text-xl text-center">{`${car.year} ${car.brandName} ${car.modelName} ${car.variant}`}</p>
-              <div className="flex flex-row gap-3">
-                <p>REG. YEAR- {car.year}</p>
-                <p>KMS- {car.kilometers}</p>
-                <p>FUEL TYPE- {car.fuelType}</p>
+            <Link
+              key={index}
+              href={{
+                pathname: "/collections/car-details",
+                query: { carDetails: JSON.stringify(car) }, // the data
+              }}
+            >
+              <div className="flex flex-col gap-5 mx-5">
+                <Image
+                  src={`https://car-marketplace.s3.ap-south-1.amazonaws.com/${car.images[0]}`}
+                  alt="img"
+                  className="rounded"
+                  width={360}
+                  height={245}
+                />
+                <p className="font-bold text-xl text-center">{`${car.year} ${car.brandName} ${car.modelName} ${car.variant}`}</p>
+                <div className="flex flex-row gap-3">
+                  <p>REG. YEAR- {car.year}</p>
+                  <p>KMS- {car.kilometers}</p>
+                  <p>FUEL TYPE- {car.fuelType}</p>
+                </div>
               </div>
-            </div>
+            </Link>
           ))
           .slice(0, 4)}
       </Carousel>

@@ -24,10 +24,6 @@ function page() {
     if (inventory.length === 0) getAllInventory();
   }, []);
 
-  const handleNavigateToDetailedPage = (car: Inventory) => {
-    setCarDetails(car);
-    router.push("/collections/car-details", { scroll: false });
-  };
   return (
     <>
       <div className="flex flex-col px-10 md:px-28 gap-10">
@@ -62,23 +58,27 @@ function page() {
         {/* Car Listing */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 my-10">
           {inventory.map((car: Inventory, index: number) => (
-            <div
+            <Link
               key={index}
-              className="flex flex-col gap-5 bg-gray-100 rounded-2xl shadow-xl mb-5 cursor-pointer"
-              onClick={() => handleNavigateToDetailedPage(car)}
+              href={{
+                pathname: "/collections/car-details",
+                query: { carDetails: JSON.stringify(car) }, // the data
+              }}
             >
-              <img
-                src={`https://car-marketplace.s3.ap-south-1.amazonaws.com/${car.images[0]}`}
-                alt="img"
-                className="w-full rounded-xl"
-              />
-              <p className="font-bold text-xl text-center">{`${car.year} ${car.brandName} ${car.modelName} ${car.variant}`}</p>
-              <div className="flex flex-row gap-3 p-3 mt-3">
-                <p>Price- {"₹" + car.price.toLocaleString("en-IN")}</p>
-                <p>KMS- {car.kilometers.toLocaleString("en-IN")}</p>
-                <p>FUEL TYPE- {car.fuelType}</p>
+              <div className="flex flex-col gap-5 bg-gray-100 rounded-2xl shadow-xl mb-5 cursor-pointer">
+                <img
+                  src={`https://car-marketplace.s3.ap-south-1.amazonaws.com/${car.images[0]}`}
+                  alt="img"
+                  className="w-full rounded-xl"
+                />
+                <p className="font-bold text-xl text-center">{`${car.year} ${car.brandName} ${car.modelName} ${car.variant}`}</p>
+                <div className="flex flex-row gap-3 p-3 mt-3">
+                  <p>Price- {"₹" + car.price.toLocaleString("en-IN")}</p>
+                  <p>KMS- {car.kilometers.toLocaleString("en-IN")}</p>
+                  <p>FUEL TYPE- {car.fuelType}</p>
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
