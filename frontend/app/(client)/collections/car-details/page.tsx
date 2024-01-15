@@ -51,7 +51,7 @@ const CarDetail = () => {
         autoPlaySpeed={3000}
         centerMode
         className=""
-        containerClass="container"
+        containerClass="w-full"
         dotListClass=""
         draggable
         focusOnSelect={false}
@@ -99,13 +99,11 @@ const CarDetail = () => {
         swipeable
       >
         {carDetails.images.map((item, index) => (
-          <div className="w-full" key={index}>
-            <Image
+          <div>
+            <img
               key={index}
               src={`https://car-marketplace.s3.ap-south-1.amazonaws.com/${item}`}
               alt="photo"
-              width={600}
-              height={400}
             />
           </div>
         ))}
