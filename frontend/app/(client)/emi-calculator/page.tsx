@@ -1,23 +1,83 @@
 "use client";
-import React, { useState } from "react";
+import { inventoryServices } from "@/app/_utils/apiServices";
+import { inventoryState } from "@/app/_utils/atom";
+import {
+  detailedCarByBrandSelector,
+  uniqueBrandNamesSelector,
+} from "@/app/_utils/selectors";
+import { Inventory } from "@/app/_utils/types";
+import Image from "next/image";
+import React, { useEffect, useMemo, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 function EmiCalculator() {
+  const uniqueBrandNames = useRecoilValue(uniqueBrandNamesSelector);
+  const [selectedBrand, setSelectedBrand] = useState<string>("");
+
+  const detailedCar = useRecoilValue(detailedCarByBrandSelector(selectedBrand));
+
+  const [inventory, setInventory] = useRecoilState<Inventory[]>(inventoryState);
+
   const [principal, setPrincipal] = useState<number>(0);
-  const [rate, setRate] = useState<number>(0);
-  const [time, setTime] = useState<number>(0);
+  const [rate, setRate] = useState<number>(9.9);
+  const [time, setTime] = useState<number>(5);
+  const [emi, setEmi] = useState<number | null>(null);
 
-  function calculateCompoundInterest(p: number, r: number, t: number): number {
-    // Formula for compound interest: A = P(1 + r/n)^(nt), where n = 1
-    const compoundInterest = p * Math.pow(1 + r / 100, t) - p;
-    console.log("compoundInterest", compoundInterest);
+  function calculateEMI(p: number, r: number, t: number) {
+    const monthlyInterestRate = r / 1200; // 12 months in a year
+    const numberOfPayments = t * 12; // Monthly payments for the given number of years
 
-    return compoundInterest;
+    const emi =
+      (p *
+        monthlyInterestRate *
+        Math.pow(1 + monthlyInterestRate, numberOfPayments)) /
+      (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+
+    setEmi(emi);
   }
+
+  const getAllInventory = async () => {
+    const response = await inventoryServices.getInventoryForAdmin();
+    setInventory(response.data);
+  };
+
+  useEffect(() => {
+    if (inventory.length === 0) getAllInventory();
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#f2f2f2] flex justify-center">
       <div className="bg-white rounded-md flex flex-col items-center p-4">
         <span>EMI CALCULATOR</span>
+        <div className="flex gap-5">
+          <label>Choose Brand</label>
+          <select
+            value={selectedBrand}
+            onChange={(e) => setSelectedBrand(e.target.value)}
+          >
+            <option>Select</option>
+            {uniqueBrandNames.map((item, index) => (
+              <option value={item} key={index}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </div>
+        {detailedCar && detailedCar.length > 0 && (
+          <div className="">
+            {detailedCar.map((car, index) => (
+              <button onClick={() => setPrincipal(car.price)}>
+                <Image
+                  src={`https://car-marketplace.s3.ap-south-1.amazonaws.com/${car.images[0]}`}
+                  alt="image"
+                  width={150}
+                  height={100}
+                />
+                <span>{`${car.year} ${car.brandName} ${car.modelName} ${car.variant}`}</span>
+              </button>
+            ))}
+          </div>
+        )}
         <div className="flex gap-5">
           <label>Loan Amount</label>
           <input
@@ -45,11 +105,10 @@ function EmiCalculator() {
             onChange={(e) => setTime(Number(e.target.value))}
           />
         </div>
-        <button
-          onClick={() => calculateCompoundInterest(principal, rate, time)}
-        >
+        <button onClick={() => calculateEMI(principal, rate, time)}>
           Calculate
         </button>
+        {emi && <span>{`Total Monthly EMI is ₹${emi.toFixed(2)}`}</span>}
       </div>
     </div>
   );
