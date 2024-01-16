@@ -15,6 +15,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "https://car-marketplace-three.vercel.app",
+      "https://marketplace.srimanvit.tech",
     ],
     credentials: true,
   })
