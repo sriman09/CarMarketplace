@@ -12,7 +12,10 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: [
+      "http://localhost:3000",
+      "https://car-marketplace-three.vercel.app/",
+    ],
     credentials: true,
   })
 );
