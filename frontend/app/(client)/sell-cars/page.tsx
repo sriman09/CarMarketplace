@@ -1,5 +1,5 @@
-function page() {
+function SellCars() {
   return <div>page</div>;
 }
 
-export default page;
+export default SellCars;

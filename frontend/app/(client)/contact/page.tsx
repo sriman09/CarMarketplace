@@ -3,7 +3,7 @@ import React from "react";
 import phone_svg from "../../../public/assets/phone_svg.svg";
 import email_svg from "../../../public/assets/email_svg.svg";
 
-function page() {
+function Contact() {
   return (
     <div className="min-h-screen px-10 md:px-28 bg-[#f2f2f2] flex flex-col md:flex-row">
       <div className="w-full md:w-1/2 py-28 flex flex-col gap-10">
@@ -83,4 +83,4 @@ function page() {
   );
 }
 
-export default page;
+export default Contact;

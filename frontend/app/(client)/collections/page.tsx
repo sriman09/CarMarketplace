@@ -9,7 +9,7 @@ import { inventoryServices } from "@/app/_utils/apiServices";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-function page() {
+function Collections() {
   const [inventory, setInventory] = useRecoilState<Inventory[]>(inventoryState);
   const [carDetails, setCarDetails] =
     useRecoilState<Inventory>(detailedCarState);
@@ -86,4 +86,4 @@ function page() {
   );
 }
 
-export default page;
+export default Collections;
