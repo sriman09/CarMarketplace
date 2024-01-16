@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
-const baseURL = "http://api.srimanvit.tech/api";
+const baseURL = "https://api.srimanvit.tech/api";
 
 const jwtInterceptor = axios.create({
   baseURL,
