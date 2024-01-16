@@ -14,7 +14,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://car-marketplace-three.vercel.app/",
+      "https://car-marketplace-three.vercel.app",
     ],
     credentials: true,
   })
