@@ -1,6 +1,9 @@
 import axios, { AxiosResponse } from "axios";
 
-const baseURL = "http://localhost:8000/api";
+const baseURL =
+  process.env.NODE_ENV === "production"
+    ? "http://65.2.149.11:8000/api"
+    : "http://localhost:8000/api";
 
 const jwtInterceptor = axios.create({
   baseURL,
