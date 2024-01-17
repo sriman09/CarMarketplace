@@ -8,8 +8,10 @@ import { inventoryServices } from "../_utils/apiServices";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Link from "next/link";
+import { useMediaQuery } from "react-responsive";
 
 function Latest() {
+  const isDesktop = useMediaQuery({ query: "(min-width: 1224px)" });
   const [inventory, setInventory] = useRecoilState<Inventory[]>(inventoryState);
   const getAllInventory = async () => {
     const response = await inventoryServices.getInventoryForAdmin();
@@ -20,7 +22,7 @@ function Latest() {
     if (inventory.length === 0) getAllInventory();
   }, []);
   return (
-    <div className="bg-white min-h-screen px-10 md:px-28">
+    <div className="bg-white min-h-screen px-5 md:px-28">
       <div className="flex flex-col mt-24">
         <p className="text-2xl font-bold">Latest @</p>
         <p className="text-3xl font-bold">Car Marketplace</p>
@@ -28,7 +30,7 @@ function Latest() {
 
       <Carousel
         additionalTransfrom={0}
-        arrows
+        arrows={true}
         autoPlaySpeed={3000}
         className="mt-10"
         containerClass="container"
@@ -50,6 +52,7 @@ function Latest() {
               min: 1024,
             },
             items: 3,
+            paritialVisibilityGutter: 5,
           },
           mobile: {
             breakpoint: {
@@ -79,6 +82,7 @@ function Latest() {
           .map((car: Inventory, index: number) => (
             <Link
               key={index}
+              className=""
               href={{
                 pathname: "/collections/car-details",
                 query: { carDetails: JSON.stringify(car) }, // the data
