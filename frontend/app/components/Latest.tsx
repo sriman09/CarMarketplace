@@ -49,7 +49,7 @@ function Latest() {
               max: 3000,
               min: 1024,
             },
-            items: 4,
+            items: 3,
           },
           mobile: {
             breakpoint: {
@@ -84,19 +84,28 @@ function Latest() {
                 query: { carDetails: JSON.stringify(car) }, // the data
               }}
             >
-              <div className="flex flex-col gap-5 mx-5">
+              <div className="flex flex-col gap-5 mx-2">
                 <Image
                   src={`https://car-marketplace.s3.ap-south-1.amazonaws.com/${car.images[0]}`}
                   alt="img"
-                  className="rounded"
-                  width={360}
-                  height={245}
+                  className="rounded-3xl"
+                  width={480}
+                  height={360}
                 />
-                <p className="font-bold text-xl text-center">{`${car.year} ${car.brandName} ${car.modelName} ${car.variant}`}</p>
+                <p className="font-bold text-lg md:text-2xl">{`${car.year} ${car.brandName} ${car.modelName} ${car.variant}`}</p>
                 <div className="flex flex-row gap-3">
-                  <p>REG. YEAR- {car.year}</p>
-                  <p>KMS- {car.kilometers}</p>
-                  <p>FUEL TYPE- {car.fuelType}</p>
+                  <p className=" text-[#69686D] font-bold font-poppins">
+                    REG.YEAR-
+                    <span className="text-black font-bold">{car.year}</span>
+                  </p>
+                  <p className="">
+                    KMS-
+                    <span>{car.kilometers}</span>
+                  </p>
+                  <p className="">
+                    FUEL TYPE-
+                    <span>{car.fuelType}</span>
+                  </p>
                 </div>
               </div>
             </Link>

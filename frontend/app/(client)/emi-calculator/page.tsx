@@ -47,15 +47,15 @@ function EmiCalculator() {
 
   return (
     <div className="min-h-screen bg-[#f2f2f2] flex justify-center">
-      <div className="bg-white rounded-md flex flex-col items-center p-4">
-        <span>EMI CALCULATOR</span>
-        <div className="flex gap-5">
-          <label>Choose Brand</label>
+      <div className="bg-white flex flex-col items-center p-4 w-full md:w-8/12 gap-5 md:my-5 shadow-xl rounded-xl">
+        <span className="text-3xl font-bold my-10">EMI CALCULATOR</span>
+        <div className="flex gap-5 w-full items-center justify-center">
           <select
+            className="w-full md:w-8/12 border border-gray-400 rounded-xl px-4 py-2"
             value={selectedBrand}
             onChange={(e) => setSelectedBrand(e.target.value)}
           >
-            <option>Select</option>
+            <option>Select Brand</option>
             {uniqueBrandNames.map((item, index) => (
               <option value={item} key={index}>
                 {item}
@@ -64,51 +64,89 @@ function EmiCalculator() {
           </select>
         </div>
         {detailedCar && detailedCar.length > 0 && (
-          <div className="">
-            {detailedCar.map((car, index) => (
-              <button onClick={() => setPrincipal(car.price)}>
-                <Image
-                  src={`https://car-marketplace.s3.ap-south-1.amazonaws.com/${car.images[0]}`}
-                  alt="image"
-                  width={150}
-                  height={100}
-                />
-                <span>{`${car.year} ${car.brandName} ${car.modelName} ${car.variant}`}</span>
-              </button>
-            ))}
-          </div>
+          <>
+            <div className="flex w-full md:w-1/2">
+              <span className="text-start text-xl font-bold">
+                Select Your Car
+              </span>
+            </div>
+            <div className={`flex gap-5 mt-5 mb-10 w-full justify-center`}>
+              {detailedCar.map((car, index) => (
+                <button
+                  key={index}
+                  onClick={() => setPrincipal(car.price)}
+                  className="w-1/3 md:w-1/4"
+                >
+                  <Image
+                    src={`https://car-marketplace.s3.ap-south-1.amazonaws.com/${car.images[0]}`}
+                    alt="image"
+                    width={480}
+                    height={360}
+                    className="rounded-xl"
+                  />
+                  <div className="flex flex-col ">
+                    <span className="font-semibold text-sm text-start">{`${car.year} ${car.brandName} ${car.modelName} ${car.variant}`}</span>
+                    <span className="text-start text-lg font-bold">
+                      {"₹  " + car.price.toLocaleString("en-IN")}
+                    </span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </>
         )}
-        <div className="flex gap-5">
-          <label>Loan Amount</label>
+        <div className="flex flex-col w-full items-center">
+          <div className="w-full md:w-8/12">
+            <label className="font-semibold mb-2 text-sm">Loan Amount</label>
+          </div>
           <input
             type="number"
-            className="border-2"
+            className="w-full md:w-8/12 border border-gray-400 rounded-xl px-4 py-2"
             value={principal}
             onChange={(e) => setPrincipal(Number(e.target.value))}
           />
         </div>
-        <div className="flex gap-5">
-          <label>Annual Interest Rate</label>
+
+        <div className="flex flex-col w-full items-center">
+          <div className="w-full md:w-8/12">
+            <label className="font-semibold mb-2 text-sm">
+              Annual Interest Rate
+            </label>
+          </div>
           <input
             type="number"
-            className="border-2"
+            className="w-full md:w-8/12 border border-gray-400 rounded-xl px-4 py-2"
             value={rate}
             onChange={(e) => setRate(Number(e.target.value))}
           />
         </div>
-        <div className="flex gap-5">
-          <label>Term/Period (Year)</label>
+        <div className="flex flex-col w-full items-center">
+          <div className="w-full md:w-8/12">
+            <label className="font-semibold mb-2 text-sm">
+              Term/Period (in years)
+            </label>
+          </div>
           <input
             type="number"
-            className="border-2"
+            className="w-full md:w-8/12 border border-gray-400 rounded-xl px-4 py-2"
             value={time}
             onChange={(e) => setTime(Number(e.target.value))}
           />
         </div>
-        <button onClick={() => calculateEMI(principal, rate, time)}>
+        <button
+          className="bg-red-600 hover:bg-red-800 text-white rounded-2xl w-1/2 py-2 mt-4 transition-all duration-300 ease-in-out hover:delay-200"
+          onClick={() => calculateEMI(principal, rate, time)}
+        >
           Calculate
         </button>
-        {emi && <span>{`Total Monthly EMI is ₹${emi.toFixed(2)}`}</span>}
+        {emi && (
+          <span className="text-lg text-gray-900 my-8">
+            Total Monthly EMI is{" "}
+            <span className="text-xl text-black font-bold">
+              ₹{emi.toFixed(2)}
+            </span>
+          </span>
+        )}
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import step2 from "../../public/assets/howitworks-img2.png";
 import step3 from "../../public/assets/howitworks-img3.png";
 import step4 from "../../public/assets/howitworks-img4.png";
 import Image from "next/image";
+import Carousel from "react-multi-carousel";
 
 function HowItWork() {
   return (
