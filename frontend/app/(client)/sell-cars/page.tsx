@@ -2,21 +2,21 @@ import sellCarHero from "@/public/assets/sellHero.jpeg";
 function SellCars() {
   return (
     <div className="bg-[#f2f2f2]">
-      <div className="flex flex-row">
-        <div className="w-1/2 bg-white"></div>
+      <div className="flex flex-col md:flex-row">
+        <div className="w-full md:w-1/2 bg-white"></div>
         <div
-          className="bg-cover bg-center h-[80vh] w-1/2"
+          className="bg-cover bg-center h-[80vh] w-full md:w-1/2"
           style={{ backgroundImage: `url('/assets/sellHero.jpeg')` }}
         ></div>
       </div>
       <div className="w-full flex flex-col justify-center items-center mt-16">
-        <span className="font-bold text-3xl">
+        <span className="font-bold text-3xl text-center">
           AUTHORIZED CAR BUYERS IN INDIA
         </span>
-        <span className="font-bold text-xl">CAR MARKETPLACE</span>
-        <div className="w-full flex">
-          <div className="w-3/5"></div>
-          <div className="bg-white rounded-xl shadow-lg px-5 md:px-10 py-16 flex flex-col w-2/5 mb-5 mt-16 mx-10">
+        <span className="font-bold text-xl text-center">CAR MARKETPLACE</span>
+        <div className="w-full flex flex-col md:flex-row">
+          <div className="w-full md:w-3/5"></div>
+          <div className="bg-white rounded-xl shadow-lg px-5 md:px-10 py-16 flex flex-col w-full md:w-2/5 mb-5 mt:5 md:mt-16 md:mx-10">
             <p className="text-black font-bold text-2xl">SEND US AN EMAIL</p>
             <p>Drop us a line using the below form</p>
             <div className="flex gap-5 w-full mt-10">

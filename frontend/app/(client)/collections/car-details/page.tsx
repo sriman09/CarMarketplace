@@ -173,15 +173,17 @@ const CarDetail = () => {
       )}
 
       {/* Summary */}
-      <div className="flex flex-col justify-center items-center py-24">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
+      <div className="flex flex-col justify-center items-center py-10 md:py-24 mx-5">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-10">
           {summary.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col border-2 border-black rounded-xl justify-center items-center p-2"
+              className="flex flex-col border-2 border-black rounded-xl justify-center items-center p-1 md:p-2"
             >
               <Image src={item.img} alt="property" height={50} width={50} />
-              <span className=" text-lg">{item.property}</span>
+              <span className="text-center text-sm:text-lg">
+                {item.property}
+              </span>
               <span className="font-bold">{item.value}</span>
             </div>
           ))}
