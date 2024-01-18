@@ -15,7 +15,7 @@ import {
 } from "@/app/_utils/apiServices";
 import { Brand, Model } from "@/app/_utils/types";
 import { brandState, modelState } from "@/app/_utils/atom";
-import { useRecoilStateLoadable } from "recoil";
+import { useRecoilValueLoadable } from "recoil";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -25,7 +25,7 @@ function CreateInventory() {
   const [files, setFiles] = useState<(File | null)[]>([null, null, null]);
   const [filePaths, setFilePaths] = useState<string[]>([]);
 
-  const [brands, setBrands] = useRecoilStateLoadable<Brand[]>(brandState);
+  const brands = useRecoilValueLoadable<Brand[]>(brandState);
   const [models, setModels] = useState<Model[]>();
 
   const brandRef = useRef<HTMLSelectElement | null>(null);
@@ -129,6 +129,10 @@ function CreateInventory() {
       });
     }
   };
+
+  if (brands.state === "loading") {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <>
