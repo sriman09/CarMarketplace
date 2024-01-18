@@ -12,7 +12,8 @@ const jwtInterceptor = axios.create({
 });
 
 jwtInterceptor.interceptors.request.use((config: any) => {
-  const accessTokenString: any = localStorage.getItem("userInfo");
+  const accessTokenString: any =
+    typeof window !== "undefined" ? localStorage.getItem("userInfo") : "";
   const userInfo: any = accessTokenString
     ? JSON.parse(accessTokenString)
     : null;
