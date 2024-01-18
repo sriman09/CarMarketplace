@@ -12,18 +12,18 @@ function Hero() {
         className="bg-cover bg-center h-screen"
         style={{ backgroundImage: `url('/assets/hero1.jpg')` }}
       >
-        <div className="w-full flex flex-col gap-2 px-10 md:px-28 h-full pt-32">
-          <span className="text-white text-[60px] font-bold">
+        <div className="w-full flex flex-col gap-2 px-10 md:px-28 h-full pt-14 md:pt-32">
+          <span className="text-white text-4xl md:text-[60px] font-bold">
             LET&apos;S KEEP IT SIMPLE.
           </span>
-          <span className="text-[#ffffff73] text-[27px]">
+          <span className="text-[#ffffff73] text-xl md:text-[27px]">
             We are the best when it comes to Cars.
           </span>
-          <div className="flex flex-row justify-between items-center mt-14 w-full md:w-4/12 border-b border-gray-500 focus:border-white">
+          <div className="flex flex-row justify-between items-center mt-20 md:mt-14 w-full md:w-4/12 border-b border-gray-500 focus:border-white">
             <input
               type="text"
               placeholder="Search your dream car"
-              className="p-2 bg-transparent text-gray-500 focus:text-white text-2xl focus:outline-none"
+              className="p-2 bg-transparent text-gray-500 focus:text-white text-lg md:text-2xl focus:outline-none"
             />
             <button className="text-gray-500 border-2 border-red-500 rounded-full w-10 h-10 ">
               {"->"}
