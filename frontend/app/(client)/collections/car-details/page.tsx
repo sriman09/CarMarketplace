@@ -15,11 +15,12 @@ import seating_img from "@/public/assets/summary/car-seat.svg";
 import kms_img from "@/public/assets/summary/car-mileage.svg";
 import color_img from "@/public/assets/summary/car-color.svg";
 import fuel_img from "@/public/assets/summary/car-fuel.svg";
+import { useMediaQuery } from "react-responsive";
 
 const CarDetail = () => {
   const searchParams = useSearchParams();
   const carDetails = JSON.parse(searchParams.get("carDetails") || "");
-  console.log("car", carDetails);
+  const showCarosuel = useMediaQuery({ query: "(min-width: 768px)" });
 
   let summary = [
     {
@@ -95,68 +96,81 @@ const CarDetail = () => {
         </div>
       </div>
       {/* Carousel */}
-      <Carousel
-        additionalTransfrom={0}
-        arrows
-        autoPlaySpeed={3000}
-        centerMode
-        className=""
-        containerClass="w-full"
-        dotListClass=""
-        draggable
-        focusOnSelect={false}
-        infinite
-        itemClass=""
-        keyBoardControl
-        minimumTouchDrag={80}
-        pauseOnHover
-        renderArrowsWhenDisabled={false}
-        renderButtonGroupOutside={false}
-        renderDotsOutside={false}
-        responsive={{
-          desktop: {
-            breakpoint: {
-              max: 3000,
-              min: 1024,
+      {showCarosuel ? (
+        <Carousel
+          additionalTransfrom={0}
+          arrows
+          autoPlaySpeed={3000}
+          centerMode
+          className=""
+          containerClass="w-full"
+          dotListClass=""
+          draggable
+          focusOnSelect={false}
+          infinite
+          itemClass=""
+          keyBoardControl
+          minimumTouchDrag={80}
+          pauseOnHover
+          renderArrowsWhenDisabled={false}
+          renderButtonGroupOutside={false}
+          renderDotsOutside={false}
+          responsive={{
+            desktop: {
+              breakpoint: {
+                max: 3000,
+                min: 1024,
+              },
+              items: 2,
+              partialVisibilityGutter: 40,
             },
-            items: 2,
-            partialVisibilityGutter: 40,
-          },
-          mobile: {
-            breakpoint: {
-              max: 464,
-              min: 0,
+            mobile: {
+              breakpoint: {
+                max: 464,
+                min: 0,
+              },
+              items: 1,
+              partialVisibilityGutter: 20,
             },
-            items: 1,
-            partialVisibilityGutter: 20,
-          },
-          tablet: {
-            breakpoint: {
-              max: 1024,
-              min: 464,
+            tablet: {
+              breakpoint: {
+                max: 1024,
+                min: 464,
+              },
+              items: 1,
+              partialVisibilityGutter: 30,
             },
-            items: 1,
-            partialVisibilityGutter: 30,
-          },
-        }}
-        rewind={false}
-        rewindWithAnimation={false}
-        rtl={false}
-        shouldResetAutoplay
-        showDots={false}
-        sliderClass=""
-        slidesToSlide={1}
-        swipeable
-      >
-        {carDetails.images.map((item: Inventory, index: number) => (
-          <div key={index}>
-            <img
-              src={`https://car-marketplace.s3.ap-south-1.amazonaws.com/${item}`}
-              alt="photo"
-            />
-          </div>
-        ))}
-      </Carousel>
+          }}
+          rewind={false}
+          rewindWithAnimation={false}
+          rtl={false}
+          shouldResetAutoplay
+          showDots={false}
+          sliderClass=""
+          slidesToSlide={1}
+          swipeable
+        >
+          {carDetails.images.map((item: Inventory, index: number) => (
+            <div key={index}>
+              <img
+                src={`https://car-marketplace.s3.ap-south-1.amazonaws.com/${item}`}
+                alt="photo"
+              />
+            </div>
+          ))}
+        </Carousel>
+      ) : (
+        <div className="flex flex-col w-full">
+          {carDetails.images.map((item: Inventory, index: number) => (
+            <div key={index}>
+              <img
+                src={`https://car-marketplace.s3.ap-south-1.amazonaws.com/${item}`}
+                alt="photo"
+              />
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Summary */}
       <div className="flex flex-col justify-center items-center py-24">
