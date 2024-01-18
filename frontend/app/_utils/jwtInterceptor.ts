@@ -1,5 +1,5 @@
 "use client";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 const baseURL = "https://api.srimanvit.tech/api";
 

@@ -1,5 +1,4 @@
 "use client";
-import { inventoryServices } from "@/app/_utils/apiServices";
 import { inventoryState } from "@/app/_utils/atom";
 import {
   detailedCarByBrandSelector,
@@ -7,7 +6,7 @@ import {
 } from "@/app/_utils/selectors";
 import { Inventory } from "@/app/_utils/types";
 import Image from "next/image";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 
 function EmiCalculator() {
