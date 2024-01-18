@@ -4,7 +4,7 @@ import BackButton from "../components/BackButton";
 import SearchBar from "../components/SearchBar";
 import BlueButton from "../components/BlueButton";
 import Image from "next/image";
-import { useRecoilState } from "recoil";
+import { useRecoilStateLoadable } from "recoil";
 import { inventoryState } from "@/app/_utils/atom";
 import { useRouter } from "next/navigation";
 import { Inventory } from "@/app/_utils/types";
@@ -13,17 +13,9 @@ import { toast } from "react-toastify";
 
 function InventoryPage() {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [inventory, setInventory] = useRecoilState<Inventory[]>(inventoryState);
+  const [inventory, setInventory] =
+    useRecoilStateLoadable<Inventory[]>(inventoryState);
   const router = useRouter();
-
-  const getAllInventory = async () => {
-    const response = await inventoryServices.getInventoryForAdmin();
-    setInventory(response.data);
-  };
-
-  useEffect(() => {
-    getAllInventory();
-  }, []);
 
   const handleSearch = async () => {
     if (inputRef.current?.value && inputRef.current?.value.length > 0) {
@@ -35,6 +27,10 @@ function InventoryPage() {
       toast.error("Please enter something.");
     }
   };
+
+  if (inventory.state === "loading") {
+    return <h1>Loading</h1>;
+  }
 
   return (
     <>
@@ -53,7 +49,7 @@ function InventoryPage() {
           </BlueButton>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
-          {inventory.map((item, index) => (
+          {inventory.contents.map((item: Inventory, index: number) => (
             <button
               className="flex flex-row bg-white rounded-md shadow-lg gap-3"
               key={index}

@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import BackButton from "../components/BackButton";
 import DeleteModal from "../components/DeleteModal";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilStateLoadable } from "recoil";
 import { brandState } from "@/app/_utils/atom";
 import CreateModal from "../components/CreateModal";
 import EditModal from "../components/EditModal";
@@ -21,7 +21,7 @@ function BrandsPage() {
   const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
 
-  const [brands, setBrands] = useRecoilState<Brand[]>(brandState);
+  const [brands, setBrands] = useRecoilStateLoadable<Brand[]>(brandState);
   const [editData, setEditData] = useState<any>({});
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -31,15 +31,6 @@ function BrandsPage() {
     name: "",
     deleteId: "",
   });
-
-  const getBrands = async () => {
-    const response = await brandServices.getBrands();
-    setBrands(response.brands);
-  };
-
-  useEffect(() => {
-    if (brands.length === 0) getBrands();
-  }, []);
 
   let loader = false;
 
@@ -55,7 +46,6 @@ function BrandsPage() {
   const handleDeleteModalYesClick = () => {
     brandServices.deleteBrand(modalContent.deleteId).then(() => {
       setShowDeleteModal(false);
-      getBrands();
     });
   };
 
@@ -79,7 +69,7 @@ function BrandsPage() {
     }
   };
 
-  if (loading) {
+  if (brands.state === "loading") {
     return <h2>Loading...</h2>;
   }
 
@@ -107,7 +97,7 @@ function BrandsPage() {
               </tr>
             </thead>
             <tbody>
-              {brands.map((item, index) => (
+              {brands.contents.map((item: Brand, index: number) => (
                 <tr
                   key={index}
                   className="hover:bg-gray-50 border-2 text-center"

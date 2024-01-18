@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilStateLoadable } from "recoil";
 import { inventoryState } from "../_utils/atom";
 import { Inventory } from "../_utils/types";
 import { inventoryServices } from "../_utils/apiServices";
@@ -12,15 +12,12 @@ import { useMediaQuery } from "react-responsive";
 
 function Latest() {
   const isDesktop = useMediaQuery({ query: "(min-width: 1224px)" });
-  const [inventory, setInventory] = useRecoilState<Inventory[]>(inventoryState);
-  const getAllInventory = async () => {
-    const response = await inventoryServices.getInventoryForAdmin();
-    setInventory(response.data);
-  };
+  const [inventory, setInventory] =
+    useRecoilStateLoadable<Inventory[]>(inventoryState);
 
-  useEffect(() => {
-    if (inventory.length === 0) getAllInventory();
-  }, []);
+  if (inventory.state === "loading") {
+    return <h1>Loading...</h1>;
+  }
   return (
     <div className="bg-white min-h-screen px-5 md:px-28">
       <div className="flex flex-col mt-24">
@@ -78,7 +75,7 @@ function Latest() {
         slidesToSlide={1}
         swipeable
       >
-        {inventory
+        {inventory.contents
           .map((car: Inventory, index: number) => (
             <Link
               key={index}

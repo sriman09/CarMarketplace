@@ -8,7 +8,7 @@ import {
 import { Inventory } from "@/app/_utils/types";
 import Image from "next/image";
 import React, { useEffect, useMemo, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 
 function EmiCalculator() {
   const uniqueBrandNames = useRecoilValue(uniqueBrandNamesSelector);
@@ -16,7 +16,7 @@ function EmiCalculator() {
 
   const detailedCar = useRecoilValue(detailedCarByBrandSelector(selectedBrand));
 
-  const [inventory, setInventory] = useRecoilState<Inventory[]>(inventoryState);
+  const inventory = useRecoilValueLoadable<Inventory[]>(inventoryState);
 
   const [principal, setPrincipal] = useState<number>(0);
   const [rate, setRate] = useState<number>(9.9);
@@ -36,14 +36,9 @@ function EmiCalculator() {
     setEmi(emi);
   }
 
-  const getAllInventory = async () => {
-    const response = await inventoryServices.getInventoryForAdmin();
-    setInventory(response.data);
-  };
-
-  useEffect(() => {
-    if (inventory.length === 0) getAllInventory();
-  }, []);
+  if (inventory.state === "loading") {
+    <h1>Loading...</h1>;
+  }
 
   return (
     <div className="min-h-screen bg-[#f2f2f2] flex justify-center">

@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import filter_img from "../../../public/assets/filter.svg";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilStateLoadable } from "recoil";
 import { Inventory } from "@/app/_utils/types";
 import { detailedCarState, inventoryState } from "@/app/_utils/atom";
 import { inventoryServices } from "@/app/_utils/apiServices";
@@ -10,19 +10,15 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 function Collections() {
-  const [inventory, setInventory] = useRecoilState<Inventory[]>(inventoryState);
+  const [inventory, setInventory] =
+    useRecoilStateLoadable<Inventory[]>(inventoryState);
   const [carDetails, setCarDetails] =
     useRecoilState<Inventory>(detailedCarState);
   const router = useRouter();
 
-  const getAllInventory = async () => {
-    const response = await inventoryServices.getInventoryForAdmin();
-    setInventory(response.data);
-  };
-
-  useEffect(() => {
-    if (inventory.length === 0) getAllInventory();
-  }, []);
+  if (inventory.state === "loading") {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <>
@@ -57,7 +53,7 @@ function Collections() {
         </div>
         {/* Car Listing */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 my-10">
-          {inventory.map((car: Inventory, index: number) => (
+          {inventory.contents.map((car: Inventory, index: number) => (
             <Link
               key={index}
               href={{

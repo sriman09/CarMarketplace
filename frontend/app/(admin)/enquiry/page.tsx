@@ -6,7 +6,7 @@ import Image from "next/image";
 import delete_icon from "../../../public/assets/delete-icon.svg";
 import edit_icon from "../../../public/assets/edit-icon.svg";
 import DeleteModal from "../components/DeleteModal";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilStateLoadable } from "recoil";
 import { enquiryState } from "@/app/_utils/atom";
 import { enquiryServices } from "@/app/_utils/apiServices";
 import { Enquiry } from "@/app/_utils/types";
@@ -14,9 +14,9 @@ import { toast } from "react-toastify";
 function EnquiryPage() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-  const [sellinquiry, setSellInquiry] = useRecoilState<Enquiry[]>(enquiryState);
+  const [sellinquiry, setSellInquiry] =
+    useRecoilStateLoadable<Enquiry[]>(enquiryState);
 
-  const [loading, setLoading] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState({
     title: "Delete",
     subtitle: "Are you sure you want to delete this enquiry",
@@ -25,15 +25,6 @@ function EnquiryPage() {
   });
 
   let loader = false;
-
-  const getAllEnquiry = async () => {
-    const response = await enquiryServices.getEnquiry();
-    setSellInquiry(response.enquiries);
-  };
-
-  useEffect(() => {
-    if (sellinquiry.length === 0) getAllEnquiry();
-  }, []);
 
   const handleDeleteClick = (item: any) => {
     setModalContent((prev) => ({
@@ -45,7 +36,6 @@ function EnquiryPage() {
   };
   const handleDeleteModalYesClick = () => {
     enquiryServices.deleteEnquiry(modalContent.deleteId).then(() => {
-      getAllEnquiry();
       setShowDeleteModal(false);
     });
   };
@@ -60,6 +50,9 @@ function EnquiryPage() {
     }
   };
 
+  if (sellinquiry.state === "loading") {
+    return <h1>Loading...</h1>;
+  }
   return (
     <>
       <BackButton back={false} />
@@ -86,7 +79,7 @@ function EnquiryPage() {
               </tr>
             </thead>
             <tbody>
-              {sellinquiry.map((item, index) => (
+              {sellinquiry.contents.map((item: Enquiry, index: number) => (
                 <tr
                   key={index}
                   className="hover:bg-gray-50 border-2 text-center"

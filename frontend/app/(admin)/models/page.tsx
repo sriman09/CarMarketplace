@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import BackButton from "../components/BackButton";
 import DeleteModal from "../components/DeleteModal";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilStateLoadable } from "recoil";
 import { brandState, modelState } from "@/app/_utils/atom";
 import CreateModal from "../components/CreateModal";
 import EditModal from "../components/EditModal";
@@ -20,14 +20,11 @@ function ModelsPage() {
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
-
-  const [models, setModels] = useRecoilState<Model[]>(modelState);
-  const [brands, setBrands] = useRecoilState<Brand[]>(brandState);
+  const [page, setPage] = useState<number>(1);
+  const [models, setModels] = useRecoilStateLoadable<Model[]>(modelState(page));
 
   const [editData, setEditData] = useState<any>([]);
-  const [page, setPage] = useState<number>(1);
 
-  const [loading, setLoading] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState({
     title: "Delete ",
     subtitle: "Are you sure you want to delete this model",
@@ -36,23 +33,6 @@ function ModelsPage() {
   });
 
   let loader = false;
-
-  const getModels = async () => {
-    const response = await modelServices.getModels(1);
-    setModels(response.models);
-  };
-  const getBrands = async () => {
-    const response = await brandServices.getBrands();
-    setBrands(response.brands);
-  };
-
-  useEffect(() => {
-    if (brands.length === 0) getBrands();
-  }, []);
-
-  useEffect(() => {
-    getModels();
-  }, []);
 
   const handleDeleteClick = (item: any) => {
     setModalContent((prev) => ({
@@ -66,7 +46,6 @@ function ModelsPage() {
   const handleDeleteModalYesClick = () => {
     modelServices.deleteModel(modalContent.deleteId).then(() => {
       setShowDeleteModal(false);
-      getModels();
     });
   };
 
@@ -89,6 +68,10 @@ function ModelsPage() {
       toast.error("Please enter something.");
     }
   };
+
+  if (models.state === "loading") {
+    return <h1>Loading</h1>;
+  }
 
   return (
     <>
@@ -114,7 +97,7 @@ function ModelsPage() {
               </tr>
             </thead>
             <tbody>
-              {models.map((item, index) => (
+              {models.contents.map((item: Model, index: number) => (
                 <tr
                   key={index}
                   className="hover:bg-gray-50 border-2 text-center"

@@ -7,7 +7,7 @@ import SearchBar from "../components/SearchBar";
 import { useEffect, useRef, useState } from "react";
 import BackButton from "../components/BackButton";
 import DeleteModal from "../components/DeleteModal";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilStateLoadable } from "recoil";
 import { userState } from "@/app/_utils/atom";
 import CreateModal from "../components/CreateModal";
 import EditModal from "../components/EditModal";
@@ -21,10 +21,8 @@ function UsersPage() {
   const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
 
-  const [users, setUsers] = useRecoilState<User[]>(userState);
+  const [users, setUsers] = useRecoilStateLoadable<User[]>(userState);
   const [editData, setEditData] = useState<any>({});
-
-  const [loading, setLoading] = useState(false);
 
   const [modalContent, setModalContent] = useState({
     title: "Delete",
@@ -33,15 +31,6 @@ function UsersPage() {
     deleteId: "",
   });
   let loader = false;
-
-  const getAllUsers = async () => {
-    const response = await userServices.getUsers();
-    setUsers(response.users);
-  };
-
-  useEffect(() => {
-    if (users.length === 0) getAllUsers();
-  }, []);
 
   const handleDeleteClick = (item: User) => {
     setModalContent((prev) => ({
@@ -60,7 +49,6 @@ function UsersPage() {
   const handleDeleteModalYesClick = () => {
     userServices.deleteUser(modalContent.deleteId).then(() => {
       setShowDeleteModal(false);
-      getAllUsers();
     });
   };
 
@@ -78,6 +66,10 @@ function UsersPage() {
       toast.error("Please enter something.");
     }
   };
+
+  if (users.state === "loading") {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <>
@@ -105,7 +97,7 @@ function UsersPage() {
               </tr>
             </thead>
             <tbody>
-              {users.map((item, index) => (
+              {users.contents.map((item: User, index: number) => (
                 <tr
                   key={index}
                   className="hover:bg-gray-50 border-2 text-center"

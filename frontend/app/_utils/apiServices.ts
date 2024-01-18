@@ -12,7 +12,7 @@ export const modelServices = {
   getModels: async (page: number) => {
     try {
       const response = await jwtInterceptor.get(`/get-models?&page=${page}`);
-      return response.data;
+      return response.data.models;
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +71,7 @@ export const brandServices = {
   getBrands: async () => {
     try {
       const response = await jwtInterceptor.get(`/get-brands`);
-      return response.data;
+      return response.data.brands;
     } catch (error) {
       console.log(error);
     }
@@ -123,7 +123,7 @@ export const userServices = {
   getUsers: async () => {
     try {
       const response = await jwtInterceptor.get(`/get-all-users`);
-      return response.data;
+      return response.data.users;
     } catch (error) {
       console.log(error);
     }
@@ -172,7 +172,7 @@ export const inventoryServices = {
   getInventoryForAdmin: async () => {
     try {
       const response = await jwtInterceptor.get(`/get-all-cars`);
-      return response.data;
+      return response.data.data;
     } catch (error: any) {
       toast.error(error.message, {
         position: "top-right",
@@ -224,7 +224,7 @@ export const enquiryServices = {
   getEnquiry: async () => {
     try {
       const response = await jwtInterceptor.get(`/get-enquiry`);
-      return response.data;
+      return response.data.enquiries;
     } catch (error) {
       console.log(error);
     }

@@ -15,7 +15,7 @@ import {
 } from "@/app/_utils/apiServices";
 import { Brand, Model } from "@/app/_utils/types";
 import { brandState, modelState } from "@/app/_utils/atom";
-import { useRecoilState } from "recoil";
+import { useRecoilStateLoadable } from "recoil";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -25,8 +25,8 @@ function CreateInventory() {
   const [files, setFiles] = useState<(File | null)[]>([null, null, null]);
   const [filePaths, setFilePaths] = useState<string[]>([]);
 
-  const [brands, setBrands] = useRecoilState<Brand[]>(brandState);
-  const [models, setModels] = useRecoilState<Model[]>(modelState);
+  const [brands, setBrands] = useRecoilStateLoadable<Brand[]>(brandState);
+  const [models, setModels] = useState<Model[]>();
 
   const brandRef = useRef<HTMLSelectElement | null>(null);
   const modelRef = useRef<HTMLSelectElement | null>(null);
@@ -39,15 +39,6 @@ function CreateInventory() {
   const seatingCapacityRef = useRef<HTMLInputElement | null>(null);
   const colorRef = useRef<HTMLInputElement | null>(null);
   const priceRef = useRef<HTMLInputElement | null>(null);
-
-  const getBrands = async () => {
-    const response = await brandServices.getBrands();
-    setBrands(response.brands);
-  };
-
-  useEffect(() => {
-    if (brands.length === 0) getBrands();
-  }, []);
 
   const handleBrandChange = async () => {
     const response = await modelServices.getModelsByBrandId(
@@ -160,7 +151,7 @@ function CreateInventory() {
                 onChange={handleBrandChange}
               >
                 <option value="">Select</option>
-                {brands.map((brand, index) => (
+                {brands.contents.map((brand: Brand, index: number) => (
                   <option key={index} value={brand._id}>
                     {brand.brandName}
                   </option>
