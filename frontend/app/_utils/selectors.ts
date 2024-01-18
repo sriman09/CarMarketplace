@@ -6,6 +6,10 @@ export const uniqueBrandNamesSelector = selector({
   key: "uniqueBrandNamesSelector",
   get: ({ get }) => {
     const inventoryStateValue = get(inventoryState);
+    if (!inventoryStateValue) {
+      console.error("Inventory state is undefined or null.");
+      return [];
+    }
     const brandNames = inventoryStateValue.map((car) => car.brandName);
     return Array.from(new Set(brandNames));
   },

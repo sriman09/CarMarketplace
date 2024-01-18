@@ -1,3 +1,4 @@
+"use client";
 import axios, { AxiosResponse } from "axios";
 
 const baseURL = "https://api.srimanvit.tech/api";

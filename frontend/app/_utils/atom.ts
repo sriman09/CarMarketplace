@@ -44,8 +44,14 @@ export const inventoryState = atom<Inventory[]>({
   key: "inventoryState",
   default: selector({
     key: "inventorySelector",
-    get: ({ get }) => {
-      return inventoryServices.getInventoryForAdmin();
+    get: async ({ get }) => {
+      try {
+        const inventoryData = await inventoryServices.getInventoryForAdmin();
+        return inventoryData || [];
+      } catch (error) {
+        console.error("Error fetching inventory:", error);
+        return [];
+      }
     },
   }),
 });
