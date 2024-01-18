@@ -15,8 +15,6 @@ function EmiCalculator() {
 
   const detailedCar = useRecoilValue(detailedCarByBrandSelector(selectedBrand));
 
-  const inventory = useRecoilValueLoadable<Inventory[]>(inventoryState);
-
   const [principal, setPrincipal] = useState<number>(0);
   const [rate, setRate] = useState<number>(9.9);
   const [time, setTime] = useState<number>(5);
@@ -33,10 +31,6 @@ function EmiCalculator() {
       (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
 
     setEmi(emi);
-  }
-
-  if (inventory.state === "loading") {
-    <h1>Loading...</h1>;
   }
 
   return (
