@@ -17,7 +17,10 @@ function Login() {
         email: emailRef.current.value,
         password: passwordRef.current.value,
       };
-      const res = await axios.post("http://localhost:8000/api/login", payload);
+      const res = await axios.post(
+        "https://api.srimanvit.tech/api/login",
+        payload
+      );
       localStorage.setItem("userInfo", JSON.stringify(res.data.userInfo));
       router.push("/dashboard");
     }
