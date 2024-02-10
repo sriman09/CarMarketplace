@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import jwtInterceptor from "./jwtInterceptor";
 import {
   CarPayload,
+  LoginPayload,
   ModelPayload,
   SearchPayload,
   User,
@@ -137,7 +138,7 @@ export const userServices = {
       });
       return response.data;
     } catch (error: any) {
-      toast.error(error.message, {
+      toast.error(error, {
         position: "top-right",
         theme: "dark",
       });
@@ -161,6 +162,21 @@ export const userServices = {
       return response.data;
     } catch (error: any) {
       toast.error(error.message, {
+        position: "top-right",
+        theme: "dark",
+      });
+    }
+  },
+  loginUser: async (payload: LoginPayload) => {
+    try {
+      const response = await jwtInterceptor.post(`/login`, payload);
+      toast.success("Login Successful", {
+        position: "top-right",
+        theme: "dark",
+      });
+      return response.data;
+    } catch (error: any) {
+      toast.error(error.response.data.message, {
         position: "top-right",
         theme: "dark",
       });

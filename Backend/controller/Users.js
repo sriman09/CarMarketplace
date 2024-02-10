@@ -58,13 +58,13 @@ const loginUser = async (req, res) => {
         },
       });
     } else {
-      res.status(401).json({
-        message: "Unauthorized User",
+      return res.status(401).json({
+        message: "Invalid Email or Password",
       });
     }
   } catch (err) {
     console.error(err);
-    res.status(500).json({
+    return res.status(500).json({
       message: "Internal Server Error",
     });
   }

@@ -87,3 +87,8 @@ export interface CarPayload {
 export interface SearchPayload {
   searchQuery: string;
 }
+
+export interface LoginPayload {
+  email: string;
+  password: string;
+}

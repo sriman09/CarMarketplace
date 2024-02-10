@@ -3,6 +3,7 @@ import axios from "axios";
 import Link from "next/link";
 import { FormEvent, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { userServices } from "@/app/_utils/apiServices";
 
 function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -17,12 +18,13 @@ function Login() {
         email: emailRef.current.value,
         password: passwordRef.current.value,
       };
-      const res = await axios.post(
-        "https://api.srimanvit.tech/api/login",
-        payload
-      );
-      localStorage.setItem("userInfo", JSON.stringify(res.data.userInfo));
-      router.push("/dashboard");
+      try {
+        const res = await userServices.loginUser(payload);
+        localStorage.setItem("userInfo", JSON.stringify(res.userInfo));
+        router.push("/dashboard");
+      } catch (error) {
+        console.error("Login failed:", error);
+      }
     }
   };
 
