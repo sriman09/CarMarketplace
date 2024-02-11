@@ -14,6 +14,7 @@ import EditModal from "../components/EditModal";
 import { Brand, Model } from "@/app/_utils/types";
 import { brandServices, modelServices } from "@/app/_utils/apiServices";
 import { toast } from "react-toastify";
+import Pagination from "../components/Pagination";
 
 function ModelsPage() {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -87,6 +88,13 @@ function ModelsPage() {
             Create Model
           </BlueButton>
         </div>
+        <div className="flex justify-end pt-5">
+          <Pagination
+            currentPage={page}
+            totalPages={models.contents.totalPages}
+            onPageChange={setPage}
+          />
+        </div>
         <div className="overflow-x-scroll bg-white mt-5">
           <table className="w-full border-collapse border border-gray-300  text-xs md:text-sm lg:text-base">
             <thead>
@@ -97,7 +105,7 @@ function ModelsPage() {
               </tr>
             </thead>
             <tbody>
-              {models.contents.map((item: Model, index: number) => (
+              {models.contents.models.map((item: Model, index: number) => (
                 <tr
                   key={index}
                   className="hover:bg-gray-50 border-2 text-center"

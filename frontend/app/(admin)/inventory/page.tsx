@@ -4,7 +4,7 @@ import BackButton from "../components/BackButton";
 import SearchBar from "../components/SearchBar";
 import BlueButton from "../components/BlueButton";
 import Image from "next/image";
-import { useRecoilStateLoadable } from "recoil";
+import { useRecoilStateLoadable, useResetRecoilState } from "recoil";
 import { inventoryState } from "@/app/_utils/atom";
 import { useRouter } from "next/navigation";
 import { Inventory } from "@/app/_utils/types";
@@ -15,7 +15,15 @@ function InventoryPage() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [inventory, setInventory] =
     useRecoilStateLoadable<Inventory[]>(inventoryState);
+  const resetInventoryState = useResetRecoilState(inventoryState);
   const router = useRouter();
+
+  useEffect(() => {
+    return () => {
+      // Reset the inventory state when the component unmounts
+      resetInventoryState();
+    };
+  }, []);
 
   const handleSearch = async () => {
     if (inputRef.current?.value && inputRef.current?.value.length > 0) {
@@ -37,11 +45,19 @@ function InventoryPage() {
       <BackButton back={false} />
       <div className="flex flex-col mt-5 md:mt-10">
         <div className="flex flex-row justify-between">
-          <SearchBar
-            placeholder="Search Inventory"
-            inputRef={inputRef}
-            handleSearch={handleSearch}
-          />
+          <div className="flex flex-row gap-3">
+            <SearchBar
+              placeholder="Search Inventory"
+              inputRef={inputRef}
+              handleSearch={handleSearch}
+            />
+            <button
+              className="text-red-500"
+              onClick={() => resetInventoryState()}
+            >
+              Reset
+            </button>
+          </div>
           <BlueButton
             onClick={() => router.push("/inventory/create-inventory")}
           >

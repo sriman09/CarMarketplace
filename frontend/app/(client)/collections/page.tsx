@@ -2,19 +2,43 @@
 import Image from "next/image";
 import Link from "next/link";
 import filter_img from "../../../public/assets/filter.svg";
-import { useRecoilState, useRecoilStateLoadable } from "recoil";
+import {
+  useRecoilState,
+  useRecoilStateLoadable,
+  useResetRecoilState,
+} from "recoil";
 import { Inventory } from "@/app/_utils/types";
 import { detailedCarState, inventoryState } from "@/app/_utils/atom";
 import { inventoryServices } from "@/app/_utils/apiServices";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 function Collections() {
   const [inventory, setInventory] =
     useRecoilStateLoadable<Inventory[]>(inventoryState);
+
+  const resetInventoryState = useResetRecoilState(inventoryState);
+
   const [carDetails, setCarDetails] =
     useRecoilState<Inventory>(detailedCarState);
   const router = useRouter();
+
+  const searchParams = useSearchParams();
+  console.log("searchQuery", searchParams.get("searchQuery"));
+
+  const handleSearch = async (inputValue: string) => {
+    const response = await inventoryServices.searchCars({
+      searchQuery: inputValue,
+    });
+    setInventory(response.data);
+  };
+
+  useEffect(() => {
+    if (searchParams.get("searchQuery")) {
+      handleSearch(searchParams.get("searchQuery") || "");
+    }
+    return () => resetInventoryState();
+  }, []);
 
   if (inventory.state === "loading") {
     return <h1>Loading...</h1>;

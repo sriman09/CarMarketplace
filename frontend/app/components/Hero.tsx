@@ -1,11 +1,22 @@
 "use client";
-import React from "react";
+import React, { ReactHTMLElement, useRef } from "react";
 import Image from "next/image";
 import filter from "../../public/assets/filter.svg";
 import { useRouter } from "next/navigation";
+import { inventoryServices } from "../_utils/apiServices";
+import { toast } from "react-toastify";
 
 function Hero() {
   const router = useRouter();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleSearch = async () => {
+    if (inputRef.current?.value && inputRef.current?.value.length > 0) {
+      router.push(`/collections?searchQuery=${inputRef.current.value}`);
+    } else {
+      toast.error("Please enter something.");
+    }
+  };
   return (
     <>
       <div
@@ -24,8 +35,12 @@ function Hero() {
               type="text"
               placeholder="Search your dream car"
               className="p-2 bg-transparent text-gray-500 focus:text-white text-lg md:text-2xl focus:outline-none"
+              ref={inputRef}
             />
-            <button className="text-gray-500 border-2 border-red-500 rounded-full w-10 h-10 ">
+            <button
+              className="text-gray-500 border-2 border-red-500 rounded-full w-10 h-10"
+              onClick={handleSearch}
+            >
               {"->"}
             </button>
           </div>

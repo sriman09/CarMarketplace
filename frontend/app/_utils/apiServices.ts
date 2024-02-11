@@ -13,7 +13,7 @@ export const modelServices = {
   getModels: async (page: number) => {
     try {
       const response = await jwtInterceptor.get(`/get-models?&page=${page}`);
-      return response.data.models;
+      return response.data;
     } catch (error) {
       console.log(error);
     }

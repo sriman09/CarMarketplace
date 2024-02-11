@@ -42,6 +42,10 @@ const getAllModels = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const pageSize = 10;
+
+    // Count total number of documents
+    const totalCount = await Models.countDocuments({ isDeleted: { $ne: 1 } });
+
     const pipeline = [
       {
         $match: {
@@ -76,9 +80,14 @@ const getAllModels = async (req, res) => {
     ];
 
     const result = await Models.aggregate(pipeline);
+
+    // Calculate total number of pages
+    const totalPages = Math.ceil(totalCount / pageSize);
+
     res.json({
       message: "success",
       models: result,
+      totalPages: totalPages,
     });
   } catch (err) {
     console.error(err);

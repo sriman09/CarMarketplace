@@ -73,13 +73,15 @@ const Dashboard: React.FC = () => {
     <div>
       <BackButton back={false} />
       {/* Cards */}
-      <div className="flex gap-5 mt-10">
-        <div className="w-1/3 bg-[#023047] text-white shadow-xl rounded-xl flex flex-col justify-center items-center py-10 gap-5">
-          <span className="text-5xl">{dashboardData?.soldCarsCount}</span>
+      <div className="flex flex-col md:flex-row gap-5 mt-10">
+        <div className="w-full md:w-1/3 bg-[#023047] text-white shadow-xl rounded-xl flex flex-col justify-center items-center py-10 gap-5">
+          <span className="text-3xl md:text-5xl">
+            {dashboardData?.soldCarsCount}
+          </span>
           <span className="text-xl">Total Car sold</span>
         </div>
-        <div className="w-1/3 bg-[#c1121f] text-white shadow-xl rounded-xl flex flex-col justify-center items-center py-10 gap-5">
-          <span className="text-5xl">
+        <div className="w-full md:w-1/3 bg-[#c1121f] text-white shadow-xl rounded-xl flex flex-col justify-center items-center py-10 gap-5">
+          <span className="text-3xl md:text-5xl">
             {"₹" + dashboardData?.totalRevenue.toLocaleString("en-IN")}
           </span>
           <span className="text-xl">Total Revenue</span>
