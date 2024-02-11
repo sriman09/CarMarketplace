@@ -91,6 +91,7 @@ export const detailedCarState = atom<Inventory>({
     modelName: "",
     brandName: "",
     images: [],
+    soldDate: null,
   },
 });
 
