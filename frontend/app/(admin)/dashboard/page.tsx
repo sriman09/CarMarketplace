@@ -110,7 +110,9 @@ const Dashboard: React.FC = () => {
                 <td className="py-2 px-4">
                   {"₹" + item.price.toLocaleString("en-IN")}
                 </td>
-                <td className="py-2 px-4">{formatDate(item.soldDate)}</td>
+                <td className="py-2 px-4">
+                  {item.soldDate && formatDate(item.soldDate)}
+                </td>
               </tr>
             ))}
           </tbody>
