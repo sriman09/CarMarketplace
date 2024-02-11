@@ -1,5 +1,12 @@
 import { atom, atomFamily, selector, selectorFamily } from "recoil";
-import { Brand, Enquiry, Inventory, Model, User } from "./types";
+import {
+  Brand,
+  DashboardForCar,
+  Enquiry,
+  Inventory,
+  Model,
+  User,
+} from "./types";
 import {
   brandServices,
   enquiryServices,
@@ -85,4 +92,9 @@ export const detailedCarState = atom<Inventory>({
     brandName: "",
     images: [],
   },
+});
+
+export const dashboardState = atom<DashboardForCar | null>({
+  key: "dashboardState",
+  default: null,
 });

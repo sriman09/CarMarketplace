@@ -1,3 +1,5 @@
+import { SerializableParam } from "recoil";
+
 export interface Brand {
   _id: string;
   brandName: string;
@@ -38,6 +40,7 @@ export interface Inventory {
   modelName: string;
   brandName: string;
   images: string[];
+  soldDate: Date | null;
 }
 
 export interface Enquiry {
@@ -91,4 +94,10 @@ export interface SearchPayload {
 export interface LoginPayload {
   email: string;
   password: string;
+}
+
+export interface DashboardForCar {
+  soldCarsCount: number;
+  totalRevenue: number;
+  soldCars: Inventory[];
 }

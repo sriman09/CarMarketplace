@@ -227,10 +227,94 @@ const searchCars = async (req, res) => {
   }
 };
 
+const carDataForDashboard = async (req, res) => {
+  const { startDate, endDate } = req.query;
+  console.log("query", startDate, endDate);
+  try {
+    const startDateObj = new Date(startDate);
+    const endDateObj = new Date(endDate);
+
+    // Validate dates
+    if (isNaN(startDateObj) || isNaN(endDateObj)) {
+      return res.status(400).json({ message: "Invalid date format" });
+    }
+
+    const pipeline = [
+      {
+        $match: {
+          isDeleted: { $ne: 1 },
+          sold: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "models", // Replace with the actual name of your Models collection
+          localField: "model",
+          foreignField: "_id",
+          as: "modelDetails",
+        },
+      },
+      {
+        $unwind: "$modelDetails",
+      },
+      {
+        $lookup: {
+          from: "brands", // Replace with the actual name of your Brands collection
+          localField: "modelDetails.brandId",
+          foreignField: "_id",
+          as: "brandDetails",
+        },
+      },
+      {
+        $unwind: "$brandDetails",
+      },
+      {
+        $project: {
+          _id: 1,
+          modelName: "$modelDetails.modelName",
+          brandName: "$brandDetails.brandName",
+          variant: 1,
+          year: 1,
+          price: 1,
+          kilometers: 1,
+          fuelType: 1,
+          vehicleType: 1,
+          ownership: 1,
+          seatingCapacity: 1,
+          color: 1,
+          showPrice: 1,
+          sold: 1,
+          images: 1,
+          soldDate: 1,
+        },
+      },
+    ];
+
+    // Fetch sold cars within the time period
+    const soldCars = await Cars.aggregate(pipeline);
+
+    // Count of sold cars
+    const soldCarsCount = soldCars.length;
+
+    // Total sales revenue
+    const totalRevenue = soldCars.reduce((acc, car) => acc + car.price, 0);
+
+    res.status(200).json({
+      soldCarsCount,
+      totalRevenue,
+      soldCars,
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   getAllCars,
   registerCar,
   editCarData,
   deleteCarData,
   searchCars,
+  carDataForDashboard,
 };
