@@ -51,6 +51,9 @@ const CarsSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  soldDate: {
+    type: Date,
+  },
   images: {
     type: [String],
     required: true,

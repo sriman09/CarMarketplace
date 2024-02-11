@@ -1,8 +1,8 @@
 "use client";
 import axios from "axios";
 
-const baseURL = "https://api.srimanvit.tech/api";
-// const baseURL = "http://localhost:8000/api";
+// const baseURL = "https://api.srimanvit.tech/api";
+const baseURL = "http://localhost:8000/api";
 
 const jwtInterceptor = axios.create({
   baseURL,
@@ -20,7 +20,7 @@ jwtInterceptor.interceptors.request.use((config: any) => {
     : null;
 
   if (userInfo) {
-    config.headers["authorization"] = `${userInfo.accessToken}`;
+    config.headers["authorization"] = `Bearer ${userInfo.accessToken}`;
   }
   config._originalContentType = config.headers["Content-Type"];
 

@@ -45,10 +45,23 @@ const registerCar = async (req, res) => {
 const editCarData = async (req, res) => {
   const id = req.params.id;
   try {
-    const car = await Cars.findById(id);
-    console.log("car", car);
+    let car = await Cars.findById(id);
+    if (!car) {
+      return res.status(404).json({ message: "Car not found" });
+    }
+
+    // Iterate through the request body and update only the changed fields
+    Object.keys(req.body).forEach((key) => {
+      if (car[key] !== req.body[key]) {
+        car[key] = req.body[key];
+      }
+    });
+
+    car.updatedAt = new Date();
+    await car.save();
+
     res.status(200).json({
-      message: "Success",
+      message: "Car Updated Successfully",
       data: car,
     });
   } catch (err) {
