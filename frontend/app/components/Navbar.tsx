@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import logo from "../../public/assets/bbt-logo.png";
+import logo from "../../public/assets/marketplace-logo.png";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -44,7 +44,7 @@ function Navbar() {
     <>
       <div className="px-10 md:px-28 py-5 flex flex-col md:flex-row justify-center items-center md:justify-between bg-black">
         <Link href={"/"}>
-          <Image src={logo} alt="logo" width={120} height={120} />
+          <Image src={logo} alt="logo" width={80} height={80} />
         </Link>
         <div className="flex flex-row gap-2 md:gap-4 text-white items-center whitespace-nowrap pt-5 md:pt-0">
           {routes.map((item) => (
