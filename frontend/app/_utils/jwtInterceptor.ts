@@ -1,8 +1,8 @@
 "use client";
 import axios from "axios";
 
-// const baseURL = "https://api.srimanvit.tech/api";
-const baseURL = "http://localhost:8000/api";
+const baseURL = "https://api.srimanvit.tech/api";
+// const baseURL = "http://localhost:8000/api";
 
 const jwtInterceptor = axios.create({
   baseURL,
